@@ -6,11 +6,18 @@ using System.Threading.Tasks;
 
 namespace WpfApp1.Model
 {
-    internal class OldFile
+    public class OldFile
     {
         public DateTime Date { get; set; }
         public string Name { get; set; }
         public string Path { get; set; }
-
+        public OldFile(DateTime date, string name, string path)
+        {
+            Date = date;
+            Name = name;
+            Path = path;
+        }
     }
+
+   
 }

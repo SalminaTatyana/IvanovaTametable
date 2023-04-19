@@ -5,9 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="1049">
+
+    <Window.Resources>
+        <DataTemplate x:Key="MyTmpl">
+            <Button  CommandParameter="{Binding Name}" Background="{x:Null}" BorderBrush="{x:Null}">
+                <TextBlock TextWrapping="Wrap" Text="{Binding Name}" Foreground="White" FontSize="16" FontFamily="Arial"/>
+            </Button>
+        </DataTemplate>
+        <DataTemplate x:Key="GroupList">
+            <TextBox TextWrapping="Wrap" Text="{Binding Name}" FontSize="16" FontFamily="Arial"/>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
-        <Grid Margin="200,0,0,0" Background="White"/>
+
+
         <Grid HorizontalAlignment="Left" Width="150" Margin="50,0,0,0">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -15,14 +27,22 @@
                     <GradientStop Color="#FF545455" Offset="0"/>
                 </LinearGradientBrush>
             </Grid.Background>
-            <Button Height="42" Margin="0,32,4,0" VerticalAlignment="Top" Background="#FF6B6C6F" BorderBrush="{x:Null}" Content="Выбрать файл" Foreground="White" FontSize="16" FontFamily="Arial" FontWeight="Bold">
+            <Button Height="42" Margin="0,32,4,0" VerticalAlignment="Top" Background="#FF6B6C6F" BorderBrush="{x:Null}" Content="Выбрать файл" Foreground="White" FontSize="16" FontFamily="Arial" FontWeight="Bold" Click="addFiles">
             </Button>
             <Label Margin="2,79,6,0" Content="Расписание" Foreground="White" FontSize="16" FontFamily="Arial" FontWeight="Bold"/>
-            <ListBox Margin="0,122,0,0" Background="{x:Null}" Foreground="White" FontSize="14" FontFamily="Arial" BorderBrush="{x:Null}" >
-                <TextBlock FontWeight="Bold" Text="Последние" />
-                <ListBoxItem>
-                    <Button></Button>
-                </ListBoxItem>
+            <TextBlock FontWeight="Bold" Text="Последние" Foreground="White" Height="312" VerticalAlignment="Top" Margin="0,122,0,0" />
+            <Button Height="18" Margin="124,122,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="22" Click="CleanList">
+                <Image Source="img/sidebar/delete.png" Stretch="Uniform"></Image>
+            </Button>
+            <ListBox  ItemTemplate="{StaticResource MyTmpl}" Margin="0,153,0,0"  Background="{x:Null}" Foreground="White" FontSize="14" FontFamily="Arial" BorderBrush="{x:Null}" Name="oldFileList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Margin" Value="2"/>
+                        <Setter Property="Padding" Value="2"/>
+                        <Setter Property="Background" Value="{x:Null}"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+
             </ListBox>
         </Grid>
         <Grid HorizontalAlignment="Left" Width="50">
@@ -70,6 +90,19 @@
             <MenuItem Header="Edit" Foreground="White" FontFamily="Arial" FontSize="16"></MenuItem>
             <MenuItem Header="View" Foreground="White" FontFamily="Arial" FontSize="16"></MenuItem>
         </Menu>
+        <Grid Margin="200,0,0,0" Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="76*"/>
+                <RowDefinition Height="141*"/>
+            </Grid.RowDefinitions>
+            <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Список групп" VerticalAlignment="Top" Width="200" Height="25"  Padding="5" FontFamily="Arial" FontSize="14"/>
+            <ListBox ItemTemplate="{StaticResource GroupList}" Margin="0,49,259,0" Height="100" VerticalAlignment="Top" Name="GroupListBox" HorizontalAlignment="Right" Width="580"/>
+            <TextBox HorizontalAlignment="Left" Margin="601,49,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Height="100"/>
+            <Button Content="+" HorizontalAlignment="Left" Margin="730,49,0,0" VerticalAlignment="Top" Width="28" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="28"/>
+            <Button Content="-" HorizontalAlignment="Left" Margin="730,121,0,0" Height="28" VerticalAlignment="Top" Width="28" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White"/>
+
+        </Grid>
+
 
     </Grid>
 </Window>

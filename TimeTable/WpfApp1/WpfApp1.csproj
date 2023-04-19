@@ -17,6 +17,12 @@
     <None Remove="img\sidebar\6.png" />
     <None Remove="img\sidebar\7.png" />
     <None Remove="img\sidebar\8.png" />
+    <None Remove="img\sidebar\delete.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EPPlus" Version="6.2.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +35,11 @@
     <Resource Include="img\sidebar\6.png" />
     <Resource Include="img\sidebar\7.png" />
     <Resource Include="img\sidebar\8.png" />
+    <Resource Include="img\sidebar\delete.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ViewModel\" />
   </ItemGroup>
 
 </Project>
