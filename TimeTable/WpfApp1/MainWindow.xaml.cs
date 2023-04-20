@@ -24,35 +24,16 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        FileManager fileManager = new FileManager();
-        GroupFileMeneger groupFileManager = new GroupFileMeneger();
-        FileInfo timetableFile;
+        public FileManager fileManager = new FileManager();
+        public GroupFileMeneger groupFileManager = new GroupFileMeneger();
+        public FileInfo timetableFile;
         public List<Group> GroupList = new List<Group>();
         public MainWindow()
         {
             InitializeComponent();
-            InitAsync();
-            InitIdialGroupListAsync();
 
         }
-        public async Task InitAsync()
-        {
-            try
-            {
-                List<OldFile> files = await fileManager.Read();
-                oldFileList.Items.Clear();
-                foreach (OldFile file in files)
-                {
-                    oldFileList.Items.Add(file);
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-           
-        }
-
+        
         private async void addFiles(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog dlgBin = new Microsoft.Win32.OpenFileDialog();
@@ -80,7 +61,6 @@ namespace WpfApp1
                 {
                     fileManager.Save(newFile);
                 }
-                await InitAsync();
                 await OpenFile(path);
             }
 
@@ -177,7 +157,6 @@ namespace WpfApp1
         private void CleanList(object sender, RoutedEventArgs e)
         {
             fileManager.Clear();
-            InitAsync();
         }
 
         private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -189,24 +168,7 @@ namespace WpfApp1
         {
 
         }
-        public async Task InitIdialGroupListAsync()
-        {
-            try
-            {
-                List<Group> files = await groupFileManager.Read();
-                GroupListBox.Items.Clear();
-                foreach (Group file in files)
-                {
-                    GroupListBox.Items.Add(file);
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-           
-        }
-
+       
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
@@ -220,7 +182,7 @@ namespace WpfApp1
         {
             try
             {
-                string files = await groupFileManager.Read();
+                List<Group> files = await groupFileManager.Read();
             }
             catch (Exception ex)
             {

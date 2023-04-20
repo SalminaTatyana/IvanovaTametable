@@ -4,18 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
+        xmlns:viewmodel="clr-namespace:WpfApp1.Model"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="1049">
-
+        Title="MainWindow" Height="1080
+        " Width="1920
+        ">
+    <Window.DataContext>
+        <viewmodel:MainWinwowViewModal/>
+    </Window.DataContext>
     <Window.Resources>
-        <DataTemplate x:Key="MyTmpl">
-            <Button  CommandParameter="{Binding Name}" Background="{x:Null}" BorderBrush="{x:Null}">
-                <TextBlock TextWrapping="Wrap" Text="{Binding Name}" Foreground="White" FontSize="16" FontFamily="Arial"/>
-            </Button>
-        </DataTemplate>
-        <DataTemplate x:Key="GroupList">
-            <TextBox TextWrapping="Wrap" Text="{Binding Name}" FontSize="16" FontFamily="Arial"/>
-        </DataTemplate>
+
     </Window.Resources>
     <Grid>
 
@@ -34,7 +32,7 @@
             <Button Height="18" Margin="124,122,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="22" Click="CleanList">
                 <Image Source="img/sidebar/delete.png" Stretch="Uniform"></Image>
             </Button>
-            <ListBox  ItemTemplate="{StaticResource MyTmpl}" Margin="0,153,0,0"  Background="{x:Null}" Foreground="White" FontSize="14" FontFamily="Arial" BorderBrush="{x:Null}" Name="oldFileList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+            <ListBox ItemsSource="{Binding Files}" Margin="0,153,0,0"  Background="{x:Null}" Foreground="White" FontSize="14" FontFamily="Arial" BorderBrush="{x:Null}" Name="oldFileList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
                         <Setter Property="Margin" Value="2"/>
@@ -42,7 +40,13 @@
                         <Setter Property="Background" Value="{x:Null}"/>
                     </Style>
                 </ListBox.ItemContainerStyle>
-
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Button  CommandParameter="{Binding FilePaths}" Background="{x:Null}" BorderBrush="{x:Null}">
+                            <TextBlock TextWrapping="Wrap"  Text="{Binding FileNames}" Foreground="White" FontSize="16" FontFamily="Arial"/>
+                        </Button>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
         <Grid HorizontalAlignment="Left" Width="50">
@@ -92,14 +96,29 @@
         </Menu>
         <Grid Margin="200,0,0,0" Background="White">
             <Grid.RowDefinitions>
-                <RowDefinition Height="76*"/>
-                <RowDefinition Height="141*"/>
+                <RowDefinition Height="59*"/>
+                <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
-            <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Список групп" VerticalAlignment="Top" Width="200" Height="25"  Padding="5" FontFamily="Arial" FontSize="14"/>
-            <ListBox ItemTemplate="{StaticResource GroupList}" Margin="0,49,259,0" Height="100" VerticalAlignment="Top" Name="GroupListBox" HorizontalAlignment="Right" Width="580"/>
-            <TextBox HorizontalAlignment="Left" Margin="601,49,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Height="100"/>
-            <Button Content="+" HorizontalAlignment="Left" Margin="730,49,0,0" VerticalAlignment="Top" Width="28" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="28"/>
-            <Button Content="-" HorizontalAlignment="Left" Margin="730,121,0,0" Height="28" VerticalAlignment="Top" Width="28" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White"/>
+            <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Список групп" VerticalAlignment="Top" Width="200" Height="25"  Padding="5" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
+            <ListBox ItemsSource="{Binding Groups}" Margin="10,49,0,0" Height="328" VerticalAlignment="Top" Name="GroupListBox" HorizontalAlignment="Left" Width="580">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Menu Height="20" VerticalAlignment="Top" Background="#FF434140">
+                            <MenuItem Header="{Binding GroupNames}" FontFamily="Arial"  Foreground="White" FontSize="16" ></MenuItem>
+                            <MenuItem Header="{Binding StudentNumber}" Foreground="White" FontFamily="Arial" FontSize="16"></MenuItem>
+                            <MenuItem Command="{Binding RemoveGroup}" Header="Удалить" Background="#FFFD4948" BorderBrush="{x:Null}"  FontFamily="Arial" FontSize="14" Foreground="White"></MenuItem>
+                        </Menu>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+            </ListBox>
+            <Button Content="Добавить" HorizontalAlignment="Left" Margin="601,131,0,0" VerticalAlignment="Top" Width="120" Background="#FF594CEA" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="28" Command="{Binding AddGroup, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox HorizontalAlignment="Left" Margin="601,49,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Height="28"/>
+            <Button Command="{Binding SaveGroupChange,UpdateSourceTrigger=PropertyChanged}" Content="Сохранить" HorizontalAlignment="Left" Margin="10,378,0,0" Width="120" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="31" VerticalAlignment="Top"/>
+            <TextBox HorizontalAlignment="Left" Margin="601,98,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Height="28"/>
+            <Label Content="Название группы" HorizontalAlignment="Left" Margin="601,23,0,0" VerticalAlignment="Top" Height="26" Width="106"/>
+            <Label Content="Количество студентов" HorizontalAlignment="Left" Margin="601,72,0,0" VerticalAlignment="Top" Height="26" Width="132"/>
+            <Button Command="{Binding DeleteGroupChange,UpdateSourceTrigger=PropertyChanged}" Content="Отменить" HorizontalAlignment="Left" Margin="135,378,0,0" Width="120" Background="#FF4C9EEA" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="31" VerticalAlignment="Top"/>
 
         </Grid>
 

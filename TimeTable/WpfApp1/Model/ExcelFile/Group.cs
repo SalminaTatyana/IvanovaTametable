@@ -16,6 +16,12 @@ namespace WpfApp1.Model.ExcelFile
             Name = name;
             Cource = cource;
         }
+        public Group(string name, int cource,int count)
+        {
+            Name = name;
+            Cource = cource;
+            StudentNumber= count;
+        }
         public Group(string str)
         {
             Name = str;  
