@@ -29,8 +29,8 @@
             </Button>
             <Label Margin="2,79,6,0" Content="Расписание" Foreground="White" FontSize="16" FontFamily="Arial" FontWeight="Bold"/>
             <TextBlock FontWeight="Bold" Text="Последние" Foreground="White" Height="312" VerticalAlignment="Top" Margin="0,122,0,0" />
-            <Button Height="18" Margin="124,122,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="22" Click="CleanList">
-                <Image Source="img/sidebar/delete.png" Stretch="Uniform"></Image>
+            <Button Height="22" Margin="124,122,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="22" Click="CleanList">
+                <Image Source="img/delete.png" Stretch="UniformToFill"></Image>
             </Button>
             <ListBox ItemsSource="{Binding Files}" Margin="0,153,0,0"  Background="{x:Null}" Foreground="White" FontSize="14" FontFamily="Arial" BorderBrush="{x:Null}" Name="oldFileList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
                 <ListBox.ItemContainerStyle>
@@ -56,29 +56,101 @@
                     <GradientStop Color="#FF545455" Offset="0"/>
                 </LinearGradientBrush>
             </Grid.Background>
-            <Button Height="42" Margin="4,32,4,0" VerticalAlignment="Top" Background="#FFFD4948" BorderBrush="{x:Null}">
+            <Button Height="42" Margin="4,32,4,0" VerticalAlignment="Top" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="3">
                 <Image Source="img/sidebar/1.png" Stretch="UniformToFill"></Image>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text.Length, ElementName=NowFileName, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,80,4,0" VerticalAlignment="Top" Background="#FFE25A5A" BorderBrush="{x:Null}">
+            <Button Height="42" Margin="4,80,4,0" VerticalAlignment="Top" Background="#FFE25A5A" BorderBrush="{x:Null}" Padding="3">
                 <Image Source="img/sidebar/2.png" Stretch="UniformToFill"></Image>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text.Length, ElementName=NowFileName, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,128,4,0" VerticalAlignment="Top" Background="#FFEA4C89" BorderBrush="{x:Null}">
+            <Button Height="42" Margin="4,128,4,0" VerticalAlignment="Top" Background="#FFEA4C89" BorderBrush="{x:Null}" Padding="3">
                 <Image Source="img/sidebar/3.png" Stretch="None"></Image>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text.Length, ElementName=NowFileName, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,176,4,0" VerticalAlignment="Top" Background="#FFC14CEA" BorderBrush="{x:Null}">
-                <Image Source="img/sidebar/4.png" Stretch="None"></Image>
+            <Button Height="42" Margin="4,176,4,0" VerticalAlignment="Top" Background="#FFC14CEA" BorderBrush="{x:Null}" Padding="3">
+                <Image Source="img/sidebar/4.png" Stretch="UniformToFill"></Image>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text.Length, ElementName=NowFileName, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,224,4,0" VerticalAlignment="Top" Background="#FF924CEA" BorderBrush="{x:Null}">
-                <Image Source="img/sidebar/5.png" Stretch="Uniform"></Image>
+            <Button Height="42" Margin="4,224,4,0" VerticalAlignment="Top" Background="#FF924CEA" BorderBrush="{x:Null}" Padding="3">
+                <Image Source="img/sidebar/5.png" Stretch="UniformToFill"></Image>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text.Length, ElementName=NowFileName, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,272,4,0" VerticalAlignment="Top" Background="#FF594CEA" BorderBrush="{x:Null}">
-                <Image Source="img/sidebar/6.png" Stretch="None"></Image>
+            <Button Height="42" Margin="4,272,4,0" VerticalAlignment="Top" Background="#FF594CEA" BorderBrush="{x:Null}" Click="GoCheckGroupOnEqual" Padding="3">
+                <Image Source="img/sidebar/9.png" Stretch="UniformToFill"></Image>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text.Length, ElementName=NowFileName, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,320,4,0" VerticalAlignment="Top" Background="#FF4C9EEA" BorderBrush="{x:Null}">
-                <Image Source="img/sidebar/7.png" Stretch="None"></Image>
+            <Button Height="42" Margin="4,320,4,0" VerticalAlignment="Top" Background="#FF4C9EEA" BorderBrush="{x:Null}" Padding="3">
+                <Image Source="img/sidebar/2.png" Stretch="UniformToFill"></Image>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text.Length, ElementName=NowFileName, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,368,4,0" VerticalAlignment="Top" Background="#FF4CEAC4" BorderBrush="{x:Null}">
-                <Image Source="img/sidebar/8.png" Stretch="Fill"></Image>
+            <Button Height="42" Margin="4,368,4,0" VerticalAlignment="Top" Background="#FF4CEAC4" BorderBrush="{x:Null}" Padding="3">
+                <Image Source="img/sidebar/10.png" Stretch="Fill"></Image>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text.Length, ElementName=NowFileName, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
         </Grid>
         <Menu Height="20" VerticalAlignment="Top" Background="#FF434140">
@@ -94,34 +166,243 @@
             <MenuItem Header="Edit" Foreground="White" FontFamily="Arial" FontSize="16"></MenuItem>
             <MenuItem Header="View" Foreground="White" FontFamily="Arial" FontSize="16"></MenuItem>
         </Menu>
-        <Grid Margin="200,0,0,0" Background="White">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="59*"/>
-                <RowDefinition Height="3*"/>
-            </Grid.RowDefinitions>
-            <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Список групп" VerticalAlignment="Top" Width="200" Height="25"  Padding="5" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
-            <ListBox ItemsSource="{Binding Groups}" Margin="10,49,0,0" Height="328" VerticalAlignment="Top" Name="GroupListBox" HorizontalAlignment="Left" Width="580">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Menu Height="20" VerticalAlignment="Top" Background="#FF434140">
-                            <MenuItem Header="{Binding GroupNames}" FontFamily="Arial"  Foreground="White" FontSize="16" ></MenuItem>
-                            <MenuItem Header="{Binding StudentNumber}" Foreground="White" FontFamily="Arial" FontSize="16"></MenuItem>
-                            <MenuItem Command="{Binding RemoveGroup}" Header="Удалить" Background="#FFFD4948" BorderBrush="{x:Null}"  FontFamily="Arial" FontSize="14" Foreground="White"></MenuItem>
-                        </Menu>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="200 0 0 0">
+            <Grid Margin="0,20,0,0" Background="White" >
 
-            </ListBox>
-            <Button Content="Добавить" HorizontalAlignment="Left" Margin="601,131,0,0" VerticalAlignment="Top" Width="120" Background="#FF594CEA" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="28" Command="{Binding AddGroup, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBox HorizontalAlignment="Left" Margin="601,49,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Height="28"/>
-            <Button Command="{Binding SaveGroupChange,UpdateSourceTrigger=PropertyChanged}" Content="Сохранить" HorizontalAlignment="Left" Margin="10,378,0,0" Width="120" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="31" VerticalAlignment="Top"/>
-            <TextBox HorizontalAlignment="Left" Margin="601,98,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Height="28"/>
-            <Label Content="Название группы" HorizontalAlignment="Left" Margin="601,23,0,0" VerticalAlignment="Top" Height="26" Width="106"/>
-            <Label Content="Количество студентов" HorizontalAlignment="Left" Margin="601,72,0,0" VerticalAlignment="Top" Height="26" Width="132"/>
-            <Button Command="{Binding DeleteGroupChange,UpdateSourceTrigger=PropertyChanged}" Content="Отменить" HorizontalAlignment="Left" Margin="135,378,0,0" Width="120" Background="#FF4C9EEA" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="31" VerticalAlignment="Top"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="59*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Список групп" VerticalAlignment="Top" Width="200" Height="25"  Padding="5" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
+                    <ListBox ItemsSource="{Binding Groups}" Margin="10,49,0,0" Height="328" VerticalAlignment="Top" Name="GroupListBox" HorizontalAlignment="Left" Width="580">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Menu Height="30" VerticalAlignment="Top" Background="#FF434140">
+                                    <MenuItem Header="{Binding GroupNames}" FontFamily="Arial"  Foreground="White" FontSize="18" Height="30"></MenuItem>
+                                    <MenuItem Header="{Binding StudentNumber}" Foreground="White" FontFamily="Arial" FontSize="18" Height="30"></MenuItem>
+                                    <MenuItem Command="{Binding EditGroup}"  Background="#FF594CEA" BorderBrush="{x:Null}"  FontFamily="Arial" FontSize="14" Foreground="White" Height="30"  Width="30">
+                                        <MenuItem.Icon>
+                                            <Image Source="img/pencil.png" Stretch="UniformToFill">
+                                            </Image>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Command="{Binding RemoveGroup}" Background="#FFFD4948" BorderBrush="{x:Null}"  FontFamily="Arial" FontSize="14" Foreground="White" Height="30" Width="30" >
+                                        <MenuItem.Icon>
+                                            <Image Source="img/delete.png" Stretch="UniformToFill">
+                                            </Image>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
 
-        </Grid>
+                                </Menu>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
 
+                    </ListBox>
+                    <Button Content="Добавить" HorizontalAlignment="Left" Margin="601,131,0,0" VerticalAlignment="Top" Width="120" Background="#FF594CEA" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="28" Command="{Binding AddGroup, UpdateSourceTrigger=PropertyChanged}">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text.Length, ElementName=GroupName, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Text.Length, ElementName=GroupId, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <TextBox Name="GroupId" Text="{Binding GroupId}" HorizontalAlignment="Left" Margin="601,49,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Height="28" Visibility="Hidden"/>
+                    <TextBox Name="GroupName" Text="{Binding GroupName}" HorizontalAlignment="Left" Margin="601,49,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Height="28"/>
+                    <Button Command="{Binding SaveGroupChange,UpdateSourceTrigger=PropertyChanged}" Content="Сохранить" HorizontalAlignment="Left" Margin="10,378,0,0" Width="120" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="31" VerticalAlignment="Top"/>
+                    <TextBox Name="GroupCount" Text="{Binding GroupCount}" HorizontalAlignment="Left" Margin="601,98,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Height="28"/>
+                    <Label Content="Название группы" HorizontalAlignment="Left" Margin="601,23,0,0" VerticalAlignment="Top" Height="26" Width="106"/>
+                    <Label Content="Количество студентов" HorizontalAlignment="Left" Margin="601,72,0,0" VerticalAlignment="Top" Height="26" Width="132"/>
+                    <Button Command="{Binding DeleteGroupChange,UpdateSourceTrigger=PropertyChanged}" Content="Отменить" HorizontalAlignment="Left" Margin="135,378,0,0" Width="120" Background="#FF4C9EEA" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="31" VerticalAlignment="Top"/>
+
+                </Grid>
+                <Grid Margin="750 0 0 0">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Список аудиторий" VerticalAlignment="Top" Width="200" Height="25"  Padding="5" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
+                    <ListBox ItemsSource="{Binding Classes}" Margin="10,49,0,0" Height="328" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="580">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Menu Height="30" VerticalAlignment="Top" Background="#FF434140">
+                                    <MenuItem Header="{Binding Names}" FontFamily="Arial"  Foreground="White" FontSize="18" ></MenuItem>
+                                    <MenuItem Header="{Binding PeopleNumber}" FontFamily="Arial"  Foreground="White" FontSize="18" ></MenuItem>
+                                    <MenuItem Header="{Binding Practics}" FontFamily="Arial"  Foreground="White" FontSize="18" ></MenuItem>
+                                    <MenuItem Header="{Binding Labs}" FontFamily="Arial"  Foreground="White" FontSize="18" ></MenuItem>
+                                    <MenuItem Command="{Binding EditClassroom}" Background="#FF594CEA" BorderBrush="{x:Null}"  FontFamily="Arial" FontSize="14" Foreground="White" Width="30" Height="30">
+                                        <MenuItem.Icon>
+                                            <Image Source="img/pencil.png" Stretch="UniformToFill">
+                                            </Image>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Command="{Binding RemoveClassroom}" Background="#FFFD4948" BorderBrush="{x:Null}"  FontFamily="Arial" FontSize="14" Foreground="White" Width="30" Height="30">
+                                        <MenuItem.Icon>
+                                            <Image Source="img/delete.png" Stretch="UniformToFill">
+                                            </Image>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </Menu>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+
+                    </ListBox>
+                    <Button Content="Добавить" HorizontalAlignment="Left" Margin="601,131,0,0" VerticalAlignment="Top" Width="120" Background="#FF594CEA" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="28" Command="{Binding AddGroup, UpdateSourceTrigger=PropertyChanged}">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text.Length, ElementName=roomName, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Text.Length, ElementName=roomCount, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <TextBox Text="{Binding ClasseName}" Name="roomName" HorizontalAlignment="Left" Margin="601,49,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Height="28"/>
+                    <TextBox Text="{Binding ClassCount}" Name="roomCount" HorizontalAlignment="Left" Margin="739,49,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Height="28"/>
+                    <Button Command="{Binding SaveClassroomChange,UpdateSourceTrigger=PropertyChanged}" Content="Сохранить" HorizontalAlignment="Left" Margin="10,378,0,0" Width="120" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="31" VerticalAlignment="Top"/>
+                    <Label Content="Название аудитории" HorizontalAlignment="Left" Margin="601,23,0,0" VerticalAlignment="Top" Height="26" Width="158"/>
+                    <Button Command="{Binding DeleteClassroomChange,UpdateSourceTrigger=PropertyChanged}" Content="Отменить" HorizontalAlignment="Left" Margin="135,378,0,0" Width="120" Background="#FF4C9EEA" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="31" VerticalAlignment="Top"/>
+                    <CheckBox IsChecked="{Binding Practice}"  Name="PracticeCheck" Content="Практические работы" HorizontalAlignment="Left" Height="22" Margin="601,82,0,0" VerticalAlignment="Top" Width="158"/>
+                    <CheckBox IsChecked="{Binding Lab}" Name="LabCheck" Content="Лабораторные работы" HorizontalAlignment="Left" Height="22" Margin="601,104,0,0" VerticalAlignment="Top" Width="158"/>
+                    <Label Content="Количество человек" HorizontalAlignment="Left" Margin="739,23,0,0" VerticalAlignment="Top" Height="26" Width="158"/>
+                    <TextBox Text="{Binding ClassId}" Name="ClassId" HorizontalAlignment="Left" Margin="872,49,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80" Height="28" Visibility="Hidden"/>
+
+                </Grid>
+                <Grid Margin="0 420 0 0">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Список преподавателей" VerticalAlignment="Top" Width="344" Height="25"  Padding="5" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
+                    <ListBox ItemsSource="{Binding Teachers}" Margin="10,49,0,0" Height="328" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="580">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Menu Height="30" VerticalAlignment="Top" Background="#FF434140">
+                                    <MenuItem Header="{Binding Names}" FontFamily="Arial"  Foreground="White" FontSize="18" ></MenuItem>
+                                    <MenuItem Header="{Binding LesssondNames}" FontFamily="Arial"  Foreground="White" FontSize="18" ></MenuItem>
+                                    <MenuItem Command="{Binding EditTeachers}"  Background="#FF594CEA" BorderBrush="{x:Null}"  FontFamily="Arial" FontSize="14" Foreground="White" Width="30" Height="30">
+                                        <MenuItem.Icon>
+                                            <Image Source="img/pencil.png" Stretch="UniformToFill">
+                                            </Image>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Command="{Binding RemoveTeachers}"  Background="#FFFD4948" BorderBrush="{x:Null}"  FontFamily="Arial" FontSize="14" Foreground="White" Width="30" Height="30">
+                                        <MenuItem.Icon>
+                                            <Image Source="img/delete.png" Stretch="UniformToFill">
+                                            </Image>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </Menu>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+
+                    </ListBox>
+                    <Button Content="Добавить" HorizontalAlignment="Left" Margin="601,90,0,0" VerticalAlignment="Top" Width="120" Background="#FF594CEA" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="28" Command="{Binding AddGroup, UpdateSourceTrigger=PropertyChanged}" >
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text.Length, ElementName=TeacherName, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <TextBox Text="{Binding TeacherName}" Name="TeacherName" HorizontalAlignment="Left" Margin="601,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="28"/>
+                    <Button Command="{Binding SaveTeachersChange,UpdateSourceTrigger=PropertyChanged}" Content="Сохранить" HorizontalAlignment="Left" Margin="10,378,0,0" Width="120" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="31" VerticalAlignment="Top"/>
+                    <Label Content="ФИО преподавателей" HorizontalAlignment="Left" Margin="601,23,0,0" VerticalAlignment="Top" Height="26" Width="133"/>
+                    <Button Command="{Binding DeleteTeachersChange,UpdateSourceTrigger=PropertyChanged}" Content="Отменить" HorizontalAlignment="Left" Margin="135,378,0,0" Width="120" Background="#FF4C9EEA" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="31" VerticalAlignment="Top"/>
+                    <TextBox Text="{Binding TeacherId}" Name="TeacherId" HorizontalAlignment="Left" Margin="601,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="28" Visibility="Hidden"/>
+
+                </Grid>
+                <Grid Margin="750 420 0 0">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Список дисциплин" VerticalAlignment="Top" Width="344" Height="25"  Padding="5" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
+                    <ListBox ItemsSource="{Binding Lessons}" Margin="10,49,0,0" Height="328" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="580">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Menu Height="30" VerticalAlignment="Top" Background="#FF434140">
+                                    <MenuItem Header="{Binding Names}" FontFamily="Arial"  Foreground="White" FontSize="18" ></MenuItem>
+                                    <MenuItem Command="{Binding EditLessons}"  Background="#FF594CEA" BorderBrush="{x:Null}"  FontFamily="Arial" FontSize="14" Foreground="White" Width="30" Height="30">
+                                        <MenuItem.Icon>
+                                            <Image Source="img/pencil.png" Stretch="UniformToFill">
+                                            </Image>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Command="{Binding RemoveLessons}"  Background="#FFFD4948" BorderBrush="{x:Null}"  FontFamily="Arial" FontSize="14" Foreground="White" Width="30" Height="30">
+                                        <MenuItem.Icon>
+                                            <Image Source="img/delete.png" Stretch="UniformToFill">
+                                            </Image>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </Menu>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+
+                    </ListBox>
+                    <Button Content="Добавить" HorizontalAlignment="Left" Margin="601,90,0,0" VerticalAlignment="Top" Width="120" Background="#FF594CEA" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="28" Command="{Binding AddGroup, UpdateSourceTrigger=PropertyChanged}">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text.Length, ElementName=LessonNAme, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <TextBox Text="{Binding LessonName}" Name="LessonNAme" HorizontalAlignment="Left" Margin="601,49,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Height="28"/>
+                    <Button Command="{Binding SaveLessonsChange,UpdateSourceTrigger=PropertyChanged}" Content="Сохранить" HorizontalAlignment="Left" Margin="10,378,0,0" Width="120" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="31" VerticalAlignment="Top"/>
+                    <Label Content="Название дисципллины" HorizontalAlignment="Left" Margin="601,23,0,0" VerticalAlignment="Top" Height="26" Width="182"/>
+                    <Button Command="{Binding DeleteLessonsChange,UpdateSourceTrigger=PropertyChanged}" Content="Отменить" HorizontalAlignment="Left" Margin="135,378,0,0" Width="120" Background="#FF4C9EEA" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="31" VerticalAlignment="Top"/>
+                    <TextBox Text="{Binding LessonId}" Name="LessonId" HorizontalAlignment="Left" Margin="601,90,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Height="28" Visibility="Hidden"/>
+
+                </Grid>
+                <Grid Margin="0 850 0 0">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Список типов дисциплин" VerticalAlignment="Top" Width="344" Height="25"  Padding="5" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
+                    <ListBox ItemsSource="{Binding LessonsType}" Margin="10,49,0,0" Height="328" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="580">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Menu Height="30" VerticalAlignment="Top" Background="#FF434140">
+                                    <MenuItem Header="{Binding Names}" FontFamily="Arial"  Foreground="White" FontSize="16" ></MenuItem>
+                                    <MenuItem Command="{Binding EditLessonsType}"  Background="#FF594CEA" BorderBrush="{x:Null}"  FontFamily="Arial" FontSize="14" Foreground="White" Width="30" Height="30">
+                                        <MenuItem.Icon>
+                                            <Image Source="img/pencil.png" Stretch="UniformToFill">
+                                            </Image>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Command="{Binding RemoveLessonsType}"  Background="#FFFD4948" BorderBrush="{x:Null}"  FontFamily="Arial" FontSize="14" Foreground="White" Width="30" Height="30">
+                                        <MenuItem.Icon>
+                                            <Image Source="img/delete.png" Stretch="UniformToFill">
+                                            </Image>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </Menu>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+
+                    </ListBox>
+                    <Button Content="Добавить" HorizontalAlignment="Left" Margin="601,90,0,0" VerticalAlignment="Top" Width="120" Background="#FF594CEA" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="28" Command="{Binding AddGroup, UpdateSourceTrigger=PropertyChanged}">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text.Length, ElementName=LessonTypeName, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <TextBox Text="{Binding LessonTypeName}" Name="LessonTypeName" HorizontalAlignment="Left" Margin="601,49,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Height="28"/>
+                    <Button Command="{Binding SaveLessonsTypeChange,UpdateSourceTrigger=PropertyChanged}" Content="Сохранить" HorizontalAlignment="Left" Margin="10,378,0,0" Width="120" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="31" VerticalAlignment="Top"/>
+                    <Label Content="Название типа" HorizontalAlignment="Left" Margin="601,23,0,0" VerticalAlignment="Top" Height="26" Width="106"/>
+                    <Button Command="{Binding DeleteLessonsTypeChange,UpdateSourceTrigger=PropertyChanged}" Content="Отменить" HorizontalAlignment="Left" Margin="135,378,0,0" Width="120" Background="#FF4C9EEA" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="31" VerticalAlignment="Top"/>
+                    <TextBox Text="{Binding LessonTypeId}" Name="LessonTypeId" HorizontalAlignment="Left" Margin="601,90,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Height="28" Visibility="Hidden"/>
+                </Grid>
+                <TextBox Name="NowFileName" HorizontalAlignment="Left" Margin="1432,300,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
+            </Grid>
+        </ScrollViewer>
 
     </Grid>
 </Window>

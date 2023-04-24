@@ -1,0 +1,44 @@
+﻿<Window x:Class="WpfApp1.CheckGroupOnEqual"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        xmlns:viewmodel="clr-namespace:WpfApp1.Model"
+        mc:Ignorable="d"
+        Title="CheckGroupOnEqual" Height="450" Width="800"
+        MaxHeight="450"
+        MaxWidth="800">
+    <Window.DataContext>
+        <viewmodel:CheckGroupOnEqualViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid>
+            <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="25"  Padding="5" FontFamily="Arial" FontSize="16" FontWeight="Bold"><Run Language="ru-ru" Text="Заданный "/><Run Language="ru-ru" Text="с"/><Run Text="писок групп "/></TextBlock>
+            <ListBox ItemsSource="{Binding Groups}" Margin="10,49,0,0" Height="328" VerticalAlignment="Top" Name="GroupListBox" HorizontalAlignment="Left" Width="368">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Menu Height="20" VerticalAlignment="Top" Background="#FF434140">
+                            <MenuItem Header="{Binding GroupNames}" FontFamily="Arial"  Foreground="White" FontSize="16" ></MenuItem>
+                            <MenuItem Header="{Binding StudentNumber}" Foreground="White" FontFamily="Arial" FontSize="16"></MenuItem>
+                        </Menu>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+            </ListBox>
+            <TextBlock HorizontalAlignment="Left" Margin="400,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="278" Height="25"  Padding="5" FontFamily="Arial" FontSize="16" FontWeight="Bold"><Run Language="ru-ru" Text="Обнаруженные несоответсвия"/><Run Text=" "/><Run Text="с"/><Run Text="писок групп "/></TextBlock>
+            <ListBox ItemsSource="{Binding BadGroups}" Margin="400,49,0,0" Height="328" VerticalAlignment="Top" x:Name="GroupListBox_Copy" HorizontalAlignment="Left" Width="368">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Menu Height="20" VerticalAlignment="Top" Background="#FF434140">
+                            <MenuItem Header="{Binding GroupNames}" FontFamily="Arial"  Foreground="White" FontSize="16" />
+                            <MenuItem Command="{Binding RemoveGroup}" Header="Отметить в файле" Background="#FFFD4948" BorderBrush="{x:Null}"  FontFamily="Arial" FontSize="14" Foreground="White"/>
+                        </Menu>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+            </ListBox>
+
+        </Grid>
+    </Grid>
+</Window>
