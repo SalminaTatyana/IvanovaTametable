@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="CheckedTeachersOnEqual.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="CheckGroupOnEqual.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -15,6 +18,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="CheckedTeachersOnEqual.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="CheckGroupOnEqual.xaml">
       <SubType>Designer</SubType>
     </Page>

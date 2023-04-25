@@ -1,6 +1,8 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -28,8 +30,6 @@ namespace WpfApp1.Model
         public string GroupNames { get; set; }
         public  int Cource { get; set; }
         public  int StudentNumber { get; set; }
-        public RelayCommand RemoveGroup { get; set; }
-        public RelayCommand EditGroup { get; set; }
 
         public GroupsAll(string name, int cource,int count)
         {
@@ -45,6 +45,7 @@ namespace WpfApp1.Model
             Cource = cource;
             StudentNumber = 0;
         }
+       
     }
     public class TeachersAll
     {
@@ -52,8 +53,7 @@ namespace WpfApp1.Model
         public string Names { get; set; }
         public List<LessonsAll> LesssondNames { get; set; }
         
-        public RelayCommand RemoveTeachers { get; set; }
-        public RelayCommand EditTeachers { get; set; }
+        
         public TeachersAll(string name)
         {
             Id = Guid.NewGuid();
@@ -73,8 +73,7 @@ namespace WpfApp1.Model
         public Guid Id { get; set; }
         public string Names { get; set; }
 
-        public RelayCommand RemoveLessonsType { get; set; }
-        public RelayCommand EditLessonsType { get; set; }
+        
 
         public LessonsType(string name)
         {
@@ -89,8 +88,7 @@ namespace WpfApp1.Model
         public Guid Id { get; set; }
         public string Names { get; set; }
 
-        public RelayCommand RemoveLessons { get; set; }
-        public RelayCommand EditLessons { get; set; }
+        
 
         public LessonsAll(string name)
         {
@@ -107,9 +105,6 @@ namespace WpfApp1.Model
         public string Practics { get; set; }
         public string Labs { get; set; }
 
-        public RelayCommand RemoveClassroom { get; set; }
-        public RelayCommand EditClassroom { get; set; }
-
         public ClassroomsAll(string name, string practics, string labs, int peopleNumber)
         {
             Id = Guid.NewGuid();
@@ -121,8 +116,8 @@ namespace WpfApp1.Model
     }
     public class MainWinwowViewModal
     {
-        private  List<FilesAll> files;
-        public  List<FilesAll> Files { get { return files; } }
+        private ObservableCollection<FilesAll> files;
+        public ObservableCollection<FilesAll> Files { get { return files; } }
         private ObservableCollection<GroupsAll> groups;
         public ObservableCollection<GroupsAll> Groups { get { return groups; } }
         public string GroupName { get; set; }
@@ -157,7 +152,10 @@ namespace WpfApp1.Model
         public  LessonsFileMeneger lessonsFileManager =new LessonsFileMeneger();
         public  TeachersFileMeneger teachersFileManager =new TeachersFileMeneger();
         public RelayCommand AddGroup { get; set; }
-        public RelayCommand EditGroups { get; set; }
+        public RelayCommand RemoveGroup { get; set; }
+        public RelayCommand RemoveLessons { get; set; }
+        public RelayCommand RemoveLessonsType { get; set; }
+        public RelayCommand RemoveClassrooms { get; set; }
         public RelayCommand SaveGroupChange { get; set; }
         public RelayCommand DeleteGroupChange { get; set; }
         public RelayCommand AddLessons { get; set; }
@@ -167,27 +165,61 @@ namespace WpfApp1.Model
         public RelayCommand SaveLessonsTypeChange { get; set; }
         public RelayCommand DeleteLessonsTypeChange { get; set; }
         public RelayCommand AddTeachers { get; set; }
+        public RelayCommand RemoveTeachers { get; set; }
         public RelayCommand SaveTeachersChange { get; set; }
         public RelayCommand DeleteTeachersChange { get; set; }
         public RelayCommand AddClassroom{ get; set; }
         public RelayCommand SaveClassroomChange { get; set; }
         public RelayCommand DeleteClassroomChange { get; set; }
-       
+        public RelayCommand OpenChooseFile { get; set; }
+        public RelayCommand AddFiles { get; set; }
+        public RelayCommand OpenCheckGroup { get; set; }
+        public RelayCommand CleanFiles { get; set; }
+        public GroupsAll SelectedItem { get; set; }
+        public TeachersAll SelectedTeachers { get; set; }
+        public LessonsAll SelectedLessons { get; set; }
+        public LessonsType SelectedLessonsType { get; set; }
+        public ClassroomsAll SelectedClassrooms { get; set; }
+        public FilesAll SelectedFile { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+        public ObservableCollection<string> NowFileNameChoose { get { return nowFileNameChoose; } }
+        private ObservableCollection<string> nowFileNameChoose;
+        public string SelectedNowFile { get; set; }
+
 
         public MainWinwowViewModal()
         {
-            files = new List<FilesAll>();
+            files = new ObservableCollection<FilesAll>();
             groups = new ObservableCollection<GroupsAll>();
             classes = new ObservableCollection<ClassroomsAll>();
             teachers = new ObservableCollection<TeachersAll>();
             lessons = new ObservableCollection<LessonsAll>();
             lessonsType = new ObservableCollection<LessonsType>();
+            nowFileNameChoose = new ObservableCollection<string>();
             AddGroup = new RelayCommand(o =>AddNewGroup(GroupName,GroupCount));
             AddLessons = new RelayCommand(o => AddNewLessons(LessonName));
             AddLessonsType = new RelayCommand(o => AddNewLessonsType(LessonTypeName));
             AddTeachers = new RelayCommand(o => AddNewTeacher(TeacherName));
             AddClassroom = new RelayCommand(o => AddNewClassroom(ClasseName,ClassCount,Practice,Lab));
-            EditGroups = new RelayCommand(o => EditGroup(GroupName, GroupCount, GroupId));
+            RemoveGroup = new RelayCommand(o => RemoveGroups(SelectedItem));
+            RemoveTeachers = new RelayCommand(o => RemoveTeacher(SelectedTeachers));
+            RemoveLessons = new RelayCommand(o => RemoveLesson(SelectedLessons));
+            RemoveLessonsType = new RelayCommand(o => RemoveLessonType(SelectedLessonsType));
+            RemoveClassrooms = new RelayCommand(o => RemoveClassroom(SelectedClassrooms));
+            DeleteGroupChange= new RelayCommand(o => DeleteGroupsChange());
+            DeleteLessonsTypeChange = new RelayCommand(o => DeleteLessonTypeChange());
+            DeleteLessonsChange = new RelayCommand(o => DeleteLessonChange());
+            DeleteTeachersChange = new RelayCommand(o => DeleteTeacherChange());
+            DeleteClassroomChange = new RelayCommand(o => DeleteClassroomsChange());
+            SaveGroupChange= new RelayCommand(o => SaveGroupsChange());
+            SaveLessonsChange= new RelayCommand(o => SaveLessonChange());
+            SaveLessonsTypeChange= new RelayCommand(o => SaveLessonTypeChange());
+            SaveTeachersChange= new RelayCommand(o => SaveTeacherChange());
+            SaveClassroomChange= new RelayCommand(o => SaveClassroomsChange());
+            OpenChooseFile = new RelayCommand(o => OpenChooseFiles(SelectedFile));
+            AddFiles = new RelayCommand(o => AddFile(SelectedFile));
+            CleanFiles = new RelayCommand(o => CleanList());
+            OpenCheckGroup = new RelayCommand(o => GoCheckGroupOnEqual());
             InitOldFilesAsync();
             InitIdialGroupListAsync();
             InitIdialClassroomListAsync();
@@ -331,47 +363,96 @@ namespace WpfApp1.Model
                 });
             } 
         }
-        public async Task EditGroup(string name, int count,Guid id)
+
+        public async Task RemoveGroups(GroupsAll Index)
         {
-            int course;
-            if (name.Contains("51") || name.Contains("52"))
-            {
-                course = 5;
-            }
-            else if (name.Contains("41") || name.Contains("42"))
-            {
-                course = 4;
-            }
-            else if (name.Contains("31") || name.Contains("32"))
-            {
-                course = 3;
-            }
-            else if (name.Contains("21") || name.Contains("22"))
-            {
-                course = 2;
-            }
-            else
-            {
-                course = 1;
-            }
-            for (int i = 0; i < groups.Count; i++)
-            {
-                if (groups[i].Id == id)
-                {
-                    groups[i].StudentNumber = count;
-                    groups[i].Cource = course;
-                    groups[i].GroupNames = name;
-                    
-                    break;
-                }
-            }
-            
+            groups.Remove(Index);
+        } 
+        public async Task RemoveTeacher(TeachersAll Index)
+        {
+            teachers.Remove(Index);
         }
-        public async Task ShowEditGroup(string name, int count, Guid id)
+        public async Task RemoveLesson(LessonsAll Index)
         {
-            GroupName = name;
-            GroupCount= count;
-            GroupId= id;
+            lessons.Remove(Index);
+        } 
+        public async Task RemoveLessonType(LessonsType Index)
+        {
+            lessonsType.Remove(Index);
+        } 
+        public async Task RemoveClassroom(ClassroomsAll Index)
+        {
+            classes.Remove(Index);
+        }
+        public async Task DeleteGroupsChange()
+        {
+            groups.Clear();
+            await InitIdialGroupListAsync();
+        } 
+        public async Task DeleteLessonChange()
+        {
+            lessons.Clear();
+            await InitIdialLessonsListAsync();
+        }
+        public async Task DeleteLessonTypeChange()
+        {
+            lessonsType.Clear();
+            await InitIdialLessonsTypeListAsync();
+        } 
+        public async Task DeleteTeacherChange()
+        {
+            teachers.Clear();
+            await InitIdialTeachersListAsync();
+        } 
+        public async Task DeleteClassroomsChange()
+        {
+            classes.Clear();
+            await InitIdialClassroomListAsync();
+        }
+        public async Task SaveGroupsChange()
+        {
+           List<ExcelFile.Group> saveGroup = new List<ExcelFile.Group>();
+            foreach (var group in groups)
+            {
+                saveGroup.Add(new ExcelFile.Group(group.GroupNames,group.Cource,group.Cource));
+            }
+            await groupFileManager.Save(saveGroup);
+        }
+        public async Task SaveLessonChange()
+        {
+            List<string> saveLesson = new List<string>();
+            foreach (var lesson in lessons)
+            {
+                saveLesson.Add(lesson.Names);
+            }
+            await lessonsFileManager.Save(saveLesson);
+        }
+        public async Task SaveLessonTypeChange()
+        {
+            List<string> saveLesson = new List<string>();
+            foreach (var lesson in lessonsType)
+            {
+                saveLesson.Add(lesson.Names);
+            }
+            await lessonsTypeFileManager.Save(saveLesson);
+        }
+        public async Task SaveTeacherChange()
+        {
+            List<string> teacherList = new List<string>();
+            foreach (var teacher in teachers)
+            {
+                teacherList.Add(teacher.Names);
+            }
+            await teachersFileManager.Save(teacherList);
+        }
+        public async Task SaveClassroomsChange()
+        {
+            List<Classrooms> saveClassroom = new List<Classrooms>();
+            foreach (var room in classes)
+            {
+                saveClassroom.Add(new Classrooms(room.Names,!String.IsNullOrEmpty(room.Practics), !String.IsNullOrEmpty(room.Labs),room.PeopleNumber));
+            }
+            await classFileManager.Save(saveClassroom);
         }
         public async Task AddNewLessons(string name)
         {
@@ -393,19 +474,47 @@ namespace WpfApp1.Model
                 });
             }
         }
-        public async Task EditLessons(string name,Guid id)
+        public async Task OpenChooseFiles(FilesAll file)
         {
-
-            for (int i = 0; i < lessons.Count; i++)
-            {
-                if (lessons[i].Id == id)
-                {
-                    lessons[i].Names = name;
-                    break;
-                }
-            }
-            
+            await OpenFile(file.FilePaths);
         }
+        public async Task AddFile(FilesAll file)
+        {
+            Microsoft.Win32.OpenFileDialog dlgBin = new Microsoft.Win32.OpenFileDialog();
+            dlgBin.FileName = "Document"; // Default file name
+            dlgBin.DefaultExt = ".xlsx"; // Default file extension
+            dlgBin.Filter = "Excel Files|*.xlsx;"; // Filter files by extension
+
+            // Show save file dialog box
+            Nullable<bool> result = dlgBin.ShowDialog();
+
+            if (result == true)
+            {
+                string path = dlgBin.FileName;
+                OldFile newFile = new OldFile(DateTime.Now, path, path);
+                bool contains = false;
+                var read = fileManager.Read().Result;
+                for (int i = 0; i < read.Count(); i++)
+                {
+                    if (read[i].Path == newFile.Path)
+                    {
+                        contains = true;
+                    }
+                }
+                if (!contains)
+                {
+                    await fileManager.Save(newFile);
+                    App.Current.Dispatcher.Invoke((Action)delegate ()
+                    {
+                        files.Add(new FilesAll(Path.GetFileName(newFile.Name), newFile.Path));
+                    });
+
+                }
+                
+                await OpenFile(path);
+            }
+        }
+
         public async Task AddNewLessonsType(string name)
         {
 
@@ -426,19 +535,7 @@ namespace WpfApp1.Model
                 });
             }
         }
-        public async Task EditLessonsType(string name,Guid id)
-        {
-
-            for (int i = 0; i < lessonsType.Count; i++)
-            {
-                if (lessonsType[i].Id == id)
-                {
-                    lessonsType[i].Names = name;
-                    break;
-                }
-            }
-           
-        }
+       
         public async Task AddNewTeacher(string name)
         {
 
@@ -459,19 +556,7 @@ namespace WpfApp1.Model
                 });
             }
         }
-        public async Task EditTeacher(string name,Guid id)
-        {
-
-            for (int i = 0; i < teachers.Count; i++)
-            {
-                if (teachers[i].Id == id)
-                {
-                    teachers[i].Names = name;
-                    break;
-                }
-            }
-           
-        }
+    
         public async Task AddNewClassroom(string name, int count,bool practice, bool lab)
         {
 
@@ -494,6 +579,33 @@ namespace WpfApp1.Model
                     classes.Add(new ClassroomsAll(name, practice ? "Пр" : "", lab ? "Лб" : "", count));
                 });
             }
+        }
+        public async Task OpenFile(string path)
+        {
+            
+            App.Current.Dispatcher.Invoke((Action)delegate ()
+            {
+                nowFileNameChoose.Add(path);
+            });
+            MainWindow.timetableFile = new FileInfo(path);
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+        }
+        public void CleanList()
+        {
+            fileManager.Clear();
+            App.Current.Dispatcher.Invoke((Action)delegate ()
+            {
+                files.Clear();
+            });
+        }
+        public void GoCheckGroupOnEqual()
+        {
+            if (SelectedFile != null)
+            {
+                CheckGroupOnEqual view = new CheckGroupOnEqual(new FileInfo(SelectedFile.FilePaths));
+                view.Show();
+            }
+
         }
     }
 }

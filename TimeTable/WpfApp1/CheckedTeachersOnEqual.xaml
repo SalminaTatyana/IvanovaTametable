@@ -1,4 +1,4 @@
-﻿<Window x:Class="WpfApp1.CheckGroupOnEqual"
+﻿<Window x:Class="WpfApp1.CheckedClassroomOnEqual"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,32 +6,29 @@
         xmlns:local="clr-namespace:WpfApp1"
         xmlns:viewmodel="clr-namespace:WpfApp1.Model"
         mc:Ignorable="d"
-        Title="Сравнить группы" Height="450" Width="800"
-        MaxHeight="450"
-        MaxWidth="800">
+        Title="Проверить ФИО преподавателей" Height="450" Width="800">
     <Window.DataContext>
-        <viewmodel:CheckGroupOnEqualViewModel/>
+        <viewmodel:CheckTeacherEuqalViewModel/>
     </Window.DataContext>
     <Grid>
         <Grid Background="#FF1D1D1D">
-            <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="25"  Padding="5" FontFamily="Arial" FontSize="16" FontWeight="Bold"><Run Language="ru-ru" Text="Заданный "/><Run Language="ru-ru" Text="с"/><Run Text="писок групп "/></TextBlock>
-            <ListBox Background="#FF403414" ItemsSource="{Binding Groups}" Margin="10,49,0,0" Height="328" VerticalAlignment="Top" Name="GroupListBox" HorizontalAlignment="Left" Width="368">
+            <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="337" Height="25"  Padding="5" FontFamily="Arial" FontSize="16" FontWeight="Bold"><Run Language="ru-ru" Text="Заданный "/><Run Language="ru-ru" Text="с"/><Run Text="писок преподавателей "/></TextBlock>
+            <ListBox Background="#FF2E277D" ItemsSource="{Binding Teachers}" Margin="10,49,0,0" Height="328" VerticalAlignment="Top" Name="GroupListBox" HorizontalAlignment="Left" Width="368">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Menu Height="20" VerticalAlignment="Top"  Foreground="White" Background="{x:Null}">
-                            <MenuItem Header="{Binding GroupNames}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" ></MenuItem>
-                            <MenuItem Header="{Binding StudentNumber}"  Foreground="White" Background="{x:Null}" FontFamily="Arial" FontSize="16"></MenuItem>
+                            <MenuItem Header="{Binding Names}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" ></MenuItem>
                         </Menu>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
 
             </ListBox>
             <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="400,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="278" Height="25"  Padding="5" FontFamily="Arial" FontSize="16" FontWeight="Bold"><Run Language="ru-ru" Text="Обнаруженные несоответсвия"/><Run Text=" "/><Run Text="с"/><Run Text="писок групп "/></TextBlock>
-            <ListBox Background="#FF403414" ItemsSource="{Binding BadGroups}" Margin="400,49,0,0" Height="328" VerticalAlignment="Top" x:Name="GroupListBox_Copy" HorizontalAlignment="Left" Width="368">
+            <ListBox Background="#FF2E277D" ItemsSource="{Binding BadTeachers}" Margin="400,49,0,0" Height="328" VerticalAlignment="Top" x:Name="GroupListBox_Copy" HorizontalAlignment="Left" Width="368">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Menu Height="20" VerticalAlignment="Top"  Foreground="White" Background="{x:Null}">
-                            <MenuItem Header="{Binding GroupNames}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" />
+                            <MenuItem Header="{Binding Names}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" />
                         </Menu>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

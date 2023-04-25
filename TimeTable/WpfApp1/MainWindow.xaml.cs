@@ -33,50 +33,8 @@ namespace WpfApp1
             InitializeComponent();
         }
         
-        private async void addFiles(object sender, RoutedEventArgs e)
-        {
-            Microsoft.Win32.OpenFileDialog dlgBin = new Microsoft.Win32.OpenFileDialog();
-            dlgBin.FileName = "Document"; // Default file name
-            dlgBin.DefaultExt = ".xlsx"; // Default file extension
-            dlgBin.Filter = "Excel Files|*.xlsx;"; // Filter files by extension
-
-            // Show save file dialog box
-            Nullable<bool> result = dlgBin.ShowDialog();
-
-            if (result == true)
-            {
-                string path = dlgBin.FileName;
-                OldFile newFile = new OldFile(DateTime.Now, path, path);
-                bool contains = false;
-                var read= fileManager.Read().Result;
-                for (int i = 0; i < read.Count(); i++)
-                {
-                    if (read[i].Path == newFile.Path)
-                    {
-                        contains = true;
-                    }
-                }
-                if (!contains)
-                {
-                    fileManager.Save(newFile);
-                }
-                await OpenFile(path);
-            }
-
-        }
-        public async Task OpenFile(string path)
-        {
-            NowFileName.Text = path;
-            timetableFile = new FileInfo(path);
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-        }
-
-      
-        private void CleanList(object sender, RoutedEventArgs e)
-        {
-            fileManager.Clear();
-        }
-
+        
+        
         private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
 
@@ -92,14 +50,6 @@ namespace WpfApp1
 
         }
 
-        private void GoCheckGroupOnEqual(object sender, RoutedEventArgs e)
-        {
-            if (timetableFile!=null)
-            {
-                CheckGroupOnEqual view = new CheckGroupOnEqual(timetableFile);
-                view.Show();
-            }
-            
-        }
+        
     }
 }
