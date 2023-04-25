@@ -101,7 +101,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,200,4,0" VerticalAlignment="Top" Background="#FF924CEA" BorderBrush="{x:Null}" Padding="3">
+            <Button Height="42" Margin="4,200,4,0" VerticalAlignment="Top" Background="#FF924CEA" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckTeach}">
                 <Image Source="img/sidebar/5.png" Stretch="UniformToFill"></Image>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -164,10 +164,10 @@
             <MenuItem Header="View" Foreground="White" FontFamily="Arial" FontSize="16"></MenuItem>
             <MenuItem  Foreground="White" FontFamily="Arial" FontSize="16"/>
         </Menu>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="200 30 0 0" >
-            <WrapPanel>
-                <Grid Background="#FF1D1D1D" Width="1703" >
-                    <WrapPanel   VerticalAlignment="Top">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="200 30 0 0" Background="#FF1D1D1D">
+            <WrapPanel Background="#FF1D1D1D">
+                <Grid Background="#FF1D1D1D" >
+                    <WrapPanel VerticalAlignment="Top">
                         <Grid HorizontalAlignment="Left" Width="750" Height="410" VerticalAlignment="Top">
                             <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Список групп" VerticalAlignment="Top" Width="200" Height="25"  Padding="5" FontFamily="Arial" FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2"/>
                             <ListBox ItemsSource="{Binding Groups}" SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}"  Margin="10,49,0,0" Height="328" VerticalAlignment="Top" Name="GroupListBox" HorizontalAlignment="Left" Width="580" BorderBrush="{x:Null}" Grid.ColumnSpan="3" Background="#FF403414" >
@@ -231,7 +231,7 @@
                         <Grid Margin="0 0 0 0" Width="900" Height="410" HorizontalAlignment="Left" VerticalAlignment="Top">
                             <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Список аудиторий" VerticalAlignment="Top" Width="200" Height="25"  Padding="5" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
                             <ListBox ItemsSource="{Binding Classes}" SelectedItem="{Binding Path=SelectedClassrooms, Mode=TwoWay}" Margin="10,49,0,0" Height="328" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="580" Name="ClassroomsListBox" Background="#FF1F381F">
-                               
+
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <Menu Height="30" VerticalAlignment="Top" Background="{x:Null}">
@@ -306,7 +306,6 @@
                             </Button>
 
                         </Grid>
-
                         <Grid Margin="0,0,0,0" Width="750" HorizontalAlignment="Left" VerticalAlignment="Top" Height="410">
                             <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Список преподавателей" VerticalAlignment="Top" Width="344" Height="25"  Padding="5" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
                             <ListBox ItemsSource="{Binding Teachers}" SelectedItem="{Binding Path=SelectedTeachers, Mode=TwoWay}" Margin="10,49,0,0" Height="328" VerticalAlignment="Top" Name="TeachersListBox" HorizontalAlignment="Left" Width="580" Background="#FF2E277D">

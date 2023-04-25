@@ -1,5 +1,7 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +21,17 @@ namespace WpfApp1
     /// </summary>
     public partial class CheckedClassroomOnEqual : Window
     {
+        public static FileInfo TimetableFile { get; set; }
         public CheckedClassroomOnEqual()
         {
             InitializeComponent();
+        }
+        public CheckedClassroomOnEqual(FileInfo timetableFile)
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            TimetableFile = timetableFile;
+            InitializeComponent();
+
         }
     }
 }
