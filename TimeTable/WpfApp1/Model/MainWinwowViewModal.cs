@@ -175,6 +175,7 @@ namespace WpfApp1.Model
         public RelayCommand AddFiles { get; set; }
         public RelayCommand OpenCheckGroup { get; set; }
         public RelayCommand OpenCheckTeach { get; set; }
+        public RelayCommand OpenCheckLesson { get; set; }
         public RelayCommand CleanFiles { get; set; }
         public GroupsAll SelectedItem { get; set; }
         public TeachersAll SelectedTeachers { get; set; }
@@ -222,6 +223,7 @@ namespace WpfApp1.Model
             CleanFiles = new RelayCommand(o => CleanList());
             OpenCheckGroup = new RelayCommand(o => GoCheckGroupOnEqual());
             OpenCheckTeach = new RelayCommand(o => GoCheckTeachOnEqual());
+            OpenCheckLesson = new RelayCommand(o => GoCheckLessonOnEqual());
             InitOldFilesAsync();
             InitIdialGroupListAsync();
             InitIdialClassroomListAsync();
@@ -614,6 +616,15 @@ namespace WpfApp1.Model
             if (SelectedFile != null)
             {
                 CheckedClassroomOnEqual view = new CheckedClassroomOnEqual(new FileInfo(SelectedFile.FilePaths));
+                view.Show();
+            }
+
+        } 
+        public void GoCheckLessonOnEqual()
+        {
+            if (SelectedFile != null)
+            {
+                CheckClassroomOnEqual view = new CheckClassroomOnEqual(new FileInfo(SelectedFile.FilePaths));
                 view.Show();
             }
 

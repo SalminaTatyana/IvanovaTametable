@@ -89,7 +89,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,150,4,0" VerticalAlignment="Top" Background="#FFC14CEA" BorderBrush="{x:Null}" Padding="3">
+            <Button Height="42" Margin="4,150,4,0" VerticalAlignment="Top" Background="#FFC14CEA" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckLesson}">
                 <Image Source="img/sidebar/4.png" Stretch="UniformToFill"></Image>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">

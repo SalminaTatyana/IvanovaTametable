@@ -13,7 +13,7 @@
     <Compile Update="CheckGroupOnEqual.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="CheckTeachersEqual.xaml.cs">
+    <Compile Update="CheckLessonsOnEqual.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -24,7 +24,7 @@
     <Page Update="CheckGroupOnEqual.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="CheckTeachersEqual.xaml">
+    <Page Update="CheckLessonsOnEqual.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
