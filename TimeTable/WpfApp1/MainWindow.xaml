@@ -89,7 +89,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,150,4,0" VerticalAlignment="Top" Background="#FFC14CEA" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckLesson}">
+            <Button Height="42" Margin="4,150,4,0" VerticalAlignment="Top" Background="#FFC14CEA" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckLessons}">
                 <Image Source="img/sidebar/4.png" Stretch="UniformToFill"></Image>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -125,7 +125,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,300,4,0" VerticalAlignment="Top" Background="#FF4C9EEA" BorderBrush="{x:Null}" Padding="3">
+            <Button Height="42" Margin="4,300,4,0" VerticalAlignment="Top" Background="#FF4C9EEA" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckLessonsType}">
                 <Image Source="img/sidebar/2.png" Stretch="UniformToFill"></Image>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -137,7 +137,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,350,4,0" VerticalAlignment="Top" Background="#FF4CEAC4" BorderBrush="{x:Null}" Padding="3">
+            <Button Height="42" Margin="4,350,4,0" VerticalAlignment="Top" Background="#FF4CEAC4" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckClassroom}">
                 <Image Source="img/sidebar/10.png" Stretch="Fill"></Image>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">

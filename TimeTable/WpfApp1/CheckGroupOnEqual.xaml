@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:WpfApp1"
         xmlns:viewmodel="clr-namespace:WpfApp1.Model"
         mc:Ignorable="d"
-        Title="Сравнить группы" Height="450" Width="800"
+        Title="Сравнить группы" Height="450" Width="900"
         MaxHeight="450"
-        MaxWidth="800">
+        MaxWidth="900">
     <Window.DataContext>
         <viewmodel:CheckGroupOnEqualViewModel/>
     </Window.DataContext>
@@ -27,7 +27,7 @@
 
             </ListBox>
             <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="400,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="278" Height="25"  Padding="5" FontFamily="Arial" FontSize="16" FontWeight="Bold"><Run Language="ru-ru" Text="Обнаруженные несоответсвия"/><Run Text=" "/><Run Text="с"/><Run Text="писок групп "/></TextBlock>
-            <ListBox Background="#FF403414" ItemsSource="{Binding BadGroups}" Margin="400,49,0,0" Height="328" VerticalAlignment="Top" x:Name="GroupListBox_Copy" HorizontalAlignment="Left" Width="368">
+            <ListBox Background="#FF403414" ItemsSource="{Binding BadGroups}" SelectedItem="{Binding Path=SelectedBadGroup, Mode=TwoWay}" Margin="400,49,0,0" Height="328" VerticalAlignment="Top" Name="GroupListBoxBad" HorizontalAlignment="Left" Width="368">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Menu Height="20" VerticalAlignment="Top"  Foreground="White" Background="{x:Null}">
@@ -37,7 +37,18 @@
                 </ListBox.ItemTemplate>
 
             </ListBox>
+            <Button Content="Добавить" Margin="780,49,0,0" VerticalAlignment="Top" Background="#FF594CEA" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="28" Command="{Binding AddGroup, UpdateSourceTrigger=PropertyChanged}">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=GroupListBoxBad, UpdateSourceTrigger=PropertyChanged,Path=SelectedIndex}" Value="-1">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
 
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Grid>
     </Grid>
 </Window>

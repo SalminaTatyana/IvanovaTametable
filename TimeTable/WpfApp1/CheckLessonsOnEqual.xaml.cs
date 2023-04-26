@@ -17,16 +17,17 @@ using System.Windows.Shapes;
 namespace WpfApp1
 {
     /// <summary>
-    /// Логика взаимодействия для CheckTeachersEqual.xaml
+    /// Логика взаимодействия для CheckLessonsOnEqual.xaml
     /// </summary>
-    public partial class CheckClassroomOnEqual : Window
+    public partial class CheckLessonsOnEqual : Window
     {
-        public static FileInfo TimetableFile { get; set; }
-        public CheckClassroomOnEqual()
+        public CheckLessonsOnEqual()
         {
             InitializeComponent();
         }
-        public CheckClassroomOnEqual(FileInfo timetableFile)
+        public static FileInfo TimetableFile { get; set; }
+
+        public CheckLessonsOnEqual(FileInfo timetableFile)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             TimetableFile = timetableFile;

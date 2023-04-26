@@ -15,12 +15,18 @@ namespace WpfApp1.Model
         private List<GroupsAll> badGroups;
         public List<GroupsAll> Groups { get { return groups; } }
         public List<GroupsAll> BadGroups { get { return badGroups; } }
+        public GroupsAll SelectedBadGroup { get; set; }
+        public RelayCommand AddGroup { get; set; }
+        public RelayCommand SaveGroupChange { get; set; }
+
         public CheckGroupOnEqualViewModel()
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             groupFileManager = new GroupFileMeneger();
             groups = new List<GroupsAll>();
             badGroups = new List<GroupsAll>();
+            AddGroup = new RelayCommand(o => AddNewGroup(SelectedBadGroup));
+            SaveGroupChange = new RelayCommand(o => SaveGroupsChange());
             InitIdialGroupListAsync();
         }
         public async Task InitIdialGroupListAsync()
@@ -55,6 +61,67 @@ namespace WpfApp1.Model
                 }
 
             }
+        }
+        public async Task AddNewGroup(GroupsAll group)
+        {
+            int course;
+            if (group.GroupNames.Contains("51") || group.GroupNames.Contains("52"))
+            {
+                course = 5;
+            }
+            else if (group.GroupNames.Contains("41") || group.GroupNames.Contains("42"))
+            {
+                course = 4;
+            }
+            else if (group.GroupNames.Contains("31") || group.GroupNames.Contains("32"))
+            {
+                course = 3;
+            }
+            else if (group.GroupNames.Contains("21") || group.GroupNames.Contains("22"))
+            {
+                course = 2;
+            }
+            else
+            {
+                course = 1;
+            }
+            bool flag = false;
+            for (int i = 0; i < groups.Count; i++)
+            {
+                if (groups[i].GroupNames.ToLower() == group.GroupNames.ToLower())
+                {
+                    groups[i].StudentNumber = group.StudentNumber;
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag)
+            {
+                App.Current.Dispatcher.Invoke((Action)delegate ()
+                {
+                    groups.Add(new GroupsAll(group.GroupNames, course, group.StudentNumber));
+                    
+                });
+            }
+            SaveGroupsChange();
+        }
+        public async Task SaveGroupsChange()
+        {
+            List<ExcelFile.Group> saveGroup = new List<ExcelFile.Group>();
+            foreach (var group in groups)
+            {
+                saveGroup.Add(new ExcelFile.Group(group.GroupNames, group.Cource, group.Cource));
+            }
+            await groupFileManager.Save(saveGroup);
+            List<Group> file = await groupFileManager.Read();
+            foreach (var item in file)
+            {
+                App.Current.Dispatcher.Invoke((Action)delegate ()
+                {
+                    groups.Add(new GroupsAll(item.Name, item.Cource, item.StudentNumber));
+                });
+            }
+            
         }
         public void GetGroupFromTimetable(ExcelPackage excelPackage)
         {

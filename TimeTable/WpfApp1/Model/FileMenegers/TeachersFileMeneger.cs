@@ -18,7 +18,7 @@ namespace WpfApp1.Model.FileMenegers
             }
             // сохранение данных
 
-            using (StreamWriter writer = new StreamWriter(path, true))
+            using (StreamWriter writer = new StreamWriter(path, false))
             {
                 foreach (string item in file)
                 {

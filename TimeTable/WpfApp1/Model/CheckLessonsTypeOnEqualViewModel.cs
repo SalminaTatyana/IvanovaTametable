@@ -11,23 +11,19 @@ using WpfApp1.Model.FileMenegers;
 
 namespace WpfApp1.Model
 {
-    public class CheckLessonsOnEqualViewModel
+    public class CheckLessonsTypeOnEqualViewModel
     {
-        public LessonsFileMeneger lessonsFileMeneger = new LessonsFileMeneger();
-        public LessonsTypeFileMeneger lessonsTypeFileMeneger = new LessonsTypeFileMeneger();
-        private ObservableCollection<LessonsAll> lessons;
+        public LessonsTypeFileMeneger lessonsFileMeneger = new LessonsTypeFileMeneger();
         private ObservableCollection<LessonsType> lessonsType;
-        private ObservableCollection<LessonsAll> badLessons;
-        public ObservableCollection<LessonsAll> Lessons { get { return lessons; } }
-        public ObservableCollection<LessonsAll> BadLessons { get { return badLessons; } }
-        public CheckLessonsOnEqualViewModel()
+        private ObservableCollection<LessonsType> badLessonsType;
+        public ObservableCollection<LessonsType> LessonsType { get { return lessonsType; } }
+        public ObservableCollection<LessonsType> BadLessonsType { get { return badLessonsType; } }
+        public CheckLessonsTypeOnEqualViewModel()
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            lessonsFileMeneger = new LessonsFileMeneger();
-            lessonsTypeFileMeneger = new LessonsTypeFileMeneger();
-            lessons = new ObservableCollection<LessonsAll>();
+            lessonsFileMeneger = new LessonsTypeFileMeneger();
             lessonsType = new ObservableCollection<LessonsType>();
-            badLessons = new ObservableCollection<LessonsAll>();
+            badLessonsType = new ObservableCollection<LessonsType>();
             InitIdialLessonsTypeListAsync();
 
         }
@@ -36,12 +32,7 @@ namespace WpfApp1.Model
             try
             {
                 List<string> file = await lessonsFileMeneger.Read();
-                List<string> fileType = await lessonsTypeFileMeneger.Read();
                 foreach (var item in file)
-                {
-                    lessons.Add(new LessonsAll(item));
-                }
-                foreach (var item in fileType)
                 {
                     lessonsType.Add(new LessonsType(item));
                 }
@@ -55,7 +46,7 @@ namespace WpfApp1.Model
         }
         public void InitBadLessonsTypeList()
         {
-            using (ExcelPackage excelPackage = new ExcelPackage(CheckLessonsOnEqual.TimetableFile))
+            using (ExcelPackage excelPackage = new ExcelPackage(CheckLessonsTypeOnEqual.TimetableFile))
             {
                 try
                 {
@@ -72,7 +63,7 @@ namespace WpfApp1.Model
         {
             try
             {
-                List<LessonsAll> lessonsTypeFromTimetable = new List<LessonsAll>();
+                List<LessonsType> lessonsTypeFromTimetable = new List<LessonsType>();
                 int listCount = excelPackage.Workbook.Worksheets.Count();
                 List<ExcelWorksheet> anotherWorksheet = new List<ExcelWorksheet>();
                 for (int i = 0; i < listCount; i++)
@@ -109,8 +100,8 @@ namespace WpfApp1.Model
                                     if (matches.Count > 0)
                                     {
                                         int index = item.Cells[j, i].Value.ToString().IndexOf(matches[0].Value);
-                                        string str = item.Cells[j, i].Value.ToString().Substring(0,index).Trim();
-                                        lessonsTypeFromTimetable.Add(new LessonsAll(str));
+                                        string str = item.Cells[j, i].Value.ToString().Substring(index).Trim();
+                                        lessonsTypeFromTimetable.Add(new LessonsType(str));
                                     }
                                 }
 
@@ -122,7 +113,7 @@ namespace WpfApp1.Model
                 foreach (var item in lessonsTypeFromTimetable)
                 {
                     bool flag = false;
-                    foreach (var lessonType in lessons)
+                    foreach (var lessonType in lessonsType)
                     {
                         if (item.Names == lessonType.Names)
                         {
@@ -133,7 +124,7 @@ namespace WpfApp1.Model
                     if (!flag)
                     {
                         bool flag2 = false;
-                        foreach (var bad in badLessons)
+                        foreach (var bad in badLessonsType)
                         {
                             if (item.Names == bad.Names)
                             {
@@ -143,7 +134,7 @@ namespace WpfApp1.Model
                         }
                         if (!flag2)
                         {
-                            badLessons.Add(new LessonsAll(item.Names));
+                            badLessonsType.Add(new LessonsType(item.Names));
                         }
 
                     }

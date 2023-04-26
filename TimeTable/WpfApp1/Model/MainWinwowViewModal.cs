@@ -175,7 +175,9 @@ namespace WpfApp1.Model
         public RelayCommand AddFiles { get; set; }
         public RelayCommand OpenCheckGroup { get; set; }
         public RelayCommand OpenCheckTeach { get; set; }
-        public RelayCommand OpenCheckLesson { get; set; }
+        public RelayCommand OpenCheckClassroom { get; set; }
+        public RelayCommand OpenCheckLessonsType { get; set; }
+        public RelayCommand OpenCheckLessons { get; set; }
         public RelayCommand CleanFiles { get; set; }
         public GroupsAll SelectedItem { get; set; }
         public TeachersAll SelectedTeachers { get; set; }
@@ -223,7 +225,9 @@ namespace WpfApp1.Model
             CleanFiles = new RelayCommand(o => CleanList());
             OpenCheckGroup = new RelayCommand(o => GoCheckGroupOnEqual());
             OpenCheckTeach = new RelayCommand(o => GoCheckTeachOnEqual());
-            OpenCheckLesson = new RelayCommand(o => GoCheckLessonOnEqual());
+            OpenCheckClassroom = new RelayCommand(o => GoCheckClassroomsOnEqual());
+            OpenCheckLessonsType = new RelayCommand(o => GoCheckLessonsTypeOnEqual());
+            OpenCheckLessons = new RelayCommand(o => GoCheckLessonsOnEqual());
             InitOldFilesAsync();
             InitIdialGroupListAsync();
             InitIdialClassroomListAsync();
@@ -615,16 +619,34 @@ namespace WpfApp1.Model
         {
             if (SelectedFile != null)
             {
-                CheckedClassroomOnEqual view = new CheckedClassroomOnEqual(new FileInfo(SelectedFile.FilePaths));
+                CheckedTeachersOnEqual view = new CheckedTeachersOnEqual(new FileInfo(SelectedFile.FilePaths));
                 view.Show();
             }
 
         } 
-        public void GoCheckLessonOnEqual()
+        public void GoCheckClassroomsOnEqual()
         {
             if (SelectedFile != null)
             {
                 CheckClassroomOnEqual view = new CheckClassroomOnEqual(new FileInfo(SelectedFile.FilePaths));
+                view.Show();
+            }
+
+        } 
+        public void GoCheckLessonsTypeOnEqual()
+        {
+            if (SelectedFile != null)
+            {
+                CheckLessonsTypeOnEqual view = new CheckLessonsTypeOnEqual(new FileInfo(SelectedFile.FilePaths));
+                view.Show();
+            }
+
+        }
+        public void GoCheckLessonsOnEqual()
+        {
+            if (SelectedFile != null)
+            {
+                CheckLessonsOnEqual view = new CheckLessonsOnEqual(new FileInfo(SelectedFile.FilePaths));
                 view.Show();
             }
 

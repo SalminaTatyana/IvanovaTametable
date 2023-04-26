@@ -6,36 +6,37 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using WpfApp1.Model.ExcelFile;
 using WpfApp1.Model.FileMenegers;
 
 namespace WpfApp1.Model
 {
-    public class CheckTeacherEuqalViewModel
+    public class CheckClassroomsOnEqualViewModel
     {
-        public TeachersFileMeneger teachersFileMeneger = new TeachersFileMeneger();
-        private ObservableCollection<TeachersAll> teachers;
-        private ObservableCollection<TeachersAll> badTeachers;
-        public ObservableCollection<TeachersAll> Teachers { get { return teachers; } }
-        public ObservableCollection<TeachersAll> BadTeachers { get { return badTeachers; } }
-        public CheckTeacherEuqalViewModel()
+        public ClassroomsFileMeneger classroomsFileMeneger = new ClassroomsFileMeneger();
+        private ObservableCollection<ClassroomsAll> classrooms;
+        private ObservableCollection<ClassroomsAll> badLessons;
+        public ObservableCollection<ClassroomsAll> Classrooms { get { return classrooms; } }
+        public ObservableCollection<ClassroomsAll> BadClassrooms { get { return badLessons; } }
+        public CheckClassroomsOnEqualViewModel()
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            teachersFileMeneger = new TeachersFileMeneger();
-            teachers = new ObservableCollection<TeachersAll>();
-            badTeachers = new ObservableCollection<TeachersAll>();
-            InitIdialTeachersListAsync();
+            classroomsFileMeneger = new ClassroomsFileMeneger();
+            classrooms = new ObservableCollection<ClassroomsAll>();
+            badLessons = new ObservableCollection<ClassroomsAll>();
+            InitIdialClassroomsListAsync();
 
         }
-        public async Task InitIdialTeachersListAsync()
+        public async Task InitIdialClassroomsListAsync()
         {
             try
             {
-                List<string> file = await teachersFileMeneger.Read();
+                List<Classrooms> file = await classroomsFileMeneger.Read();
                 foreach (var item in file)
                 {
-                    teachers.Add(new TeachersAll(item));
+                    classrooms.Add(new ClassroomsAll(item.Names, (item.Practics ? "пр" : ""), item.Labs ? "лб" : "", item.PeopleNumber));
                 }
-                InitBadTeachersList();
+                InitBadClassroomsList();
             }
             catch (Exception ex)
             {
@@ -43,13 +44,13 @@ namespace WpfApp1.Model
             }
 
         }
-        public void InitBadTeachersList()
+        public void InitBadClassroomsList()
         {
-            using (ExcelPackage excelPackage = new ExcelPackage(CheckedTeachersOnEqual.TimetableFile))
+            using (ExcelPackage excelPackage = new ExcelPackage(CheckClassroomOnEqual.TimetableFile))
             {
                 try
                 {
-                    GetTeachersFromTimetable(excelPackage);
+                    GetClassroomsFromTimetable(excelPackage);
                 }
                 catch (Exception ex)
                 {
@@ -58,11 +59,11 @@ namespace WpfApp1.Model
 
             }
         }
-        public void GetTeachersFromTimetable(ExcelPackage excelPackage)
+        public void GetClassroomsFromTimetable(ExcelPackage excelPackage)
         {
             try
             {
-                List<TeachersAll> teachersFromTimetable = new List<TeachersAll>();
+                List<ClassroomsAll> lessonsFromTimetable = new List<ClassroomsAll>();
                 int listCount = excelPackage.Workbook.Worksheets.Count();
                 List<ExcelWorksheet> anotherWorksheet = new List<ExcelWorksheet>();
                 for (int i = 0; i < listCount; i++)
@@ -101,51 +102,34 @@ namespace WpfApp1.Model
                                     if (matches.Count > 0)
                                     {
                                         int index = item.Cells[j, i].Value.ToString().IndexOf(matches[0].Value[0]);
-                                        string str = item.Cells[j, i].Value.ToString().Substring(0, index).Trim();
-                                        if (item.Cells[j, i].Value.ToString().Substring(0, index).Trim().Contains("-"))
-                                        {
-                                            str = item.Cells[j, i].Value.ToString().Substring(0, index).Trim().Substring(0, item.Cells[j, i].Value.ToString().Substring(0, index).Trim().IndexOf("-")).Trim();
-                                        }
-                                        teachersFromTimetable.Add(new TeachersAll(str));
+                                        string str = item.Cells[j, i].Value.ToString().Substring(index).Trim();
+                                        lessonsFromTimetable.Add(new ClassroomsAll(str, "", "", 0));
                                     }
                                     else if (item.Cells[j, i].Value.ToString().ToLower().Contains("дист"))
                                     {
                                         int index = item.Cells[j, i].Value.ToString().IndexOf("дист");
-                                        string str = item.Cells[j, i].Value.ToString().Substring(0, index).Trim();
-                                        if (item.Cells[j, i].Value.ToString().Substring(0, index).Trim().Contains("-"))
-                                        {
-                                            str = item.Cells[j, i].Value.ToString().Substring(0, index).Trim().Substring(0, item.Cells[j, i].Value.ToString().Substring(0, index).Trim().IndexOf("-")).Trim();
-                                        }
-                                        teachersFromTimetable.Add(new TeachersAll(str));
+                                        string str = item.Cells[j, i].Value.ToString().Substring(index).Trim();
+                                        lessonsFromTimetable.Add(new ClassroomsAll(str, "", "", 0));
                                     }
                                     else if (item.Cells[j, i].Value.ToString().ToLower().Contains("зал"))
                                     {
                                         int index = item.Cells[j, i].Value.ToString().IndexOf("зал");
-                                        string str = item.Cells[j, i].Value.ToString().Substring(0, index).Trim();
-                                        if (item.Cells[j, i].Value.ToString().Substring(0, index).Trim().Contains("1-"))
+                                        string str = item.Cells[j, i].Value.ToString().Substring(index).Trim();
+                                        if (item.Cells[j, i].Value.ToString().Substring(0, index).Trim().Contains("1-") || item.Cells[j, i].Value.ToString().Substring(0, index).Trim().Contains("3-"))
                                         {
-                                            str = item.Cells[j, i].Value.ToString().Substring(0, index).Trim().Substring(0, item.Cells[j, i].Value.ToString().Substring(0, index).Trim().IndexOf("1-")).Trim();
+                                            str = item.Cells[j, i].Value.ToString().Substring(index - 4).Trim();
                                         }
-                                        if (item.Cells[j, i].Value.ToString().Substring(0, index).Trim().Contains("3-"))
-                                        {
-                                            str = item.Cells[j, i].Value.ToString().Substring(0, index).Trim().Substring(0, item.Cells[j, i].Value.ToString().Substring(0, index).Trim().IndexOf("3-")).Trim();
-                                        }
-                                        teachersFromTimetable.Add(new TeachersAll(str));
+
+                                        lessonsFromTimetable.Add(new ClassroomsAll(str, "", "", 0));
                                     }
                                     else if (item.Cells[j, i].Value.ToString().ToLower().Contains("базовая кафедра"))
                                     {
                                         int index = item.Cells[j, i].Value.ToString().IndexOf("базовая кафедра");
-                                        string str = item.Cells[j, i].Value.ToString().Substring(0, index).Trim();
-                                        if (item.Cells[j, i].Value.ToString().Substring(0, index).Trim().Contains("-"))
-                                        {
-                                            str = item.Cells[j, i].Value.ToString().Substring(0, index).Trim().Substring(0, item.Cells[j, i].Value.ToString().Substring(0, index).Trim().IndexOf("-")).Trim();
-                                        }
-                                        teachersFromTimetable.Add(new TeachersAll(str));
+                                        string str = item.Cells[j, i].Value.ToString().Substring(index).Trim();
+                                        lessonsFromTimetable.Add(new ClassroomsAll(str, "", "", 0));
                                     }
-                                    else
-                                    {
-                                        teachersFromTimetable.Add(new TeachersAll(item.Cells[j, i].Value.ToString().Trim()));
-                                    }
+
+
                                 }
 
                             }
@@ -153,12 +137,12 @@ namespace WpfApp1.Model
 
                     }
                 }
-                foreach (var item in teachersFromTimetable)
+                foreach (var item in lessonsFromTimetable)
                 {
                     bool flag = false;
-                    foreach (var teachers in teachers)
+                    foreach (var lesson in classrooms)
                     {
-                        if (item.Names == teachers.Names)
+                        if (item.Names == lesson.Names)
                         {
                             flag = true;
                             break;
@@ -167,7 +151,7 @@ namespace WpfApp1.Model
                     if (!flag)
                     {
                         bool flag2 = false;
-                        foreach (var bad in badTeachers)
+                        foreach (var bad in badLessons)
                         {
                             if (item.Names == bad.Names)
                             {
@@ -177,12 +161,12 @@ namespace WpfApp1.Model
                         }
                         if (!flag2)
                         {
-                            badTeachers.Add(item);
+                            badLessons.Add(new ClassroomsAll(item.Names, item.Practics, item.Labs, item.PeopleNumber));
                         }
-                        
+
                     }
                 }
-               
+
             }
             catch (Exception ex)
             {

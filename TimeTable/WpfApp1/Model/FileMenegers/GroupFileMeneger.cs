@@ -21,7 +21,7 @@ namespace WpfApp1.Model
                 }
             // сохранение данных
             
-            using (StreamWriter writer = new StreamWriter(path, true))
+            using (StreamWriter writer = new StreamWriter(path, false))
             {
                 foreach (Group group in file)
                 {
