@@ -132,7 +132,7 @@ namespace WpfApp1.Model
                         {
                             if (item.Cells[7, i].Value.ToString().Contains(group.GroupNames))
                             {
-                                item.Cells[7, i].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Red);
+                                item.Cells[7, i].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGoldenrodYellow);
                             }
                         }
                     }

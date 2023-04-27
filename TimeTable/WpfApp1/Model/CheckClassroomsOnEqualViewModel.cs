@@ -15,15 +15,27 @@ namespace WpfApp1.Model
     {
         public ClassroomsFileMeneger classroomsFileMeneger = new ClassroomsFileMeneger();
         private ObservableCollection<ClassroomsAll> classrooms;
-        private ObservableCollection<ClassroomsAll> badLessons;
+        private ObservableCollection<ClassroomsAll> badClassrooms;
         public ObservableCollection<ClassroomsAll> Classrooms { get { return classrooms; } }
-        public ObservableCollection<ClassroomsAll> BadClassrooms { get { return badLessons; } }
+        public ObservableCollection<ClassroomsAll> BadClassrooms { get { return badClassrooms; } }
+        public ClassroomsAll SelectedClassrooms { get; set; }
+        public ClassroomsAll SelectedBadClassrooms { get; set; }
+        public RelayCommand AddClassrooms { get; set; }
+        public RelayCommand SaveClassroomsChange { get; set; }
+        public RelayCommand HighlightClassroomsChange { get; set; }
+        public RelayCommand ReplaceClassroomsChange { get; set; }
+        List<ClassroomsAll> lessonsFromTimetable { get; set; }
         public CheckClassroomsOnEqualViewModel()
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             classroomsFileMeneger = new ClassroomsFileMeneger();
             classrooms = new ObservableCollection<ClassroomsAll>();
-            badLessons = new ObservableCollection<ClassroomsAll>();
+            badClassrooms = new ObservableCollection<ClassroomsAll>();
+            lessonsFromTimetable = new List<ClassroomsAll>();
+            AddClassrooms = new RelayCommand(o => AddNewClassrooms(SelectedBadClassrooms));
+            SaveClassroomsChange = new RelayCommand(o => SaveClassrooms());
+            HighlightClassroomsChange = new RelayCommand(o => HighlightClassrooms(SelectedBadClassrooms));
+            ReplaceClassroomsChange = new RelayCommand(o => ReplaceClassrooms(SelectedClassrooms, SelectedBadClassrooms));
             InitIdialClassroomsListAsync();
 
         }
@@ -59,11 +71,149 @@ namespace WpfApp1.Model
 
             }
         }
+        public async Task AddNewClassrooms(ClassroomsAll classes)
+        {
+           
+            bool flag = false;
+            for (int i = 0; i < classrooms.Count; i++)
+            {
+                if (classrooms[i].Names.ToLower() == classes.Names.ToLower())
+                {
+                    classrooms[i].PeopleNumber = classes.PeopleNumber;
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag)
+            {
+                App.Current.Dispatcher.Invoke((Action)delegate ()
+                {
+                    classrooms.Add(new ClassroomsAll(classes.Names, classes.Practics,classes.Labs, classes.PeopleNumber));
+
+                });
+            }
+            SaveClassrooms();
+        }
+        public async Task HighlightClassrooms(ClassroomsAll group)
+        {
+            using (ExcelPackage excelPackage = new ExcelPackage(CheckClassroomOnEqual.TimetableFile))
+            {
+                int listCount = excelPackage.Workbook.Worksheets.Count();
+                List<ExcelWorksheet> anotherWorksheet = new List<ExcelWorksheet>();
+                for (int i = 0; i < listCount; i++)
+                {
+                    anotherWorksheet.Add(excelPackage.Workbook.Worksheets[i]);
+                }
+                foreach (var item in anotherWorksheet)
+                {
+                    for (int j = 9; j < 88; j = j + 2)
+                    {
+                        int col = item.Dimension.End.Column;
+                        for (int i = 1; i < col; i++)
+                        {
+
+                            if (item.Cells[j, i].Value != null)
+                            {
+                                if (item.Cells[j, i].Value.ToString().Contains(group.Names))
+                                {
+                                    item.Cells[j, i].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.DarkGreen);
+                                }
+                            }
+                        }
+                    }
+                }
+                excelPackage.SaveAs(CheckClassroomOnEqual.TimetableFile);
+                excelPackage.Dispose();
+            }
+        }
+        public async Task ReplaceClassrooms(ClassroomsAll group, ClassroomsAll badGroup)
+        {
+            using (ExcelPackage excelPackage = new ExcelPackage(CheckClassroomOnEqual.TimetableFile))
+            {
+                int listCount = excelPackage.Workbook.Worksheets.Count();
+                List<ExcelWorksheet> anotherWorksheet = new List<ExcelWorksheet>();
+                for (int i = 0; i < listCount; i++)
+                {
+                    anotherWorksheet.Add(excelPackage.Workbook.Worksheets[i]);
+                }
+                foreach (var item in anotherWorksheet)
+                {
+                    int col = item.Dimension.End.Column;
+                    for (int j = 9; j <88; j=j+2)
+                    {
+                        for (int i = 1; i < col; i++)
+                        {
+
+                            if (item.Cells[j, i].Value != null)
+                            {
+                                if (item.Cells[j, i].Value.ToString().ToLower().Contains(badGroup.Names.ToLower()))
+                                {
+                                    item.Cells[j, i].Value = group.Names;
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+                excelPackage.SaveAs(CheckClassroomOnEqual.TimetableFile);
+                excelPackage.Dispose();
+                App.Current.Dispatcher.Invoke((Action)delegate ()
+                {
+                    badClassrooms.Remove(badGroup);
+                });
+
+            }
+        }
+        public async Task SaveClassrooms()
+        {
+            List<ExcelFile.Classrooms> saveGroup = new List<ExcelFile.Classrooms>();
+            foreach (var group in classrooms)
+            {
+                saveGroup.Add(new ExcelFile.Classrooms(group.Names, group.Practics.Length>0, group.Labs.Length > 0, group.PeopleNumber));
+            }
+            App.Current.Dispatcher.Invoke((Action)delegate ()
+            {
+                classrooms.Clear();
+            });
+            await classroomsFileMeneger.Save(saveGroup);
+            List<Classrooms> file = await classroomsFileMeneger.Read();
+            foreach (var item in file)
+            {
+                App.Current.Dispatcher.Invoke((Action)delegate ()
+                {
+                    classrooms.Add(new ClassroomsAll(item.Names, "","" ,item.PeopleNumber));
+                });
+            }
+            App.Current.Dispatcher.Invoke((Action)delegate ()
+            {
+                badClassrooms.Clear();
+            });
+
+            foreach (var item in lessonsFromTimetable)
+            {
+                bool flag = false;
+                foreach (var group in classrooms)
+                {
+                    if (item.Names.ToLower() == group.Names.ToLower())
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag)
+                {
+                    App.Current.Dispatcher.Invoke((Action)delegate ()
+                    {
+                        badClassrooms.Add(item);
+                    });
+
+                }
+            }
+        }
         public void GetClassroomsFromTimetable(ExcelPackage excelPackage)
         {
             try
             {
-                List<ClassroomsAll> lessonsFromTimetable = new List<ClassroomsAll>();
                 int listCount = excelPackage.Workbook.Worksheets.Count();
                 List<ExcelWorksheet> anotherWorksheet = new List<ExcelWorksheet>();
                 for (int i = 0; i < listCount; i++)
@@ -151,7 +301,7 @@ namespace WpfApp1.Model
                     if (!flag)
                     {
                         bool flag2 = false;
-                        foreach (var bad in badLessons)
+                        foreach (var bad in badClassrooms)
                         {
                             if (item.Names == bad.Names)
                             {
@@ -161,7 +311,7 @@ namespace WpfApp1.Model
                         }
                         if (!flag2)
                         {
-                            badLessons.Add(new ClassroomsAll(item.Names, item.Practics, item.Labs, item.PeopleNumber));
+                            badClassrooms.Add(new ClassroomsAll(item.Names, item.Practics, item.Labs, item.PeopleNumber));
                         }
 
                     }
