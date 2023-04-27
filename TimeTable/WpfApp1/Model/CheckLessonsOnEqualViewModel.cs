@@ -124,7 +124,7 @@ namespace WpfApp1.Model
                             {
                                 if (item.Cells[j, i].Value.ToString().Contains(lesson.Names))
                                 {
-                                    item.Cells[j, i].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.DarkRed);
+                                    item.Cells[j, i].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Crimson);
                                 }
                             }
                         }

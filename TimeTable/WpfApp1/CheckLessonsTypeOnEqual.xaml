@@ -7,14 +7,14 @@
                 xmlns:viewmodel="clr-namespace:WpfApp1.Model"
 
         mc:Ignorable="d"
-        Title="CheckLessonsTypeOnEqual" Height="450" Width="800">
+        Title="CheckLessonsTypeOnEqual" Height="450" Width="900">
     <Window.DataContext>
         <viewmodel:CheckLessonsTypeOnEqualViewModel/>
     </Window.DataContext>
     <Grid>
         <Grid Background="#FF1D1D1D">
             <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="337" Height="25"  Padding="5" FontFamily="Arial" FontSize="16" FontWeight="Bold"><Run Language="ru-ru" Text="Заданный "/><Run Language="ru-ru" Text="с"/><Run Text="писок типов дисциплин "/></TextBlock>
-            <ListBox Background="#FF561B1A" ItemsSource="{Binding LessonsType}" Margin="10,49,0,0" Height="328" VerticalAlignment="Top" Name="GroupListBox" HorizontalAlignment="Left" Width="368">
+            <ListBox Background="#FF561B1A" ItemsSource="{Binding LessonsType,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedLessonsType, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10,49,0,0" Height="328" VerticalAlignment="Top" Name="LessonsTypeListBox" HorizontalAlignment="Left" Width="368">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Menu Height="20" VerticalAlignment="Top"  Foreground="White" Background="{x:Null}">
@@ -25,7 +25,7 @@
 
             </ListBox>
             <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="400,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="278" Height="25"  Padding="5" FontFamily="Arial" FontSize="16" FontWeight="Bold"><Run Language="ru-ru" Text="Обнаруженные несоответсвия"/><Run Text=" "/><Run Text="с"/><Run Text="писок групп "/></TextBlock>
-            <ListBox Background="#FF561B1A" ItemsSource="{Binding BadLessonsType}" Margin="400,49,0,0" Height="328" VerticalAlignment="Top" x:Name="GroupListBox_Copy" HorizontalAlignment="Left" Width="368">
+            <ListBox Background="#FF561B1A" ItemsSource="{Binding BadLessonsType,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedBadLessonsType, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="400,49,0,0" Height="328" VerticalAlignment="Top" Name="BadLessonsTypeListBox" HorizontalAlignment="Left" Width="368">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Menu Height="20" VerticalAlignment="Top"  Foreground="White" Background="{x:Null}">
@@ -35,7 +35,44 @@
                 </ListBox.ItemTemplate>
 
             </ListBox>
+            <Button Content="Добавить" Margin="773,49,4,0" VerticalAlignment="Top" Background="#FF594CEA" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="28" Command="{Binding AddLessonsType, UpdateSourceTrigger=PropertyChanged}">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=BadLessonsTypeListBox, UpdateSourceTrigger=PropertyChanged,Path=SelectedIndex}" Value="-1">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
 
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Content="Отметить в Excel" Margin="773,82,4,0" VerticalAlignment="Top" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="30" Command="{Binding HighlightLessonsTypeChange, UpdateSourceTrigger=PropertyChanged}">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedIndex, ElementName=BadLessonsTypeListBox, UpdateSourceTrigger=PropertyChanged}" Value="-1">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Content="Заменить на" Margin="773,117,4,0" VerticalAlignment="Top" Background="#FF594CEA" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="30" Command="{Binding ReplaceLessonsTypeChange, UpdateSourceTrigger=PropertyChanged}">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedIndex, ElementName=BadLessonsTypeListBox, UpdateSourceTrigger=PropertyChanged}" Value="-1">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedIndex, ElementName=LessonsTypeListBox, UpdateSourceTrigger=PropertyChanged}" Value="-1">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Grid>
     </Grid>
 </Window>

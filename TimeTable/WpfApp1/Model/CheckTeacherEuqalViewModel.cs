@@ -17,12 +17,24 @@ namespace WpfApp1.Model
         private ObservableCollection<TeachersAll> badTeachers;
         public ObservableCollection<TeachersAll> Teachers { get { return teachers; } }
         public ObservableCollection<TeachersAll> BadTeachers { get { return badTeachers; } }
+        public TeachersAll SelectedTeachers { get; set; }
+        public TeachersAll SelectedBadTeachers { get; set; }
+        public RelayCommand AddTeachers { get; set; }
+        public RelayCommand SaveTeachersChange { get; set; }
+        public RelayCommand HighlightTeachersChange { get; set; }
+        public RelayCommand ReplaceTeachersChange { get; set; }
+        public List<TeachersAll> teachersFromTimetable { get; set; }
         public CheckTeacherEuqalViewModel()
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             teachersFileMeneger = new TeachersFileMeneger();
             teachers = new ObservableCollection<TeachersAll>();
             badTeachers = new ObservableCollection<TeachersAll>();
+            teachersFromTimetable = new List<TeachersAll>();
+            AddTeachers = new RelayCommand(o => AddNewTeachers(SelectedBadTeachers));
+            SaveTeachersChange = new RelayCommand(o => SaveTeachers());
+            HighlightTeachersChange = new RelayCommand(o => HighlightTeachers(SelectedBadTeachers));
+            ReplaceTeachersChange = new RelayCommand(o => ReplaceTeachers(SelectedTeachers, SelectedBadTeachers));
             InitIdialTeachersListAsync();
 
         }
@@ -58,11 +70,148 @@ namespace WpfApp1.Model
 
             }
         }
+        public async Task AddNewTeachers(TeachersAll lesson)
+        {
+
+            bool flag = false;
+            for (int i = 0; i < teachers.Count; i++)
+            {
+                if (teachers[i].Names.ToLower() == lesson.Names.ToLower())
+                {
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag)
+            {
+                App.Current.Dispatcher.Invoke((Action)delegate ()
+                {
+                    teachers.Add(new TeachersAll(lesson.Names));
+
+                });
+            }
+            SaveTeachers();
+        }
+        public async Task HighlightTeachers(TeachersAll lesson)
+        {
+            using (ExcelPackage excelPackage = new ExcelPackage(CheckedTeachersOnEqual.TimetableFile))
+            {
+                int listCount = excelPackage.Workbook.Worksheets.Count();
+                List<ExcelWorksheet> anotherWorksheet = new List<ExcelWorksheet>();
+                for (int i = 0; i < listCount; i++)
+                {
+                    anotherWorksheet.Add(excelPackage.Workbook.Worksheets[i]);
+                }
+                foreach (var item in anotherWorksheet)
+                {
+                    for (int j = 9; j < 88; j = j + 2)
+                    {
+                        int col = item.Dimension.End.Column;
+                        for (int i = 1; i < col; i++)
+                        {
+
+                            if (item.Cells[j, i].Value != null)
+                            {
+                                if (item.Cells[j, i].Value.ToString().Contains(lesson.Names))
+                                {
+                                    item.Cells[j, i].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Indigo);
+                                }
+                            }
+                        }
+                    }
+                }
+                excelPackage.SaveAs(CheckedTeachersOnEqual.TimetableFile);
+                excelPackage.Dispose();
+            }
+        }
+        public async Task ReplaceTeachers(TeachersAll lesson, TeachersAll badLesson)
+        {
+            using (ExcelPackage excelPackage = new ExcelPackage(CheckedTeachersOnEqual.TimetableFile))
+            {
+                int listCount = excelPackage.Workbook.Worksheets.Count();
+                List<ExcelWorksheet> anotherWorksheet = new List<ExcelWorksheet>();
+                for (int i = 0; i < listCount; i++)
+                {
+                    anotherWorksheet.Add(excelPackage.Workbook.Worksheets[i]);
+                }
+                foreach (var item in anotherWorksheet)
+                {
+                    int col = item.Dimension.End.Column;
+                    for (int j = 9; j < 88; j = j + 2)
+                    {
+                        for (int i = 1; i < col; i++)
+                        {
+
+                            if (item.Cells[j, i].Value != null)
+                            {
+                                if (item.Cells[j, i].Value.ToString().ToLower().Contains(badLesson.Names.ToLower()))
+                                {
+                                    item.Cells[j, i].Value = lesson.Names;
+                                }
+                            }
+                        }
+                    }
+
+                }
+                excelPackage.SaveAs(CheckedTeachersOnEqual.TimetableFile);
+                excelPackage.Dispose();
+                App.Current.Dispatcher.Invoke((Action)delegate ()
+                {
+                    badTeachers.Remove(badLesson);
+                });
+
+            }
+        }
+        public async Task SaveTeachers()
+        {
+            List<string> saveGroup = new List<string>();
+            foreach (var group in teachers)
+            {
+                saveGroup.Add(group.Names);
+            }
+            App.Current.Dispatcher.Invoke((Action)delegate ()
+            {
+                teachers.Clear();
+            });
+            await teachersFileMeneger.Save(saveGroup);
+            List<string> file = await teachersFileMeneger.Read();
+            foreach (var item in file)
+            {
+                App.Current.Dispatcher.Invoke((Action)delegate ()
+                {
+                    teachers.Add(new TeachersAll(item));
+                });
+            }
+            App.Current.Dispatcher.Invoke((Action)delegate ()
+            {
+                badTeachers.Clear();
+            });
+
+            foreach (var item in teachersFromTimetable)
+            {
+                bool flag = false;
+                foreach (var group in teachers)
+                {
+                    if (item.Names.ToLower() == group.Names.ToLower())
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag)
+                {
+                    App.Current.Dispatcher.Invoke((Action)delegate ()
+                    {
+                        badTeachers.Add(item);
+                    });
+
+                }
+            }
+        }
         public void GetTeachersFromTimetable(ExcelPackage excelPackage)
         {
             try
             {
-                List<TeachersAll> teachersFromTimetable = new List<TeachersAll>();
                 int listCount = excelPackage.Workbook.Worksheets.Count();
                 List<ExcelWorksheet> anotherWorksheet = new List<ExcelWorksheet>();
                 for (int i = 0; i < listCount; i++)

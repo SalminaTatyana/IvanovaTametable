@@ -18,12 +18,24 @@ namespace WpfApp1.Model
         private ObservableCollection<LessonsType> badLessonsType;
         public ObservableCollection<LessonsType> LessonsType { get { return lessonsType; } }
         public ObservableCollection<LessonsType> BadLessonsType { get { return badLessonsType; } }
+        public LessonsType SelectedLessonsType { get; set; }
+        public LessonsType SelectedBadLessonsType { get; set; }
+        public RelayCommand AddLessonsType { get; set; }
+        public RelayCommand SaveLessonsTypeChange { get; set; }
+        public RelayCommand HighlightLessonsTypeChange { get; set; }
+        public RelayCommand ReplaceLessonsTypeChange { get; set; }
+        public List<LessonsType> lessonsTypeFromTimetable { get; set; }
         public CheckLessonsTypeOnEqualViewModel()
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             lessonsFileMeneger = new LessonsTypeFileMeneger();
             lessonsType = new ObservableCollection<LessonsType>();
             badLessonsType = new ObservableCollection<LessonsType>();
+            lessonsTypeFromTimetable = new List<LessonsType>();
+            AddLessonsType = new RelayCommand(o => AddNewLessonsType(SelectedBadLessonsType));
+            SaveLessonsTypeChange = new RelayCommand(o => SaveLessonsType());
+            HighlightLessonsTypeChange = new RelayCommand(o => HighlightLessonsType(SelectedBadLessonsType));
+            ReplaceLessonsTypeChange = new RelayCommand(o => ReplaceLessonsType(SelectedLessonsType, SelectedBadLessonsType));
             InitIdialLessonsTypeListAsync();
 
         }
@@ -59,11 +71,148 @@ namespace WpfApp1.Model
 
             }
         }
+        public async Task AddNewLessonsType(LessonsType lesson)
+        {
+
+            bool flag = false;
+            for (int i = 0; i < lessonsType.Count; i++)
+            {
+                if (lessonsType[i].Names.ToLower() == lesson.Names.ToLower())
+                {
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag)
+            {
+                App.Current.Dispatcher.Invoke((Action)delegate ()
+                {
+                    lessonsType.Add(new LessonsType(lesson.Names));
+
+                });
+            }
+            SaveLessonsType();
+        }
+        public async Task HighlightLessonsType(LessonsType lesson)
+        {
+            using (ExcelPackage excelPackage = new ExcelPackage(CheckLessonsTypeOnEqual.TimetableFile))
+            {
+                int listCount = excelPackage.Workbook.Worksheets.Count();
+                List<ExcelWorksheet> anotherWorksheet = new List<ExcelWorksheet>();
+                for (int i = 0; i < listCount; i++)
+                {
+                    anotherWorksheet.Add(excelPackage.Workbook.Worksheets[i]);
+                }
+                foreach (var item in anotherWorksheet)
+                {
+                    for (int j = 8; j < 87; j = j + 2)
+                    {
+                        int col = item.Dimension.End.Column;
+                        for (int i = 1; i < col; i++)
+                        {
+
+                            if (item.Cells[j, i].Value != null)
+                            {
+                                if (item.Cells[j, i].Value.ToString().Contains(lesson.Names))
+                                {
+                                    item.Cells[j, i].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.DarkRed);
+                                }
+                            }
+                        }
+                    }
+                }
+                excelPackage.SaveAs(CheckLessonsTypeOnEqual.TimetableFile);
+                excelPackage.Dispose();
+            }
+        }
+        public async Task ReplaceLessonsType(LessonsType lesson, LessonsType badLesson)
+        {
+            using (ExcelPackage excelPackage = new ExcelPackage(CheckLessonsTypeOnEqual.TimetableFile))
+            {
+                int listCount = excelPackage.Workbook.Worksheets.Count();
+                List<ExcelWorksheet> anotherWorksheet = new List<ExcelWorksheet>();
+                for (int i = 0; i < listCount; i++)
+                {
+                    anotherWorksheet.Add(excelPackage.Workbook.Worksheets[i]);
+                }
+                foreach (var item in anotherWorksheet)
+                {
+                    int col = item.Dimension.End.Column;
+                    for (int j = 8; j < 87; j = j + 2)
+                    {
+                        for (int i = 1; i < col; i++)
+                        {
+
+                            if (item.Cells[j, i].Value != null)
+                            {
+                                if (item.Cells[j, i].Value.ToString().ToLower().Contains(badLesson.Names.ToLower()))
+                                {
+                                    item.Cells[j, i].Value = lesson.Names;
+                                }
+                            }
+                        }
+                    }
+
+                }
+                excelPackage.SaveAs(CheckLessonsTypeOnEqual.TimetableFile);
+                excelPackage.Dispose();
+                App.Current.Dispatcher.Invoke((Action)delegate ()
+                {
+                    badLessonsType.Remove(badLesson);
+                });
+
+            }
+        }
+        public async Task SaveLessonsType()
+        {
+            List<string> saveGroup = new List<string>();
+            foreach (var group in lessonsType)
+            {
+                saveGroup.Add(group.Names);
+            }
+            App.Current.Dispatcher.Invoke((Action)delegate ()
+            {
+                lessonsType.Clear();
+            });
+            await lessonsFileMeneger.Save(saveGroup);
+            List<string> file = await lessonsFileMeneger.Read();
+            foreach (var item in file)
+            {
+                App.Current.Dispatcher.Invoke((Action)delegate ()
+                {
+                    lessonsType.Add(new LessonsType(item));
+                });
+            }
+            App.Current.Dispatcher.Invoke((Action)delegate ()
+            {
+                badLessonsType.Clear();
+            });
+
+            foreach (var item in lessonsTypeFromTimetable)
+            {
+                bool flag = false;
+                foreach (var group in lessonsType)
+                {
+                    if (item.Names.ToLower() == group.Names.ToLower())
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag)
+                {
+                    App.Current.Dispatcher.Invoke((Action)delegate ()
+                    {
+                        badLessonsType.Add(item);
+                    });
+
+                }
+            }
+        }
         public void GetLessonsTypeFromTimetable(ExcelPackage excelPackage)
         {
             try
             {
-                List<LessonsType> lessonsTypeFromTimetable = new List<LessonsType>();
                 int listCount = excelPackage.Workbook.Worksheets.Count();
                 List<ExcelWorksheet> anotherWorksheet = new List<ExcelWorksheet>();
                 for (int i = 0; i < listCount; i++)
