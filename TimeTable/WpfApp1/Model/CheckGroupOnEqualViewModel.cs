@@ -16,8 +16,12 @@ namespace WpfApp1.Model
         public List<GroupsAll> Groups { get { return groups; } }
         public List<GroupsAll> BadGroups { get { return badGroups; } }
         public GroupsAll SelectedBadGroup { get; set; }
+        public GroupsAll SelectedGroup { get; set; }
         public RelayCommand AddGroup { get; set; }
         public RelayCommand SaveGroupChange { get; set; }
+        public RelayCommand HighlightGroupChange { get; set; }
+        public RelayCommand ReplaceGroupChange { get; set; }
+        List<GroupsAll> groupFromTimetable { get; set; }
 
         public CheckGroupOnEqualViewModel()
         {
@@ -27,6 +31,9 @@ namespace WpfApp1.Model
             badGroups = new List<GroupsAll>();
             AddGroup = new RelayCommand(o => AddNewGroup(SelectedBadGroup));
             SaveGroupChange = new RelayCommand(o => SaveGroupsChange());
+            HighlightGroupChange = new RelayCommand(o => HighlightGroup(SelectedBadGroup));
+            ReplaceGroupChange = new RelayCommand(o => ReplaceGroup(SelectedGroup,SelectedBadGroup));
+            groupFromTimetable = new List<GroupsAll>();
             InitIdialGroupListAsync();
         }
         public async Task InitIdialGroupListAsync()
@@ -105,13 +112,80 @@ namespace WpfApp1.Model
             }
             SaveGroupsChange();
         }
+        public async Task HighlightGroup(GroupsAll group)
+        {
+            using (ExcelPackage excelPackage = new ExcelPackage(CheckGroupOnEqual.TimetableFile))
+            {
+                int listCount = excelPackage.Workbook.Worksheets.Count();
+                List<ExcelWorksheet> anotherWorksheet = new List<ExcelWorksheet>();
+                for (int i = 0; i < listCount; i++)
+                {
+                    anotherWorksheet.Add(excelPackage.Workbook.Worksheets[i]);
+                }
+                foreach (var item in anotherWorksheet)
+                {
+                    int col = item.Dimension.End.Column;
+                    for (int i = 1; i < col; i++)
+                    {
+
+                        if (item.Cells[7, i].Value != null)
+                        {
+                            if (item.Cells[7, i].Value.ToString().Contains(group.GroupNames))
+                            {
+                                item.Cells[7, i].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Red);
+                            }
+                        }
+                    }
+                }
+                excelPackage.SaveAs(CheckGroupOnEqual.TimetableFile);
+                excelPackage.Dispose();
+            }  
+        }
+        public async Task ReplaceGroup(GroupsAll group,GroupsAll badGroup)
+        {
+            using (ExcelPackage excelPackage = new ExcelPackage(CheckGroupOnEqual.TimetableFile))
+            {
+                int listCount = excelPackage.Workbook.Worksheets.Count();
+                List<ExcelWorksheet> anotherWorksheet = new List<ExcelWorksheet>();
+                for (int i = 0; i < listCount; i++)
+                {
+                    anotherWorksheet.Add(excelPackage.Workbook.Worksheets[i]);
+                }
+                foreach (var item in anotherWorksheet)
+                {
+                    int col = item.Dimension.End.Column;
+                    for (int i = 1; i < col; i++)
+                    {
+
+                        if (item.Cells[7, i].Value != null)
+                        {
+                            if (item.Cells[7, i].Value.ToString().ToLower().Contains(badGroup.GroupNames.ToLower()))
+                            {
+                                item.Cells[7, i].Value=group.GroupNames;
+                            }
+                        }
+                    }
+                }
+                excelPackage.SaveAs(CheckGroupOnEqual.TimetableFile);
+                excelPackage.Dispose();
+                App.Current.Dispatcher.Invoke((Action)delegate ()
+                {
+                    badGroups.Remove(badGroup);
+                });
+                
+            }  
+        }
         public async Task SaveGroupsChange()
         {
             List<ExcelFile.Group> saveGroup = new List<ExcelFile.Group>();
             foreach (var group in groups)
             {
-                saveGroup.Add(new ExcelFile.Group(group.GroupNames, group.Cource, group.Cource));
+                saveGroup.Add(new ExcelFile.Group(group.GroupNames, group.Cource, group.StudentNumber));
             }
+            App.Current.Dispatcher.Invoke((Action)delegate ()
+            {
+                groups.Clear();
+            });
             await groupFileManager.Save(saveGroup);
             List<Group> file = await groupFileManager.Read();
             foreach (var item in file)
@@ -121,13 +195,36 @@ namespace WpfApp1.Model
                     groups.Add(new GroupsAll(item.Name, item.Cource, item.StudentNumber));
                 });
             }
-            
+            App.Current.Dispatcher.Invoke((Action)delegate ()
+            {
+                badGroups.Clear();
+            });
+           
+            foreach (var item in groupFromTimetable)
+            {
+                bool flag = false;
+                foreach (var group in groups)
+                {
+                    if (item.GroupNames.ToLower() == group.GroupNames.ToLower())
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag)
+                {
+                    App.Current.Dispatcher.Invoke((Action)delegate ()
+                    {
+                        badGroups.Add(item);
+                    });
+                    
+                }
+            }
         }
         public void GetGroupFromTimetable(ExcelPackage excelPackage)
         {
             try
             {
-                List<GroupsAll> groupFromTimetable = new List<GroupsAll>();
                 int listCount=excelPackage.Workbook.Worksheets.Count();
                 List<ExcelWorksheet> anotherWorksheet = new List<ExcelWorksheet>();
                 for (int i = 0; i < listCount; i++)
@@ -186,7 +283,7 @@ namespace WpfApp1.Model
                     bool flag = false;
                     foreach (var group in groups)
                     {
-                        if (item.GroupNames==group.GroupNames)
+                        if (item.GroupNames.ToLower()==group.GroupNames.ToLower())
                         {
                             flag = true;
                             break;

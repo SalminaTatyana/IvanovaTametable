@@ -177,14 +177,14 @@
                                             <MenuItem  FontFamily="Arial"  Foreground="White" FontSize="18" Height="30">
                                                 <MenuItem.Header>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBox Name="tbCustomDataRange"  Foreground="White" Background="{x:Null}" Margin="2,0" Text="{Binding GroupNames}"/>
+                                                        <TextBox Name="tbCustomDataRange"  Foreground="White" Background="{x:Null}" Margin="2,0" Text="{Binding GroupNames,UpdateSourceTrigger=PropertyChanged}"/>
                                                     </StackPanel>
                                                 </MenuItem.Header>
                                             </MenuItem>
                                             <MenuItem  Foreground="White" FontFamily="Arial" FontSize="18" Height="30">
                                                 <MenuItem.Header>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBox Margin="2,0" Text="{Binding StudentNumber}" Foreground="White" Background="{x:Null}"/>
+                                                        <TextBox Margin="2,0" Text="{Binding StudentNumber,UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="{x:Null}"/>
                                                     </StackPanel>
                                                 </MenuItem.Header>
                                             </MenuItem>
@@ -238,28 +238,28 @@
                                             <MenuItem  FontFamily="Arial" Background="{x:Null}" Foreground="White" FontSize="18" >
                                                 <MenuItem.Header>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBox  Margin="2,0" Text="{Binding Names}" Foreground="White" Background="{x:Null}"/>
+                                                        <TextBox  Margin="2,0" Text="{Binding Names,UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="{x:Null}"/>
                                                     </StackPanel>
                                                 </MenuItem.Header>
                                             </MenuItem>
                                             <MenuItem  FontFamily="Arial"  Foreground="White" FontSize="18" >
                                                 <MenuItem.Header>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBox  Margin="2,0" Text="{Binding PeopleNumber}" Foreground="White" Background="{x:Null}"/>
+                                                        <TextBox  Margin="2,0" Text="{Binding PeopleNumber,UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="{x:Null}"/>
                                                     </StackPanel>
                                                 </MenuItem.Header>
                                             </MenuItem>
                                             <MenuItem FontFamily="Arial"  Foreground="White" FontSize="18" >
                                                 <MenuItem.Header>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBox Margin="2,0" Text="{Binding Practics}" Foreground="White" Background="{x:Null}"/>
+                                                        <TextBox Margin="2,0" Text="{Binding Practics,UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="{x:Null}"/>
                                                     </StackPanel>
                                                 </MenuItem.Header>
                                             </MenuItem>
                                             <MenuItem FontFamily="Arial"  Foreground="White" FontSize="18" >
                                                 <MenuItem.Header>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBox  Margin="2,0" Text="{Binding Labs}" Foreground="White" Background="{x:Null}"/>
+                                                        <TextBox  Margin="2,0" Text="{Binding Labs,UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="{x:Null}"/>
                                                     </StackPanel>
                                                 </MenuItem.Header>
                                             </MenuItem>
@@ -316,11 +316,11 @@
                                             <MenuItem FontFamily="Arial"  Foreground="White" FontSize="18" >
                                                 <MenuItem.Header>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBox Margin="2,0" Text="{Binding Names}" Foreground="White" Background="{x:Null}"/>
+                                                        <TextBox Margin="2,0" Text="{Binding Names,UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="{x:Null}"/>
                                                     </StackPanel>
                                                 </MenuItem.Header>
                                             </MenuItem>
-                                            <MenuItem Header="{Binding LesssondNames}" FontFamily="Arial"  Foreground="White" Background="{x:Null}" FontSize="18"  ></MenuItem>
+                                            <MenuItem Header="{Binding LesssondNames,UpdateSourceTrigger=PropertyChanged}" FontFamily="Arial"  Foreground="White" Background="{x:Null}" FontSize="18"  ></MenuItem>
                                         </Menu>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
@@ -367,7 +367,7 @@
                                             <MenuItem  FontFamily="Arial"  Foreground="White" Background="{x:Null}" FontSize="18" >
                                                 <MenuItem.Header>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBox Margin="2,0" Text="{Binding Names}"  Foreground="White" Background="{x:Null}"/>
+                                                        <TextBox Margin="2,0" Text="{Binding Names,UpdateSourceTrigger=PropertyChanged}"  Foreground="White" Background="{x:Null}"/>
                                                     </StackPanel>
                                                 </MenuItem.Header>
                                             </MenuItem>
@@ -418,7 +418,7 @@
                                             <MenuItem  FontFamily="Arial"  Foreground="White" Background="{x:Null}" FontSize="16" >
                                                 <MenuItem.Header>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBox Margin="2,0" Text="{Binding Names}" Foreground="White" Background="{x:Null}"/>
+                                                        <TextBox Margin="2,0" Text="{Binding Names,UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="{x:Null}"/>
                                                     </StackPanel>
                                                 </MenuItem.Header>
                                             </MenuItem>

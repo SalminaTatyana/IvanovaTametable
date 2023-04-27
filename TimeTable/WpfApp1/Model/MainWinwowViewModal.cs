@@ -422,7 +422,7 @@ namespace WpfApp1.Model
            List<ExcelFile.Group> saveGroup = new List<ExcelFile.Group>();
             foreach (var group in groups)
             {
-                saveGroup.Add(new ExcelFile.Group(group.GroupNames,group.Cource,group.Cource));
+                saveGroup.Add(new ExcelFile.Group(group.GroupNames,group.Cource,group.StudentNumber));
             }
             await groupFileManager.Save(saveGroup);
         }
