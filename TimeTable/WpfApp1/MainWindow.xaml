@@ -28,7 +28,7 @@
             <Button Height="42" Margin="0,0,4,0" VerticalAlignment="Top" Background="#FF6B6C6F" BorderBrush="{x:Null}" Content="Выбрать файл" Foreground="White" FontSize="16" FontFamily="Arial" FontWeight="Bold" Command="{Binding AddFiles}">
             </Button>
             <TextBlock FontWeight="Bold" Text="Последние" Foreground="White" Height="312" VerticalAlignment="Top" Margin="0,52,0,0" />
-            <Button Height="22" Margin="124,52,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="22" Command="{Binding CleanFiles}">
+            <Button Height="22" ToolTip="Очистить список"  Margin="124,52,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="22" Command="{Binding CleanFiles}">
                 <Image Source="img/delete.png" Stretch="UniformToFill"></Image>
             </Button>
             <ListBox  ItemsSource="{Binding Files}" SelectedItem="{Binding Path=SelectedFile, Mode=TwoWay}" Margin="0,80,0,0"  Background="{x:Null}" Foreground="White" FontSize="14" FontFamily="Arial" BorderBrush="{x:Null}" Name="oldFileList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
@@ -65,7 +65,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,50,4,0" VerticalAlignment="Top" Background="#FFE25A5A" BorderBrush="{x:Null}" Padding="3">
+            <Button Height="42" Margin="4,50,4,0" VerticalAlignment="Top" Background="#FFE25A5A" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckClassroomsOnLessonsType}">
                 <Image Source="img/sidebar/2.png" Stretch="UniformToFill"></Image>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -89,7 +89,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,150,4,0" VerticalAlignment="Top" Background="#FFC14CEA" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckLessons}">
+            <Button Height="42" Margin="4,150,4,0" VerticalAlignment="Top" Background="#FFC14CEA" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckLessons}" ToolTip="Проверить наименования дисциплин">
                 <Image Source="img/sidebar/4.png" Stretch="UniformToFill"></Image>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -101,7 +101,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,200,4,0" VerticalAlignment="Top" Background="#FF924CEA" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckTeach}">
+            <Button Height="42" Margin="4,200,4,0" VerticalAlignment="Top" Background="#FF924CEA" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckTeach}" ToolTip="Проверить списки преподавателей">
                 <Image Source="img/sidebar/5.png" Stretch="UniformToFill"></Image>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -113,7 +113,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,250,4,0" VerticalAlignment="Top" Background="#FF594CEA" BorderBrush="{x:Null}" Command="{Binding OpenCheckGroup}" Padding="3">
+            <Button Height="42" Margin="4,250,4,0" VerticalAlignment="Top" Background="#FF594CEA" BorderBrush="{x:Null}" Command="{Binding OpenCheckGroup}" Padding="3" ToolTip="Проверить список групп">
                 <Image Source="img/sidebar/9.png" Stretch="UniformToFill"></Image>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -125,7 +125,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,300,4,0" VerticalAlignment="Top" Background="#FF4C9EEA" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckLessonsType}">
+            <Button Height="42" Margin="4,300,4,0" VerticalAlignment="Top" Background="#FF4C9EEA" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckLessonsType}" ToolTip="Проверить типы дисциплин">
                 <Image Source="img/sidebar/2.png" Stretch="UniformToFill"></Image>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -137,7 +137,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,350,4,0" VerticalAlignment="Top" Background="#FF4CEAC4" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckClassroom}">
+            <Button Height="42" Margin="4,350,4,0" VerticalAlignment="Top" Background="#FF4CEAC4" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckClassroom}" ToolTip="Проверить аудитории">
                 <Image Source="img/sidebar/10.png" Stretch="Fill"></Image>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">

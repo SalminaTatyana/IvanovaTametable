@@ -7,6 +7,12 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="CheckClassroomsOnLessonsType.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="CheckClassroomsOnPlaceForStudents.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="CheckedTeachersOnEqual.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -22,8 +28,23 @@
     <Compile Update="CheckLessonsTypeOnEqual.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="CheckTimetableOnDoubleLessonsInOneClassrooms.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="CheckTimetableOnLessonsOfTeacher.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="CheckTimetableOnWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="CheckClassroomsOnLessonsType.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="CheckClassroomsOnPlaceForStudents.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="CheckedTeachersOnEqual.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -37,6 +58,15 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="CheckLessonsTypeOnEqual.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="CheckTimetableOnDoubleLessonsInOneClassrooms.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="CheckTimetableOnLessonsOfTeacher.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="CheckTimetableOnWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
