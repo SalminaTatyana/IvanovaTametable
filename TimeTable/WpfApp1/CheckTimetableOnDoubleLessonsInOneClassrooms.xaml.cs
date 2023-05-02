@@ -1,5 +1,7 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +21,16 @@ namespace WpfApp1
     /// </summary>
     public partial class CheckTimetableOnDoubleLessonsInOneClassrooms : Window
     {
+        public static FileInfo TimetableFile { get; set; }
+
+       
+        public CheckTimetableOnDoubleLessonsInOneClassrooms(FileInfo timetableFile)
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            TimetableFile = timetableFile;
+            InitializeComponent();
+
+        }
         public CheckTimetableOnDoubleLessonsInOneClassrooms()
         {
             InitializeComponent();
