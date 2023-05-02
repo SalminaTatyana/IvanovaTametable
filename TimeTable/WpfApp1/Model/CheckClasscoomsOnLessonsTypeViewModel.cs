@@ -96,7 +96,7 @@ namespace WpfApp1.Model
                             double width = item.Column(i).Width;
                             for (int j = 8; j < 87; j=j+2)
                             {
-                                if (item.Cells[j+1, i].Value!=null) { 
+                                if (item.Cells[j+1, i].Value!=null&& item.Cells[j, i].Value != null) { 
                                      if (!item.Cells[j+1, i].Value.ToString().ToLower().Contains("понедельник") &&
                                         !item.Cells[j+1, i].Value.ToString().ToLower().Contains("вторник") &&
                                         !item.Cells[j+1, i].Value.ToString().ToLower().Contains("среда") &&
