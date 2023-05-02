@@ -53,7 +53,7 @@
                     <GradientStop Color="#FF545455" Offset="0"/>
                 </LinearGradientBrush>
             </Grid.Background>
-            <Button Height="42" Margin="4,0,4,0" VerticalAlignment="Top" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckTimetableOnDoubleLessonsInOneClassrooms}">
+            <Button Height="42" Margin="4,0,4,0" VerticalAlignment="Top" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckTimetableOnDoubleLessonsInOneClassrooms}" ToolTip="Проверить на одновременные разные занятия в одной аудитории">
                 <Image Source="img/sidebar/1.png" Stretch="UniformToFill"></Image>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -65,7 +65,19 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,50,4,0" VerticalAlignment="Top" Background="#FFE25A5A" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckClassroomsOnLessonsType}" ToolTip="Проверить соотвествие аудитории типу занятия">
+            <Button Height="42" Margin="4,47,4,0" VerticalAlignment="Top" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckTimetableOnDoubleLessonsOneTeacher}" ToolTip="Проверить на одновременные разные занятия у одного преподавателя">
+                <Image Source="img/sidebar/1.png" Stretch="UniformToFill"></Image>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=oldFileList, UpdateSourceTrigger=PropertyChanged,Path=SelectedIndex}" Value="-1">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Height="42" Margin="4,140,4,0" VerticalAlignment="Top" Background="#FFE25A5A" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckClassroomsOnLessonsType}" ToolTip="Проверить соотвествие аудитории типу занятия">
                 <Image Source="img/sidebar/2.png" Stretch="UniformToFill"></Image>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -77,7 +89,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,100,4,0" VerticalAlignment="Top" Background="#FFEA4C89" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckClassroomsOnPlace}" ToolTip="Проверить посадочные места">
+            <Button Height="42" Margin="4,190,4,0" VerticalAlignment="Top" Background="#FFEA4C89" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckClassroomsOnPlace}" ToolTip="Проверить посадочные места">
                 <Image Source="img/sidebar/3.png" Stretch="None"></Image>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -89,7 +101,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,150,4,0" VerticalAlignment="Top" Background="#FFC14CEA" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckLessons}" ToolTip="Проверить наименования дисциплин">
+            <Button Height="42" Margin="4,240,4,0" VerticalAlignment="Top" Background="#FFC14CEA" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckLessons}" ToolTip="Проверить наименования дисциплин">
                 <Image Source="img/sidebar/4.png" Stretch="UniformToFill"></Image>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -101,7 +113,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,200,4,0" VerticalAlignment="Top" Background="#FF924CEA" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckTeach}" ToolTip="Проверить списки преподавателей">
+            <Button Height="42" Margin="4,290,4,0" VerticalAlignment="Top" Background="#FF924CEA" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckTeach}" ToolTip="Проверить списки преподавателей">
                 <Image Source="img/sidebar/5.png" Stretch="UniformToFill"></Image>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -113,7 +125,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,250,4,0" VerticalAlignment="Top" Background="#FF594CEA" BorderBrush="{x:Null}" Command="{Binding OpenCheckGroup}" Padding="3" ToolTip="Проверить список групп">
+            <Button Height="42" Margin="4,340,4,0" VerticalAlignment="Top" Background="#FF594CEA" BorderBrush="{x:Null}" Command="{Binding OpenCheckGroup}" Padding="3" ToolTip="Проверить список групп">
                 <Image Source="img/sidebar/9.png" Stretch="UniformToFill"></Image>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -125,7 +137,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,300,4,0" VerticalAlignment="Top" Background="#FF4C9EEA" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckLessonsType}" ToolTip="Проверить типы дисциплин">
+            <Button Height="42" Margin="4,390,4,0" VerticalAlignment="Top" Background="#FF4C9EEA" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckLessonsType}" ToolTip="Проверить типы дисциплин">
                 <Image Source="img/sidebar/2.png" Stretch="UniformToFill"></Image>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -137,7 +149,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,350,4,0" VerticalAlignment="Top" Background="#FF4CEAC4" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckClassroom}" ToolTip="Проверить аудитории">
+            <Button Height="42" Margin="4,440,4,0" VerticalAlignment="Top" Background="#FF4CEAC4" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckClassroom}" ToolTip="Проверить аудитории">
                 <Image Source="img/sidebar/10.png" Stretch="Fill"></Image>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -148,6 +160,18 @@
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
+            </Button>
+            <Button Height="42" Margin="4,94,4,0" VerticalAlignment="Top" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckTimetableOnDoubleLessonsOneTeacher}" ToolTip="Проверить на одновременные разные занятия у одного преподавателя">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedIndex, ElementName=oldFileList, UpdateSourceTrigger=PropertyChanged}" Value="-1">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Image Source="/img/sidebar/1.png" Stretch="UniformToFill"/>
             </Button>
         </Grid>
         <Menu Height="30" VerticalAlignment="Top" Background="#FF434140">
@@ -191,7 +215,7 @@
                                         </Menu>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
-                                
+
                             </ListBox>
                             <Button Content="Добавить" HorizontalAlignment="Left" Margin="608,135,0,0" VerticalAlignment="Top" Width="120" Background="#FF594CEA" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="28" Command="{Binding AddGroup, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2">
                                 <Button.Style>
@@ -309,7 +333,7 @@
                         <Grid Margin="0,0,0,0" Width="750" HorizontalAlignment="Left" VerticalAlignment="Top" Height="410">
                             <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Список преподавателей" VerticalAlignment="Top" Width="344" Height="25"  Padding="5" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
                             <ListBox ItemsSource="{Binding Teachers}" SelectedItem="{Binding Path=SelectedTeachers, Mode=TwoWay}" Margin="10,49,0,0" Height="328" VerticalAlignment="Top" Name="TeachersListBox" HorizontalAlignment="Left" Width="580" Background="#FF2E277D">
-                               
+
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <Menu Height="30" VerticalAlignment="Top" Background="{x:Null}">
@@ -360,7 +384,7 @@
 
                             <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Список дисциплин" VerticalAlignment="Top" Width="344" Height="25"  Padding="5" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
                             <ListBox ItemsSource="{Binding Lessons}" SelectedItem="{Binding Path=SelectedLessons, Mode=TwoWay}" Margin="10,49,0,0" Height="328" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="580" Name="LessonsListBox" Background="#FF5C293D">
-                               
+
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <Menu Height="30" VerticalAlignment="Top" Background="{x:Null}">
@@ -411,7 +435,7 @@
                         <Grid Margin="0 0 0 0" Width="750" HorizontalAlignment="Left" Height="410" VerticalAlignment="Top">
                             <TextBlock Foreground="White" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Список типов дисциплин" VerticalAlignment="Top" Width="344" Height="25"  Padding="5" FontFamily="Arial" FontSize="16" FontWeight="Bold"/>
                             <ListBox ItemsSource="{Binding LessonsType}" SelectedItem="{Binding Path=SelectedLessonsType, Mode=TwoWay}" Margin="10,49,0,0" Height="328" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="580" Name="LessonsTypeListBox" Background="#FF561B1A">
-                                
+
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <Menu Height="30" VerticalAlignment="Top" Background="{x:Null}">

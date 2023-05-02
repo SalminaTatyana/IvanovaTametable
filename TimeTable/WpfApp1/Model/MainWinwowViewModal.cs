@@ -181,6 +181,7 @@ namespace WpfApp1.Model
         public RelayCommand OpenCheckClassroomsOnLessonsType { get; set; }
         public RelayCommand OpenCheckClassroomsOnPlace { get; set; }
         public RelayCommand OpenCheckTimetableOnDoubleLessonsInOneClassrooms { get; set; }
+        public RelayCommand OpenCheckTimetableOnDoubleLessonsOneTeacher { get; set; }
         public RelayCommand CleanFiles { get; set; }
         public GroupsAll SelectedItem { get; set; }
         public TeachersAll SelectedTeachers { get; set; }
@@ -234,6 +235,7 @@ namespace WpfApp1.Model
             OpenCheckClassroomsOnLessonsType = new RelayCommand(o => CheckClassroomsOnLessonsType());
             OpenCheckClassroomsOnPlace = new RelayCommand(o => CheckClassroomsOnPlace());
             OpenCheckTimetableOnDoubleLessonsInOneClassrooms = new RelayCommand(o => CheckTimetableOnDoubleLessonsInOne());
+            OpenCheckTimetableOnDoubleLessonsOneTeacher = new RelayCommand(o => CheckTimetableOnDoubleLessonsOneTeacher());
             InitOldFilesAsync();
             InitIdialGroupListAsync();
             InitIdialClassroomListAsync();
@@ -662,6 +664,15 @@ namespace WpfApp1.Model
             if (SelectedFile != null)
             {
                 CheckTimetableOnDoubleLessonsInOneClassrooms view = new CheckTimetableOnDoubleLessonsInOneClassrooms(new FileInfo(SelectedFile.FilePaths));
+                view.Show();
+            }
+
+        } 
+        public void CheckTimetableOnDoubleLessonsOneTeacher()
+        {
+            if (SelectedFile != null)
+            {
+                CheckTimetableOnLessonsOfTeacher view = new CheckTimetableOnLessonsOfTeacher(new FileInfo(SelectedFile.FilePaths));
                 view.Show();
             }
 
