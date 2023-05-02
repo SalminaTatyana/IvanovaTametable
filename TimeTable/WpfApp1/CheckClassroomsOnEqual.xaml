@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:WpfApp1"
         xmlns:viewmodel="clr-namespace:WpfApp1.Model"
         mc:Ignorable="d"
-        Title="CheckClassroomsEqual" Height="450" Width="900">
+        Title="CheckClassroomsEqual" Height="450" Width="910"
+        MaxHeight="450" MaxWidth="910"
+        MinHeight="450" MinWidth="910">
     <Window.DataContext>
         <viewmodel:CheckClassroomsOnEqualViewModel/>
     </Window.DataContext>
@@ -34,7 +36,7 @@
                 </ListBox.ItemTemplate>
 
             </ListBox>
-            <Button Content="Добавить" Margin="773,49,4,0" VerticalAlignment="Top" Background="#FF594CEA" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="28" Command="{Binding AddClassrooms, UpdateSourceTrigger=PropertyChanged}">
+            <Button Content="Добавить" Margin="0,49,4,0" VerticalAlignment="Top" Background="#FF594CEA" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="28" Command="{Binding AddClassrooms, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="133">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Style.Triggers>
@@ -46,7 +48,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="Отметить в Excel" Margin="773,82,4,0" VerticalAlignment="Top" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="30" Command="{Binding HighlightClassroomsChange, UpdateSourceTrigger=PropertyChanged}">
+            <Button Content="Отметить в Excel" Margin="0,82,4,0" VerticalAlignment="Top" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="30" Command="{Binding HighlightClassroomsChange, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="133">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Style.Triggers>
@@ -58,7 +60,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="Заменить на" Margin="773,117,4,0" VerticalAlignment="Top" Background="#FF594CEA" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="30" Command="{Binding ReplaceClassroomsChange, UpdateSourceTrigger=PropertyChanged}">
+            <Button Content="Заменить на" Margin="0,117,4,0" VerticalAlignment="Top" Background="#FF594CEA" BorderBrush="{x:Null}" Padding="5" FontFamily="Arial" FontSize="14" Foreground="White" Height="30" Command="{Binding ReplaceClassroomsChange, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="133">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Style.Triggers>

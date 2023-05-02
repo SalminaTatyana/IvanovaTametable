@@ -22,6 +22,8 @@
     <None Remove="img\sidebar\8.png" />
     <None Remove="img\sidebar\9.png" />
     <None Remove="img\sidebar\delete.png" />
+    <None Remove="img\sidebar\git.png" />
+    <None Remove="img\sidebar\window.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,6 +46,8 @@
     <Resource Include="img\sidebar\8.png" />
     <Resource Include="img\sidebar\9.png" />
     <Resource Include="img\sidebar\delete.png" />
+    <Resource Include="img\sidebar\git.png" />
+    <Resource Include="img\sidebar\window.png" />
   </ItemGroup>
 
 </Project>

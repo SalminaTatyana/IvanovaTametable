@@ -7,8 +7,8 @@
         xmlns:viewmodel="clr-namespace:WpfApp1.Model"
         mc:Ignorable="d"
         Title="Сравнить группы" Height="450" Width="900"
-        MaxHeight="450"
-        MaxWidth="900">
+        MaxHeight="450" MaxWidth="900"
+        MinHeight="450" MinWidth="900">
     <Window.DataContext>
         <viewmodel:CheckGroupOnEqualViewModel/>
     </Window.DataContext>
