@@ -161,7 +161,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Height="42" Margin="4,94,4,0" VerticalAlignment="Top" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckTimetableOnDoubleLessonsOneTeacher}" ToolTip="Проверить расписание на окна">
+            <Button Height="42" Margin="4,94,4,0" VerticalAlignment="Top" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckTimetableWindow}" ToolTip="Проверить расписание на окна">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Style.Triggers>

@@ -22,7 +22,7 @@ namespace WpfApp1
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : System.Windows.Window
     {
         public FileManager fileManager = new FileManager();
         public GroupFileMeneger groupFileManager = new GroupFileMeneger();
