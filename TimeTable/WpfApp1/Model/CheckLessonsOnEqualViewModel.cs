@@ -103,7 +103,7 @@ namespace WpfApp1.Model
 
                         });
                     }
-                    SaveLessons();
+                    await SaveLessons();
                 }
             }
            
@@ -219,23 +219,32 @@ namespace WpfApp1.Model
                     badLessons.Clear();
                 });
 
-                foreach (var item in lessonsTypeFromTimetable)
+            foreach (var item in lessonsTypeFromTimetable)
+            {
+                bool flag = false;
+                bool flagBad = false;
+                foreach (var group in lessons)
                 {
-                    bool flag = false;
-                    foreach (var group in lessons)
+                    if (item.Names.ToLower() == group.Names.ToLower())
                     {
-                        if (item.Names.ToLower() == group.Names.ToLower())
-                        {
-                            flag = true;
-                            break;
-                        }
+                        flag = true;
+                        break;
                     }
-                    if (!flag)
+                }
+                foreach (var group in badLessons)
+                {
+                    if (item.Names.ToLower() == group.Names.ToLower())
                     {
-                        App.Current.Dispatcher.Invoke((Action)delegate ()
-                        {
-                            badLessons.Add(item);
-                        });
+                        flagBad = true;
+                        break;
+                    }
+                }
+                if (!flag&&!flagBad)
+                {
+                    App.Current.Dispatcher.Invoke((Action)delegate ()
+                    {
+                        badLessons.Add(item);
+                    });
 
                     }
                 }

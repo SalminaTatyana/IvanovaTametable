@@ -46,147 +46,126 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
-        <Grid HorizontalAlignment="Left" Width="50" Margin="0,30,0,0">
+        <Grid HorizontalAlignment="Left" Width="50" Margin="0,30,0,0" VerticalAlignment="Top" Height="1080">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF191919" Offset="0.517"/>
                     <GradientStop Color="#FF545455" Offset="0"/>
                 </LinearGradientBrush>
             </Grid.Background>
-            <Button Height="42" Margin="4,0,4,0" VerticalAlignment="Top" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckTimetableOnDoubleLessonsInOneClassrooms}" ToolTip="Проверить на одновременные разные занятия в одной аудитории">
-                <Image Source="img/sidebar/1.png" Stretch="UniformToFill"></Image>
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=oldFileList, UpdateSourceTrigger=PropertyChanged,Path=SelectedIndex}" Value="-1">
-                                <Setter Property="Visibility" Value="Hidden"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button Height="42" Margin="4,47,4,0" VerticalAlignment="Top" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckTimetableOnDoubleLessonsOneTeacher}" ToolTip="Проверить на одновременные разные занятия у одного преподавателя">
-                <Image Source="img/sidebar/git.png" Stretch="UniformToFill"></Image>
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=oldFileList, UpdateSourceTrigger=PropertyChanged,Path=SelectedIndex}" Value="-1">
-                                <Setter Property="Visibility" Value="Hidden"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button Height="42" Margin="4,140,4,0" VerticalAlignment="Top" Background="#FFE25A5A" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckClassroomsOnLessonsType}" ToolTip="Проверить соотвествие аудитории типу занятия">
-                <Image Source="img/sidebar/2.png" Stretch="UniformToFill"></Image>
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=oldFileList, UpdateSourceTrigger=PropertyChanged,Path=SelectedIndex}" Value="-1">
-                                <Setter Property="Visibility" Value="Hidden"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button Height="42" Margin="4,190,4,0" VerticalAlignment="Top" Background="#FFEA4C89" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckClassroomsOnPlace}" ToolTip="Проверить посадочные места">
-                <Image Source="img/sidebar/3.png" Stretch="None"></Image>
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=oldFileList, UpdateSourceTrigger=PropertyChanged,Path=SelectedIndex}" Value="-1">
-                                <Setter Property="Visibility" Value="Hidden"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button Height="42" Margin="4,240,4,0" VerticalAlignment="Top" Background="#FFC14CEA" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckLessons}" ToolTip="Проверить наименования дисциплин">
-                <Image Source="img/sidebar/4.png" Stretch="UniformToFill"></Image>
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=oldFileList, UpdateSourceTrigger=PropertyChanged,Path=SelectedIndex}" Value="-1">
-                                <Setter Property="Visibility" Value="Hidden"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button Height="42" Margin="4,290,4,0" VerticalAlignment="Top" Background="#FF924CEA" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckTeach}" ToolTip="Проверить списки преподавателей">
-                <Image Source="img/sidebar/5.png" Stretch="UniformToFill"></Image>
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=oldFileList, UpdateSourceTrigger=PropertyChanged,Path=SelectedIndex}" Value="-1">
-                                <Setter Property="Visibility" Value="Hidden"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button Height="42" Margin="4,340,4,0" VerticalAlignment="Top" Background="#FF594CEA" BorderBrush="{x:Null}" Command="{Binding OpenCheckGroup}" Padding="3" ToolTip="Проверить список групп">
-                <Image Source="img/sidebar/9.png" Stretch="UniformToFill"></Image>
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=oldFileList, UpdateSourceTrigger=PropertyChanged,Path=SelectedIndex}" Value="-1">
-                                <Setter Property="Visibility" Value="Hidden"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button Height="42" Margin="4,390,4,0" VerticalAlignment="Top" Background="#FF4C9EEA" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckLessonsType}" ToolTip="Проверить типы дисциплин">
-                <Image Source="img/sidebar/2.png" Stretch="UniformToFill"></Image>
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=oldFileList, UpdateSourceTrigger=PropertyChanged,Path=SelectedIndex}" Value="-1">
-                                <Setter Property="Visibility" Value="Hidden"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button Height="42" Margin="4,440,4,0" VerticalAlignment="Top" Background="#FF4CEAC4" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckClassroom}" ToolTip="Проверить аудитории">
-                <Image Source="img/sidebar/10.png" Stretch="Fill"></Image>
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=oldFileList, UpdateSourceTrigger=PropertyChanged,Path=SelectedIndex}" Value="-1">
-                                <Setter Property="Visibility" Value="Hidden"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button Height="42" Margin="4,94,4,0" VerticalAlignment="Top" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckTimetableWindow}" ToolTip="Проверить расписание на окна">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding SelectedIndex, ElementName=oldFileList, UpdateSourceTrigger=PropertyChanged}" Value="-1">
-                                <Setter Property="Visibility" Value="Hidden"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <Image Source="/img/sidebar/window.png" Stretch="UniformToFill"/>
-            </Button>
+            <WrapPanel VerticalAlignment="Top">
+                <Button Height="42" Margin="4,0,4,0" VerticalAlignment="Top" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckTimetableOnDoubleLessonsInOneClassrooms}" ToolTip="Проверить на одновременные разные занятия в одной аудитории">
+                    <Image Source="img/sidebar/1.png" Stretch="UniformToFill"></Image>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=oldFileList, UpdateSourceTrigger=PropertyChanged,Path=SelectedIndex}" Value="-1">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Height="42" Margin="4,0,4,0" VerticalAlignment="Top" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckTimetableOnDoubleLessonsOneTeacher}" ToolTip="Проверить на одновременные разные занятия у одного преподавателя">
+                    <Image Source="img/sidebar/git.png" Stretch="UniformToFill"></Image>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=oldFileList, UpdateSourceTrigger=PropertyChanged,Path=SelectedIndex}" Value="-1">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Height="42" Margin="4,0,4,0" VerticalAlignment="Top" Background="#FFE25A5A" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckClassroomsOnLessonsType}" ToolTip="Проверить соотвествие аудитории типу занятия">
+                    <Image Source="img/sidebar/2.png" Stretch="UniformToFill"></Image>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=oldFileList, UpdateSourceTrigger=PropertyChanged,Path=SelectedIndex}" Value="-1">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Height="42" Margin="4,0,4,0" VerticalAlignment="Top" Background="#FFEA4C89" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckClassroomsOnPlace}" ToolTip="Проверить посадочные места">
+                    <Image Source="img/sidebar/3.png" Stretch="None"></Image>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=oldFileList, UpdateSourceTrigger=PropertyChanged,Path=SelectedIndex}" Value="-1">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Height="42" Margin="4,0,4,0" VerticalAlignment="Top" Background="#FFC14CEA" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckLessons}" ToolTip="Проверить наименования дисциплин">
+                    <Image Source="img/sidebar/4.png" Stretch="UniformToFill"></Image>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=oldFileList, UpdateSourceTrigger=PropertyChanged,Path=SelectedIndex}" Value="-1">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Height="42" Margin="4,0,4,0" VerticalAlignment="Top" Background="#FF924CEA" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckTeach}" ToolTip="Проверить списки преподавателей">
+                    <Image Source="img/sidebar/5.png" Stretch="UniformToFill"></Image>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=oldFileList, UpdateSourceTrigger=PropertyChanged,Path=SelectedIndex}" Value="-1">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Height="42" Margin="4,0,4,0" VerticalAlignment="Top" Background="#FF594CEA" BorderBrush="{x:Null}" Command="{Binding OpenCheckGroup}" Padding="3" ToolTip="Проверить список групп">
+                    <Image Source="img/sidebar/9.png" Stretch="UniformToFill"></Image>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=oldFileList, UpdateSourceTrigger=PropertyChanged,Path=SelectedIndex}" Value="-1">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Height="42" Margin="4,0,4,0" VerticalAlignment="Top" Background="#FF4C9EEA" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckLessonsType}" ToolTip="Проверить типы дисциплин">
+                    <Image Source="img/sidebar/2.png" Stretch="UniformToFill"></Image>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=oldFileList, UpdateSourceTrigger=PropertyChanged,Path=SelectedIndex}" Value="-1">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Height="42" Margin="4,0,4,0" VerticalAlignment="Top" Background="#FF4CEAC4" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckClassroom}" ToolTip="Проверить аудитории">
+                    <Image Source="img/sidebar/10.png" Stretch="Fill"></Image>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=oldFileList, UpdateSourceTrigger=PropertyChanged,Path=SelectedIndex}" Value="-1">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </WrapPanel>
         </Grid>
         <Menu Height="30" VerticalAlignment="Top" Background="#FF434140">
-            <MenuItem Header="Файл" FontFamily="Arial"  Foreground="White" FontSize="16" >
-                <MenuItem Header="Открыть проект" Background="#FF434140"></MenuItem>
-                <MenuItem Header="Последние проекты" FontFamily="Arial" Background="#FF434140">
-                    <MenuItem Header="WinForms" FontFamily="Arial" Background="#FF434140"></MenuItem>
-                    <MenuItem Header="WPF" FontFamily="Arial" Background="#FF434140"></MenuItem>
-                </MenuItem>
-                <Separator />
-                <MenuItem Header="Выйти" Background="#FF434140"></MenuItem>
-            </MenuItem>
-            <MenuItem Header="Edit" Foreground="White" FontFamily="Arial" FontSize="16"></MenuItem>
-            <MenuItem Header="View" Foreground="White" FontFamily="Arial" FontSize="16"></MenuItem>
-            <MenuItem  Foreground="White" FontFamily="Arial" FontSize="16"/>
+            
         </Menu>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="200 30 0 0" Background="#FF1D1D1D">
             <WrapPanel Background="#FF1D1D1D">
@@ -201,14 +180,14 @@
                                             <MenuItem  FontFamily="Arial"  Foreground="White" FontSize="18" Height="30">
                                                 <MenuItem.Header>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBox Name="tbCustomDataRange"  Foreground="White" Background="{x:Null}" Margin="2,0" Text="{Binding GroupNames,UpdateSourceTrigger=PropertyChanged}"/>
+                                                        <TextBox Name="tbCustomDataRange"  Foreground="White" Background="{x:Null}" Margin="2,0" Text="{Binding GroupNames,UpdateSourceTrigger=PropertyChanged}" MinWidth="30"/>
                                                     </StackPanel>
                                                 </MenuItem.Header>
                                             </MenuItem>
                                             <MenuItem  Foreground="White" FontFamily="Arial" FontSize="18" Height="30">
                                                 <MenuItem.Header>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBox Margin="2,0" Text="{Binding StudentNumber,UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="{x:Null}"/>
+                                                        <TextBox Margin="2,0" Text="{Binding StudentNumber,UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="{x:Null}" MinWidth="30"/>
                                                     </StackPanel>
                                                 </MenuItem.Header>
                                             </MenuItem>
@@ -262,28 +241,28 @@
                                             <MenuItem  FontFamily="Arial" Background="{x:Null}" Foreground="White" FontSize="18" >
                                                 <MenuItem.Header>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBox  Margin="2,0" Text="{Binding Names,UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="{x:Null}"/>
+                                                        <TextBox  Margin="2,0" Text="{Binding Names,UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="{x:Null}" MinWidth="30"/>
                                                     </StackPanel>
                                                 </MenuItem.Header>
                                             </MenuItem>
                                             <MenuItem  FontFamily="Arial"  Foreground="White" FontSize="18" >
                                                 <MenuItem.Header>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBox  Margin="2,0" Text="{Binding PeopleNumber,UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="{x:Null}"/>
+                                                        <TextBox  Margin="2,0" Text="{Binding PeopleNumber,UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="{x:Null}" MinWidth="30"/>
                                                     </StackPanel>
                                                 </MenuItem.Header>
                                             </MenuItem>
                                             <MenuItem FontFamily="Arial"  Foreground="White" FontSize="18" >
                                                 <MenuItem.Header>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBox Margin="2,0" Text="{Binding Practics,UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="{x:Null}"/>
+                                                        <TextBox Margin="2,0" Text="{Binding Practics,UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="{x:Null}" MinWidth="30"/>
                                                     </StackPanel>
                                                 </MenuItem.Header>
                                             </MenuItem>
                                             <MenuItem FontFamily="Arial"  Foreground="White" FontSize="18" >
                                                 <MenuItem.Header>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBox  Margin="2,0" Text="{Binding Labs,UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="{x:Null}"/>
+                                                        <TextBox  Margin="2,0" Text="{Binding Labs,UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="{x:Null}" MinWidth="30"/>
                                                     </StackPanel>
                                                 </MenuItem.Header>
                                             </MenuItem>
@@ -340,7 +319,7 @@
                                             <MenuItem FontFamily="Arial"  Foreground="White" FontSize="18" >
                                                 <MenuItem.Header>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBox Margin="2,0" Text="{Binding Names,UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="{x:Null}"/>
+                                                        <TextBox Margin="2,0" Text="{Binding Names,UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="{x:Null}" MinWidth="30"/>
                                                     </StackPanel>
                                                 </MenuItem.Header>
                                             </MenuItem>
@@ -391,7 +370,7 @@
                                             <MenuItem  FontFamily="Arial"  Foreground="White" Background="{x:Null}" FontSize="18" >
                                                 <MenuItem.Header>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBox Margin="2,0" Text="{Binding Names,UpdateSourceTrigger=PropertyChanged}"  Foreground="White" Background="{x:Null}"/>
+                                                        <TextBox Margin="2,0" Text="{Binding Names,UpdateSourceTrigger=PropertyChanged}"  Foreground="White" Background="{x:Null}" MinWidth="30"/>
                                                     </StackPanel>
                                                 </MenuItem.Header>
                                             </MenuItem>
@@ -442,7 +421,7 @@
                                             <MenuItem  FontFamily="Arial"  Foreground="White" Background="{x:Null}" FontSize="16" >
                                                 <MenuItem.Header>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBox Margin="2,0" Text="{Binding Names,UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="{x:Null}"/>
+                                                        <TextBox Margin="2,0" Text="{Binding Names,UpdateSourceTrigger=PropertyChanged}" Foreground="White" Background="{x:Null}" MinWidth="30"/>
                                                     </StackPanel>
                                                 </MenuItem.Header>
                                             </MenuItem>

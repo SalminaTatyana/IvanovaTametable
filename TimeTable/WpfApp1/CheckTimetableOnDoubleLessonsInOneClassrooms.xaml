@@ -25,12 +25,12 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Menu Height="20" VerticalAlignment="Top"  Foreground="White" Background="{x:Null}">
-                            <MenuItem Header="{Binding Classrooms.Names}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" Width="150"></MenuItem>
-                            <MenuItem Header="{Binding Lessons.Names}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" Width="400"></MenuItem>
-                            <MenuItem Header="{Binding Week}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" Width="100"></MenuItem>
-                            <MenuItem Header="{Binding Page}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" Width="100"></MenuItem>
-                            <MenuItem Header="{Binding Row}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" Width="100"></MenuItem>
-                            <MenuItem Header="{Binding Col}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" Width="100"></MenuItem>
+                            <MenuItem IsEnabled="False" Header="{Binding Classrooms.Names}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" Width="150"></MenuItem>
+                            <MenuItem IsEnabled="False" Header="{Binding Lessons.Names}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" Width="400"></MenuItem>
+                            <MenuItem IsEnabled="False" Header="{Binding Week}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" Width="100"></MenuItem>
+                            <MenuItem IsEnabled="False" Header="{Binding Page}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" Width="100"></MenuItem>
+                            <MenuItem IsEnabled="False" Header="{Binding Row}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" Width="100"></MenuItem>
+                            <MenuItem IsEnabled="False" Header="{Binding Col}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" Width="100"></MenuItem>
                         </Menu>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

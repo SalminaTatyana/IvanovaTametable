@@ -7,9 +7,9 @@
                 xmlns:viewmodel="clr-namespace:WpfApp1.Model"
 
         mc:Ignorable="d"
-        Title="CheckLessonsTypeOnEqual" Height="450" Width="900"
-        MaxHeight="450" MaxWidth="900"
-        MinHeight="450" MinWidth="900">
+        Title="CheckLessonsTypeOnEqual" Height="450" Width="920"
+        MaxHeight="450" MaxWidth="920"
+        MinHeight="450" MinWidth="920">
     <Window.DataContext>
         <viewmodel:CheckLessonsTypeOnEqualViewModel/>
     </Window.DataContext>
@@ -20,7 +20,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Menu Height="20" VerticalAlignment="Top"  Foreground="White" Background="{x:Null}">
-                            <MenuItem Header="{Binding Names}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" ></MenuItem>
+                            <MenuItem IsEnabled="False" Header="{Binding Names}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" ></MenuItem>
                         </Menu>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -31,7 +31,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Menu Height="20" VerticalAlignment="Top"  Foreground="White" Background="{x:Null}">
-                            <MenuItem Header="{Binding Names}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" />
+                            <MenuItem IsEnabled="False" Header="{Binding Names}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" />
                         </Menu>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

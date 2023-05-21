@@ -95,7 +95,7 @@ namespace WpfApp1.Model
 
                         });
                     }
-                    SaveClassrooms();
+                    await SaveClassrooms();
                 }
             }
            
@@ -213,23 +213,32 @@ namespace WpfApp1.Model
                     badClassrooms.Clear();
                 });
 
-                foreach (var item in lessonsFromTimetable)
+            foreach (var item in lessonsFromTimetable)
+            {
+                bool flag = false;
+                bool flagBad = false;
+                foreach (var group in classrooms)
                 {
-                    bool flag = false;
-                    foreach (var group in classrooms)
+                    if (item.Names.ToLower() == group.Names.ToLower())
                     {
-                        if (item.Names.ToLower() == group.Names.ToLower())
-                        {
-                            flag = true;
-                            break;
-                        }
+                        flag = true;
+                        break;
                     }
-                    if (!flag)
+                }
+                foreach (var group in badClassrooms)
+                {
+                    if (item.Names.ToLower() == group.Names.ToLower())
                     {
-                        App.Current.Dispatcher.Invoke((Action)delegate ()
-                        {
-                            badClassrooms.Add(item);
-                        });
+                        flagBad = true;
+                        break;
+                    }
+                }
+                if (!flag&&!flagBad)
+                {
+                    App.Current.Dispatcher.Invoke((Action)delegate ()
+                    {
+                        badClassrooms.Add(item);
+                    });
 
                     }
                 }

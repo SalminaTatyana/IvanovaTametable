@@ -198,56 +198,57 @@ namespace WpfApp1.Model
         }
         public async Task SaveGroupsChange()
         {
-            try
+            List<ExcelFile.Group> saveGroup = new List<ExcelFile.Group>();
+            foreach (var group in groups)
             {
-                List<ExcelFile.Group> saveGroup = new List<ExcelFile.Group>();
-                foreach (var group in groups)
-                {
-                    saveGroup.Add(new ExcelFile.Group(group.GroupNames, group.Cource, group.StudentNumber));
-                }
+                saveGroup.Add(new ExcelFile.Group(group.GroupNames, group.Cource, group.StudentNumber));
+            }
+            App.Current.Dispatcher.Invoke((Action)delegate ()
+            {
+                groups.Clear();
+            });
+            await groupFileManager.Save(saveGroup);
+            List<Group> file = await groupFileManager.Read();
+            foreach (var item in file)
+            {
                 App.Current.Dispatcher.Invoke((Action)delegate ()
                 {
-                    groups.Clear();
+                    groups.Add(new GroupsAll(item.Name, item.Cource, item.StudentNumber));
                 });
-                await groupFileManager.Save(saveGroup);
-                List<Group> file = await groupFileManager.Read();
-                foreach (var item in file)
+            }
+            App.Current.Dispatcher.Invoke((Action)delegate ()
+            {
+                badGroups.Clear();
+            });
+           
+            foreach (var item in groupFromTimetable)
+            {
+                bool flag = false;
+                bool flagBad = false;
+                foreach (var group in groups)
+                {
+                    if (item.GroupNames.ToLower() == group.GroupNames.ToLower())
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+                foreach (var group in badGroups)
+                {
+                    if (item.GroupNames.ToLower() == group.GroupNames.ToLower())
+                    {
+                        flagBad = true;
+                        break;
+                    }
+                }
+                if (!flag&&!flagBad)
                 {
                     App.Current.Dispatcher.Invoke((Action)delegate ()
                     {
-                        groups.Add(new GroupsAll(item.Name, item.Cource, item.StudentNumber));
+                        badGroups.Add(item);
                     });
+                    
                 }
-                App.Current.Dispatcher.Invoke((Action)delegate ()
-                {
-                    badGroups.Clear();
-                });
-
-                foreach (var item in groupFromTimetable)
-                {
-                    bool flag = false;
-                    foreach (var group in groups)
-                    {
-                        if (item.GroupNames.ToLower() == group.GroupNames.ToLower())
-                        {
-                            flag = true;
-                            break;
-                        }
-                    }
-                    if (!flag)
-                    {
-                        App.Current.Dispatcher.Invoke((Action)delegate ()
-                        {
-                            badGroups.Add(item);
-                        });
-
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-
             }
            
         }
