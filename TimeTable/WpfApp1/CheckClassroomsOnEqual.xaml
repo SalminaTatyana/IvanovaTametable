@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:WpfApp1"
         xmlns:viewmodel="clr-namespace:WpfApp1.Model"
         mc:Ignorable="d"
-        Title="CheckClassroomsEqual" Height="450" Width="910"
-        MaxHeight="450" MaxWidth="910"
-        MinHeight="450" MinWidth="910">
+        Title="CheckClassroomsEqual" Height="450" Width="920"
+        MaxHeight="450" MaxWidth="920"
+        MinHeight="450" MinWidth="920">
     <Window.DataContext>
         <viewmodel:CheckClassroomsOnEqualViewModel/>
     </Window.DataContext>

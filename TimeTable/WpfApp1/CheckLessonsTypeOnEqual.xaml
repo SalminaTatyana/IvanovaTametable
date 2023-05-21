@@ -7,9 +7,9 @@
                 xmlns:viewmodel="clr-namespace:WpfApp1.Model"
 
         mc:Ignorable="d"
-        Title="CheckLessonsTypeOnEqual" Height="450" Width="900"
-        MaxHeight="450" MaxWidth="900"
-        MinHeight="450" MinWidth="900">
+        Title="CheckLessonsTypeOnEqual" Height="450" Width="920"
+        MaxHeight="450" MaxWidth="920"
+        MinHeight="450" MinWidth="920">
     <Window.DataContext>
         <viewmodel:CheckLessonsTypeOnEqualViewModel/>
     </Window.DataContext>
