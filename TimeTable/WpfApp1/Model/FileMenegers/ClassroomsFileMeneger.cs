@@ -24,7 +24,7 @@ namespace WpfApp1.Model.FileMenegers
             // сохранение данных
             if (file!=null)
             {
-                using (StreamWriter writer = new StreamWriter(path, true))
+                using (StreamWriter writer = new StreamWriter(path, false))
                 {
                     foreach (Classrooms item in file)
                     {

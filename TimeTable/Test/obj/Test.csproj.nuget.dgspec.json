@@ -1,27 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\projects\\institute\\Timetable\\TimeTable\\Test\\Test.csproj": {}
+    "I:\\project\\Timetable\\TimeTable\\Test\\Test.csproj": {}
   },
   "projects": {
-    "D:\\projects\\institute\\Timetable\\TimeTable\\Test\\Test.csproj": {
+    "I:\\project\\Timetable\\TimeTable\\Test\\Test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\projects\\institute\\Timetable\\TimeTable\\Test\\Test.csproj",
+        "projectUniqueName": "I:\\project\\Timetable\\TimeTable\\Test\\Test.csproj",
         "projectName": "Test",
-        "projectPath": "D:\\projects\\institute\\Timetable\\TimeTable\\Test\\Test.csproj",
-        "packagesPath": "C:\\Users\\ti.salmina\\.nuget\\packages\\",
-        "outputPath": "D:\\projects\\institute\\Timetable\\TimeTable\\Test\\obj\\",
+        "projectPath": "I:\\project\\Timetable\\TimeTable\\Test\\Test.csproj",
+        "packagesPath": "C:\\Users\\ynita\\.nuget\\packages\\",
+        "outputPath": "I:\\project\\Timetable\\TimeTable\\Test\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\ti.salmina\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ynita\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0-windows7.0"
+          "net6.0-windows"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -31,8 +28,8 @@
           "net6.0-windows7.0": {
             "targetAlias": "net6.0-windows",
             "projectReferences": {
-              "D:\\projects\\institute\\Timetable\\TimeTable\\WpfApp1\\WpfApp1.csproj": {
-                "projectPath": "D:\\projects\\institute\\Timetable\\TimeTable\\WpfApp1\\WpfApp1.csproj"
+              "I:\\project\\Timetable\\TimeTable\\WpfApp1\\WpfApp1.csproj": {
+                "projectPath": "I:\\project\\Timetable\\TimeTable\\WpfApp1\\WpfApp1.csproj"
               }
             }
           }
@@ -80,28 +77,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\projects\\institute\\Timetable\\TimeTable\\WpfApp1\\WpfApp1.csproj": {
+    "I:\\project\\Timetable\\TimeTable\\WpfApp1\\WpfApp1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\projects\\institute\\Timetable\\TimeTable\\WpfApp1\\WpfApp1.csproj",
+        "projectUniqueName": "I:\\project\\Timetable\\TimeTable\\WpfApp1\\WpfApp1.csproj",
         "projectName": "WpfApp1",
-        "projectPath": "D:\\projects\\institute\\Timetable\\TimeTable\\WpfApp1\\WpfApp1.csproj",
-        "packagesPath": "C:\\Users\\ti.salmina\\.nuget\\packages\\",
-        "outputPath": "D:\\projects\\institute\\Timetable\\TimeTable\\WpfApp1\\obj\\",
+        "projectPath": "I:\\project\\Timetable\\TimeTable\\WpfApp1\\WpfApp1.csproj",
+        "packagesPath": "C:\\Users\\ynita\\.nuget\\packages\\",
+        "outputPath": "I:\\project\\Timetable\\TimeTable\\WpfApp1\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\ti.salmina\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ynita\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0-windows7.0"
+          "net6.0-windows"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -151,7 +145,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
