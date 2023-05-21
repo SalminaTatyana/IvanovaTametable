@@ -13,22 +13,33 @@ namespace WpfApp1.Model.FileMenegers
         public string path = "file/classroomFile" + ".txt";
         public async Task Save(List<Classrooms> file)
         {
+            if (!Directory.Exists("file"))
+            {
+                Directory.CreateDirectory("file");
+            }
             if (!File.Exists(path))
             {
                 File.CreateText(path);
             }
             // сохранение данных
-
-            using (StreamWriter writer = new StreamWriter(path, true))
+            if (file!=null)
             {
-                foreach (Classrooms item in file)
+                using (StreamWriter writer = new StreamWriter(path, true))
                 {
-                    await writer.WriteLineAsync(item.Names + "|" + item.PeopleNumber.ToString() + "|" + (item.Practics ? 1 : 0).ToString()+"|"+ (item.Labs ? 1 : 0).ToString());
+                    foreach (Classrooms item in file)
+                    {
+                        await writer.WriteLineAsync(item.Names + "|" + item.PeopleNumber.ToString() + "|" + (item.Practics ? 1 : 0).ToString() + "|" + (item.Labs ? 1 : 0).ToString());
+                    }
                 }
             }
+            
         }
         public async Task<List<Classrooms>> Read()
         {
+            if (!Directory.Exists("file"))
+            {
+                Directory.CreateDirectory("file");
+            }
             List<Classrooms> files = new List<Classrooms>();
             if (!File.Exists(path))
             {
@@ -64,6 +75,10 @@ namespace WpfApp1.Model.FileMenegers
         }
         public void Clear()
         {
+            if (!Directory.Exists("file"))
+            {
+                Directory.CreateDirectory("file");
+            }
 
             if (!File.Exists(path))
             {

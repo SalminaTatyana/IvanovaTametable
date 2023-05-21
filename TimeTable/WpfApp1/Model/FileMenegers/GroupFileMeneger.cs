@@ -15,23 +15,34 @@ namespace WpfApp1.Model
             public string path = "file/groupFile" + ".txt";
             public async Task Save(List<Group> file)
             {
-                if (!File.Exists(path))
+            if (!Directory.Exists("file"))
+            {
+                Directory.CreateDirectory("file");
+            }
+            if (!File.Exists(path))
                 {
                     File.CreateText(path);
                 }
             // сохранение данных
-            
-            using (StreamWriter writer = new StreamWriter(path, false))
+            if (file!=null)
             {
-                foreach (Group group in file)
+                using (StreamWriter writer = new StreamWriter(path, false))
                 {
-                    await writer.WriteLineAsync(group.Name + "|"+ group.StudentNumber.ToString());
+                    foreach (Group group in file)
+                    {
+                        await writer.WriteLineAsync(group.Name + "|" + group.StudentNumber.ToString());
+                    }
                 }
             }
+            
         }
             public async Task<List<Group>> Read()
             {
-                List<Group> files = new List<Group>();
+            if (!Directory.Exists("file"))
+            {
+                Directory.CreateDirectory("file");
+            }
+            List<Group> files = new List<Group>();
                 if (!File.Exists(path))
                 {
                     File.CreateText(path);
@@ -80,8 +91,11 @@ namespace WpfApp1.Model
             }
             public void Clear()
             {
-
-                if (!File.Exists(path))
+            if (!Directory.Exists("file"))
+            {
+                Directory.CreateDirectory("file");
+            }
+            if (!File.Exists(path))
                 {
                     File.CreateText(path);
                 }

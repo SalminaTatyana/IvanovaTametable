@@ -12,22 +12,33 @@ namespace WpfApp1.Model.FileMenegers
         public string path = "file/lessonsFile" + ".txt";
         public async Task Save(List<string> file)
         {
+            if (!Directory.Exists("file"))
+            {
+                Directory.CreateDirectory("file");
+            }
             if (!File.Exists(path))
             {
                 File.CreateText(path);
             }
             // сохранение данных
-
-            using (StreamWriter writer = new StreamWriter(path, false))
+            if (file!=null)
             {
-                foreach (string item in file)
+                using (StreamWriter writer = new StreamWriter(path, false))
                 {
-                    await writer.WriteLineAsync(item);
+                    foreach (string item in file)
+                    {
+                        await writer.WriteLineAsync(item);
+                    }
                 }
             }
+            
         }
         public async Task<List<string>> Read()
         {
+            if (!Directory.Exists("file"))
+            {
+                Directory.CreateDirectory("file");
+            }
             List<string> files = new List<string>();
             if (!File.Exists(path))
             {
@@ -54,7 +65,10 @@ namespace WpfApp1.Model.FileMenegers
         }
         public void Clear()
         {
-
+            if (!Directory.Exists("file"))
+            {
+                Directory.CreateDirectory("file");
+            }
             if (!File.Exists(path))
             {
                 File.CreateText(path);

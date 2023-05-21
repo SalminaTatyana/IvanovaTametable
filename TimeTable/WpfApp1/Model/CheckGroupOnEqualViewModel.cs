@@ -71,155 +71,185 @@ namespace WpfApp1.Model
         }
         public async Task AddNewGroup(GroupsAll group)
         {
-            int course;
-            if (group.GroupNames.Contains("51") || group.GroupNames.Contains("52"))
+            if (group!=null)
             {
-                course = 5;
-            }
-            else if (group.GroupNames.Contains("41") || group.GroupNames.Contains("42"))
-            {
-                course = 4;
-            }
-            else if (group.GroupNames.Contains("31") || group.GroupNames.Contains("32"))
-            {
-                course = 3;
-            }
-            else if (group.GroupNames.Contains("21") || group.GroupNames.Contains("22"))
-            {
-                course = 2;
-            }
-            else
-            {
-                course = 1;
-            }
-            bool flag = false;
-            for (int i = 0; i < groups.Count; i++)
-            {
-                if (groups[i].GroupNames.ToLower() == group.GroupNames.ToLower())
+                if (!String.IsNullOrEmpty(group.GroupNames))
                 {
-                    groups[i].StudentNumber = group.StudentNumber;
-                    flag = true;
-                    break;
+                    int course;
+                    if (group.GroupNames.Contains("51") || group.GroupNames.Contains("52"))
+                    {
+                        course = 5;
+                    }
+                    else if (group.GroupNames.Contains("41") || group.GroupNames.Contains("42"))
+                    {
+                        course = 4;
+                    }
+                    else if (group.GroupNames.Contains("31") || group.GroupNames.Contains("32"))
+                    {
+                        course = 3;
+                    }
+                    else if (group.GroupNames.Contains("21") || group.GroupNames.Contains("22"))
+                    {
+                        course = 2;
+                    }
+                    else
+                    {
+                        course = 1;
+                    }
+                    bool flag = false;
+                    for (int i = 0; i < groups.Count; i++)
+                    {
+                        if (groups[i].GroupNames.ToLower() == group.GroupNames.ToLower())
+                        {
+                            groups[i].StudentNumber = group.StudentNumber;
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if (!flag)
+                    {
+                        App.Current.Dispatcher.Invoke((Action)delegate ()
+                        {
+                            groups.Add(new GroupsAll(group.GroupNames, course, group.StudentNumber));
+
+                        });
+                    }
+                    SaveGroupsChange();
                 }
             }
-            if (!flag)
-            {
-                App.Current.Dispatcher.Invoke((Action)delegate ()
-                {
-                    groups.Add(new GroupsAll(group.GroupNames, course, group.StudentNumber));
-                    
-                });
-            }
-            SaveGroupsChange();
+           
         }
         public async Task HighlightGroup(GroupsAll group)
         {
-            using (ExcelPackage excelPackage = new ExcelPackage(CheckGroupOnEqual.TimetableFile))
+            if (group != null)
             {
-                int listCount = excelPackage.Workbook.Worksheets.Count();
-                List<ExcelWorksheet> anotherWorksheet = new List<ExcelWorksheet>();
-                for (int i = 0; i < listCount; i++)
+                if (!String.IsNullOrEmpty(group.GroupNames))
                 {
-                    anotherWorksheet.Add(excelPackage.Workbook.Worksheets[i]);
-                }
-                foreach (var item in anotherWorksheet)
-                {
-                    int col = item.Dimension.End.Column;
-                    for (int i = 1; i < col; i++)
+                    using (ExcelPackage excelPackage = new ExcelPackage(CheckGroupOnEqual.TimetableFile))
                     {
-
-                        if (item.Cells[7, i].Value != null)
+                        int listCount = excelPackage.Workbook.Worksheets.Count();
+                        List<ExcelWorksheet> anotherWorksheet = new List<ExcelWorksheet>();
+                        for (int i = 0; i < listCount; i++)
                         {
-                            if (item.Cells[7, i].Value.ToString().Contains(group.GroupNames))
+                            anotherWorksheet.Add(excelPackage.Workbook.Worksheets[i]);
+                        }
+                        foreach (var item in anotherWorksheet)
+                        {
+                            int col = item.Dimension.End.Column;
+                            for (int i = 1; i < col; i++)
                             {
-                                item.Cells[7, i].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGoldenrodYellow);
+
+                                if (item.Cells[7, i].Value != null)
+                                {
+                                    if (item.Cells[7, i].Value.ToString().Contains(group.GroupNames))
+                                    {
+                                        item.Cells[7, i].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGoldenrodYellow);
+                                    }
+                                }
                             }
                         }
+                        excelPackage.SaveAs(CheckGroupOnEqual.TimetableFile);
+                        excelPackage.Dispose();
                     }
                 }
-                excelPackage.SaveAs(CheckGroupOnEqual.TimetableFile);
-                excelPackage.Dispose();
-            }  
+            }
+                 
         }
         public async Task ReplaceGroup(GroupsAll group,GroupsAll badGroup)
         {
-            using (ExcelPackage excelPackage = new ExcelPackage(CheckGroupOnEqual.TimetableFile))
+            if (group != null&&badGroup!=null)
             {
-                int listCount = excelPackage.Workbook.Worksheets.Count();
-                List<ExcelWorksheet> anotherWorksheet = new List<ExcelWorksheet>();
-                for (int i = 0; i < listCount; i++)
+                if (!String.IsNullOrEmpty(group.GroupNames)&& !String.IsNullOrEmpty(badGroup.GroupNames))
                 {
-                    anotherWorksheet.Add(excelPackage.Workbook.Worksheets[i]);
-                }
-                foreach (var item in anotherWorksheet)
-                {
-                    int col = item.Dimension.End.Column;
-                    for (int i = 1; i < col; i++)
+                    using (ExcelPackage excelPackage = new ExcelPackage(CheckGroupOnEqual.TimetableFile))
                     {
-
-                        if (item.Cells[7, i].Value != null)
+                        int listCount = excelPackage.Workbook.Worksheets.Count();
+                        List<ExcelWorksheet> anotherWorksheet = new List<ExcelWorksheet>();
+                        for (int i = 0; i < listCount; i++)
                         {
-                            if (item.Cells[7, i].Value.ToString().ToLower().Contains(badGroup.GroupNames.ToLower()))
+                            anotherWorksheet.Add(excelPackage.Workbook.Worksheets[i]);
+                        }
+                        foreach (var item in anotherWorksheet)
+                        {
+                            int col = item.Dimension.End.Column;
+                            for (int i = 1; i < col; i++)
                             {
-                                item.Cells[7, i].Value=group.GroupNames;
+
+                                if (item.Cells[7, i].Value != null)
+                                {
+                                    if (item.Cells[7, i].Value.ToString().ToLower().Contains(badGroup.GroupNames.ToLower()))
+                                    {
+                                        item.Cells[7, i].Value = group.GroupNames;
+                                    }
+                                }
                             }
                         }
+                        excelPackage.SaveAs(CheckGroupOnEqual.TimetableFile);
+                        excelPackage.Dispose();
+                        App.Current.Dispatcher.Invoke((Action)delegate ()
+                        {
+                            badGroups.Remove(badGroup);
+                        });
+
                     }
                 }
-                excelPackage.SaveAs(CheckGroupOnEqual.TimetableFile);
-                excelPackage.Dispose();
-                App.Current.Dispatcher.Invoke((Action)delegate ()
-                {
-                    badGroups.Remove(badGroup);
-                });
-                
-            }  
+            }
+                    
         }
         public async Task SaveGroupsChange()
         {
-            List<ExcelFile.Group> saveGroup = new List<ExcelFile.Group>();
-            foreach (var group in groups)
+            try
             {
-                saveGroup.Add(new ExcelFile.Group(group.GroupNames, group.Cource, group.StudentNumber));
-            }
-            App.Current.Dispatcher.Invoke((Action)delegate ()
-            {
-                groups.Clear();
-            });
-            await groupFileManager.Save(saveGroup);
-            List<Group> file = await groupFileManager.Read();
-            foreach (var item in file)
-            {
-                App.Current.Dispatcher.Invoke((Action)delegate ()
-                {
-                    groups.Add(new GroupsAll(item.Name, item.Cource, item.StudentNumber));
-                });
-            }
-            App.Current.Dispatcher.Invoke((Action)delegate ()
-            {
-                badGroups.Clear();
-            });
-           
-            foreach (var item in groupFromTimetable)
-            {
-                bool flag = false;
+                List<ExcelFile.Group> saveGroup = new List<ExcelFile.Group>();
                 foreach (var group in groups)
                 {
-                    if (item.GroupNames.ToLower() == group.GroupNames.ToLower())
-                    {
-                        flag = true;
-                        break;
-                    }
+                    saveGroup.Add(new ExcelFile.Group(group.GroupNames, group.Cource, group.StudentNumber));
                 }
-                if (!flag)
+                App.Current.Dispatcher.Invoke((Action)delegate ()
+                {
+                    groups.Clear();
+                });
+                await groupFileManager.Save(saveGroup);
+                List<Group> file = await groupFileManager.Read();
+                foreach (var item in file)
                 {
                     App.Current.Dispatcher.Invoke((Action)delegate ()
                     {
-                        badGroups.Add(item);
+                        groups.Add(new GroupsAll(item.Name, item.Cource, item.StudentNumber));
                     });
-                    
                 }
+                App.Current.Dispatcher.Invoke((Action)delegate ()
+                {
+                    badGroups.Clear();
+                });
+
+                foreach (var item in groupFromTimetable)
+                {
+                    bool flag = false;
+                    foreach (var group in groups)
+                    {
+                        if (item.GroupNames.ToLower() == group.GroupNames.ToLower())
+                        {
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if (!flag)
+                    {
+                        App.Current.Dispatcher.Invoke((Action)delegate ()
+                        {
+                            badGroups.Add(item);
+                        });
+
+                    }
+                }
+
             }
+            catch (Exception ex)
+            {
+
+            }
+           
         }
         public void GetGroupFromTimetable(ExcelPackage excelPackage)
         {

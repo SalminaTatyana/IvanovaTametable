@@ -342,65 +342,105 @@ namespace WpfApp1.Model
 
         public async Task AddNewGroup(string name,int count)
         {
-            int course;
-            if (name.Contains("51") || name.Contains("52"))
+            if (!String.IsNullOrEmpty(name))
             {
-                course = 5;
-            }
-            else if (name.Contains("41") || name.Contains("42"))
-            {
-                course = 4;
-            }
-            else if (name.Contains("31") || name.Contains("32"))
-            {
-                course = 3;
-            }
-            else if (name.Contains("21") || name.Contains("22"))
-            {
-                course = 2;
-            }
-            else
-            {
-                course = 1;
-            }
-            bool flag = false;
-            for (int i = 0; i < groups.Count; i++)
-            {
-                if (groups[i].GroupNames.ToLower()==name.ToLower())
+                int course;
+                if (name.Contains("51") || name.Contains("52"))
                 {
-                    groups[i].StudentNumber = count;
-                    flag = true;
-                    break;
+                    course = 5;
+                }
+                else if (name.Contains("41") || name.Contains("42"))
+                {
+                    course = 4;
+                }
+                else if (name.Contains("31") || name.Contains("32"))
+                {
+                    course = 3;
+                }
+                else if (name.Contains("21") || name.Contains("22"))
+                {
+                    course = 2;
+                }
+                else
+                {
+                    course = 1;
+                }
+                bool flag = false;
+                for (int i = 0; i < groups.Count; i++)
+                {
+                    if (groups[i].GroupNames.ToLower() == name.ToLower())
+                    {
+                        groups[i].StudentNumber = count;
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag)
+                {
+                    App.Current.Dispatcher.Invoke((Action)delegate ()
+                    {
+                        groups.Add(new GroupsAll(name, course, count));
+                    });
                 }
             }
-            if (!flag)
-            {
-                App.Current.Dispatcher.Invoke((Action)delegate ()
-                {
-                    groups.Add(new GroupsAll(name, course, count));
-                });
-            } 
+            
         }
 
         public async Task RemoveGroups(GroupsAll Index)
         {
-            groups.Remove(Index);
+            if (Index!=null)
+            {
+                if (Index.GroupNames!=null)
+                {
+                    groups.Remove(Index);
+                }
+                
+            }
+           
         } 
         public async Task RemoveTeacher(TeachersAll Index)
         {
-            teachers.Remove(Index);
+            if (Index != null)
+            {
+                if (Index.Names != null)
+                {
+                    teachers.Remove(Index);
+                }
+
+            }
         }
         public async Task RemoveLesson(LessonsAll Index)
         {
-            lessons.Remove(Index);
+            if (Index != null)
+            {
+                if (Index.Names != null)
+                {
+                    lessons.Remove(Index);
+                }
+
+            }
         } 
         public async Task RemoveLessonType(LessonsType Index)
         {
-            lessonsType.Remove(Index);
+            if (Index != null)
+            {
+                if (Index.Names != null)
+                {
+                    lessonsType.Remove(Index);
+                }
+
+            }
         } 
         public async Task RemoveClassroom(ClassroomsAll Index)
         {
-            classes.Remove(Index);
+            if (Index != null)
+            {
+                if (Index.Names != null)
+                {
+                    classes.Remove(Index);
+                }
+
+            }
         }
         public async Task DeleteGroupsChange()
         {
@@ -474,147 +514,186 @@ namespace WpfApp1.Model
         }
         public async Task AddNewLessons(string name)
         {
-           
-            bool flag = false;
-            for (int i = 0; i < lessons.Count; i++)
+            if (!String.IsNullOrEmpty(name))
             {
-                if (lessons[i].Names.ToLower() == name.ToLower())
+                bool flag = false;
+                for (int i = 0; i < lessons.Count; i++)
                 {
-                    flag = true;
-                    break;
+                    if (lessons[i].Names.ToLower() == name.ToLower())
+                    {
+                        flag = true;
+                        break;
+                    }
                 }
-            }
-            if (!flag)
-            {
-                App.Current.Dispatcher.Invoke((Action)delegate ()
+                if (!flag)
                 {
-                    lessons.Add(new LessonsAll(name));
-                });
-            }
+                    App.Current.Dispatcher.Invoke((Action)delegate ()
+                    {
+                        lessons.Add(new LessonsAll(name));
+                    });
+                }
+            } 
+            
         }
         public async Task OpenChooseFiles(FilesAll file)
         {
-            await OpenFile(file.FilePaths);
+            if (file!=null)
+            {
+                if (!String.IsNullOrEmpty(file.FilePaths))
+                {
+                    if (File.Exists(file.FilePaths))
+                    {
+                        await OpenFile(file.FilePaths);
+                    }
+                }
+               
+            }
+           
         }
         public async Task AddFile(FilesAll file)
         {
-            Microsoft.Win32.OpenFileDialog dlgBin = new Microsoft.Win32.OpenFileDialog();
-            dlgBin.FileName = "Document"; // Default file name
-            dlgBin.DefaultExt = ".xlsx"; // Default file extension
-            dlgBin.Filter = "Excel Files|*.xlsx;"; // Filter files by extension
+            
+                    Microsoft.Win32.OpenFileDialog dlgBin = new Microsoft.Win32.OpenFileDialog();
+                    dlgBin.FileName = "Document"; // Default file name
+                    dlgBin.DefaultExt = ".xlsx"; // Default file extension
+                    dlgBin.Filter = "Excel Files|*.xlsx;"; // Filter files by extension
 
-            // Show save file dialog box
-            Nullable<bool> result = dlgBin.ShowDialog();
+                    // Show save file dialog box
+                    Nullable<bool> result = dlgBin.ShowDialog();
 
-            if (result == true)
-            {
-                string path = dlgBin.FileName;
-                OldFile newFile = new OldFile(DateTime.Now, path, path);
-                bool contains = false;
-                var read = fileManager.Read().Result;
-                for (int i = 0; i < read.Count(); i++)
-                {
-                    if (read[i].Path == newFile.Path)
+                    if (result == true)
                     {
-                        contains = true;
-                    }
-                }
-                if (!contains)
-                {
-                    await fileManager.Save(newFile);
-                    App.Current.Dispatcher.Invoke((Action)delegate ()
-                    {
-                        files.Add(new FilesAll(Path.GetFileName(newFile.Name), newFile.Path));
-                    });
+                        string path = dlgBin.FileName;
+                        OldFile newFile = new OldFile(DateTime.Now, path, path);
+                        bool contains = false;
+                        var read = fileManager.Read().Result;
+                        for (int i = 0; i < read.Count(); i++)
+                        {
+                            if (read[i].Path == newFile.Path)
+                            {
+                                contains = true;
+                            }
+                        }
+                        if (!contains)
+                        {
+                            await fileManager.Save(newFile);
+                            App.Current.Dispatcher.Invoke((Action)delegate ()
+                            {
+                                files.Add(new FilesAll(Path.GetFileName(newFile.Name), newFile.Path));
+                            });
 
-                }
-                
-                await OpenFile(path);
+                        }
+
+                        await OpenFile(path);
+                   
             }
+           
         }
 
         public async Task AddNewLessonsType(string name)
         {
-
-            bool flag = false;
-            for (int i = 0; i < lessonsType.Count; i++)
+            if (!String.IsNullOrEmpty(name))
             {
-                if (lessonsType[i].Names.ToLower() == name.ToLower())
+                bool flag = false;
+                for (int i = 0; i < lessonsType.Count; i++)
                 {
-                    flag = true;
-                    break;
+                    if (lessonsType[i].Names.ToLower() == name.ToLower())
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag)
+                {
+                    App.Current.Dispatcher.Invoke((Action)delegate ()
+                    {
+                        lessonsType.Add(new LessonsType(name));
+                    });
                 }
             }
-            if (!flag)
-            {
-                App.Current.Dispatcher.Invoke((Action)delegate ()
-                {
-                    lessonsType.Add(new LessonsType(name));
-                });
-            }
+           
         }
        
         public async Task AddNewTeacher(string name)
         {
-
-            bool flag = false;
-            for (int i = 0; i < teachers.Count; i++)
-            {
-                if (teachers[i].Names.ToLower() == name.ToLower())
+            if (!String.IsNullOrEmpty(name)) {
+                bool flag = false;
+                for (int i = 0; i < teachers.Count; i++)
                 {
-                    flag = true;
-                    break;
+                    if (teachers[i].Names.ToLower() == name.ToLower())
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag)
+                {
+                    App.Current.Dispatcher.Invoke((Action)delegate ()
+                    {
+                        teachers.Add(new TeachersAll(name));
+                    });
                 }
             }
-            if (!flag)
-            {
-                App.Current.Dispatcher.Invoke((Action)delegate ()
-                {
-                    teachers.Add(new TeachersAll(name));
-                });
-            }
+                
         }
     
         public async Task AddNewClassroom(string name, int count,bool practice, bool lab)
         {
-
-            bool flag = false;
-            for (int i = 0; i < groups.Count; i++)
+            if (!String.IsNullOrEmpty(name))
             {
-                if (classes[i].Names.ToLower() == name.ToLower())
+                bool flag = false;
+                for (int i = 0; i < groups.Count; i++)
                 {
-                    classes[i].PeopleNumber = count;
-                    classes[i].Practics = practice?"Пр":"";
-                    classes[i].Labs = lab? "Лб" : "";
-                    flag = true;
-                    break;
+                    if (classes[i].Names.ToLower() == name.ToLower())
+                    {
+                        classes[i].PeopleNumber = count;
+                        classes[i].Practics = practice ? "Пр" : "";
+                        classes[i].Labs = lab ? "Лб" : "";
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag)
+                {
+                    App.Current.Dispatcher.Invoke((Action)delegate ()
+                    {
+                        classes.Add(new ClassroomsAll(name, practice ? "Пр" : "", lab ? "Лб" : "", count));
+                    });
                 }
             }
-            if (!flag)
-            {
-                App.Current.Dispatcher.Invoke((Action)delegate ()
-                {
-                    classes.Add(new ClassroomsAll(name, practice ? "Пр" : "", lab ? "Лб" : "", count));
-                });
-            }
+
+             
         }
         public async Task OpenFile(string path)
         {
-            
-            App.Current.Dispatcher.Invoke((Action)delegate ()
+            if (!String.IsNullOrEmpty(path))
             {
-                nowFileNameChoose.Add(path);
-            });
-            MainWindow.timetableFile = new FileInfo(path);
-            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+                if(File.Exists(path))
+                {
+                    App.Current.Dispatcher.Invoke((Action)delegate ()
+                    {
+                        nowFileNameChoose.Add(path);
+                    });
+                    MainWindow.timetableFile = new FileInfo(path);
+                    ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+                }
+            }   
         }
         public void CleanList()
         {
-            fileManager.Clear();
-            App.Current.Dispatcher.Invoke((Action)delegate ()
+            try
             {
-                files.Clear();
-            });
+                fileManager.Clear();
+                App.Current.Dispatcher.Invoke((Action)delegate ()
+                {
+                    files.Clear();
+                });
+            }
+            catch (Exception ex)
+            {
+
+            }
+            
         }
         public void GoCheckGroupOnEqual()
         {

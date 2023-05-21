@@ -14,19 +14,31 @@ namespace WpfApp1.Model
         public  string path = "file/saveExelsFile" + ".json";
         public  async Task Save(OldFile file)
         {
+            if (!Directory.Exists("file"))
+            {
+                Directory.CreateDirectory("file");
+            }
             if (!File.Exists(path))
             {
                 File.CreateText(path);
             }
-            // сохранение данных
-            using (StreamWriter fs = new StreamWriter(path, true))
+            if (file!=null)
             {
-                fs.WriteLine(JsonConvert.SerializeObject(file).ToString());
-                fs.Close();
+                using (StreamWriter fs = new StreamWriter(path, true))
+                {
+                    fs.WriteLine(JsonConvert.SerializeObject(file).ToString());
+                    fs.Close();
+                }
             }
+            // сохранение данных
+           
         }
         public  async Task<List<OldFile>> Read()
         {
+            if (!Directory.Exists("file"))
+            {
+                Directory.CreateDirectory("file");
+            }
             List<OldFile> files = new List<OldFile>();
             if (!File.Exists(path))
             {
@@ -45,7 +57,10 @@ namespace WpfApp1.Model
         }
         public void Clear()
         {
-
+            if (!Directory.Exists("file"))
+            {
+                Directory.CreateDirectory("file");
+            }
             if (!File.Exists(path))
             {
                 File.CreateText(path);

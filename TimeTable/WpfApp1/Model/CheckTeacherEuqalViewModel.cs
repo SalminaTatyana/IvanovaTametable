@@ -72,141 +72,170 @@ namespace WpfApp1.Model
         }
         public async Task AddNewTeachers(TeachersAll lesson)
         {
-
-            bool flag = false;
-            for (int i = 0; i < teachers.Count; i++)
+            if (lesson!=null)
             {
-                if (teachers[i].Names.ToLower() == lesson.Names.ToLower())
+                if (!String.IsNullOrEmpty(lesson.Names))
                 {
-                    flag = true;
-                    break;
+                    bool flag = false;
+                    for (int i = 0; i < teachers.Count; i++)
+                    {
+                        if (teachers[i].Names.ToLower() == lesson.Names.ToLower())
+                        {
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if (!flag)
+                    {
+                        App.Current.Dispatcher.Invoke((Action)delegate ()
+                        {
+                            teachers.Add(new TeachersAll(lesson.Names));
+
+                        });
+                    }
+                    SaveTeachers();
                 }
             }
-            if (!flag)
-            {
-                App.Current.Dispatcher.Invoke((Action)delegate ()
-                {
-                    teachers.Add(new TeachersAll(lesson.Names));
-
-                });
-            }
-            SaveTeachers();
+            
         }
         public async Task HighlightTeachers(TeachersAll lesson)
         {
-            using (ExcelPackage excelPackage = new ExcelPackage(CheckedTeachersOnEqual.TimetableFile))
+            if (lesson != null)
             {
-                int listCount = excelPackage.Workbook.Worksheets.Count();
-                List<ExcelWorksheet> anotherWorksheet = new List<ExcelWorksheet>();
-                for (int i = 0; i < listCount; i++)
+                if (!String.IsNullOrEmpty(lesson.Names))
                 {
-                    anotherWorksheet.Add(excelPackage.Workbook.Worksheets[i]);
-                }
-                foreach (var item in anotherWorksheet)
-                {
-                    for (int j = 9; j < 88; j = j + 2)
+                    using (ExcelPackage excelPackage = new ExcelPackage(CheckedTeachersOnEqual.TimetableFile))
                     {
-                        int col = item.Dimension.End.Column;
-                        for (int i = 1; i < col; i++)
+                        int listCount = excelPackage.Workbook.Worksheets.Count();
+                        List<ExcelWorksheet> anotherWorksheet = new List<ExcelWorksheet>();
+                        for (int i = 0; i < listCount; i++)
                         {
-
-                            if (item.Cells[j, i].Value != null)
+                            anotherWorksheet.Add(excelPackage.Workbook.Worksheets[i]);
+                        }
+                        foreach (var item in anotherWorksheet)
+                        {
+                            for (int j = 9; j < 88; j = j + 2)
                             {
-                                if (item.Cells[j, i].Value.ToString().Contains(lesson.Names))
+                                int col = item.Dimension.End.Column;
+                                for (int i = 1; i < col; i++)
                                 {
-                                    item.Cells[j, i].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Indigo);
+
+                                    if (item.Cells[j, i].Value != null)
+                                    {
+                                        if (item.Cells[j, i].Value.ToString().Contains(lesson.Names))
+                                        {
+                                            item.Cells[j, i].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Indigo);
+                                        }
+                                    }
                                 }
                             }
                         }
+                        excelPackage.SaveAs(CheckedTeachersOnEqual.TimetableFile);
+                        excelPackage.Dispose();
                     }
                 }
-                excelPackage.SaveAs(CheckedTeachersOnEqual.TimetableFile);
-                excelPackage.Dispose();
             }
+                   
         }
         public async Task ReplaceTeachers(TeachersAll lesson, TeachersAll badLesson)
         {
-            using (ExcelPackage excelPackage = new ExcelPackage(CheckedTeachersOnEqual.TimetableFile))
+            if (lesson != null&& badLesson!=null)
             {
-                int listCount = excelPackage.Workbook.Worksheets.Count();
-                List<ExcelWorksheet> anotherWorksheet = new List<ExcelWorksheet>();
-                for (int i = 0; i < listCount; i++)
+                if (!String.IsNullOrEmpty(lesson.Names)&& !String.IsNullOrEmpty(badLesson.Names))
                 {
-                    anotherWorksheet.Add(excelPackage.Workbook.Worksheets[i]);
-                }
-                foreach (var item in anotherWorksheet)
-                {
-                    int col = item.Dimension.End.Column;
-                    for (int j = 9; j < 88; j = j + 2)
+                    using (ExcelPackage excelPackage = new ExcelPackage(CheckedTeachersOnEqual.TimetableFile))
                     {
-                        for (int i = 1; i < col; i++)
+                        int listCount = excelPackage.Workbook.Worksheets.Count();
+                        List<ExcelWorksheet> anotherWorksheet = new List<ExcelWorksheet>();
+                        for (int i = 0; i < listCount; i++)
                         {
-
-                            if (item.Cells[j, i].Value != null)
+                            anotherWorksheet.Add(excelPackage.Workbook.Worksheets[i]);
+                        }
+                        foreach (var item in anotherWorksheet)
+                        {
+                            int col = item.Dimension.End.Column;
+                            for (int j = 9; j < 88; j = j + 2)
                             {
-                                if (item.Cells[j, i].Value.ToString().ToLower().Contains(badLesson.Names.ToLower()))
+                                for (int i = 1; i < col; i++)
                                 {
-                                    item.Cells[j, i].Value = lesson.Names;
+
+                                    if (item.Cells[j, i].Value != null)
+                                    {
+                                        if (item.Cells[j, i].Value.ToString().ToLower().Contains(badLesson.Names.ToLower()))
+                                        {
+                                            item.Cells[j, i].Value = lesson.Names;
+                                        }
+                                    }
                                 }
                             }
+
                         }
+                        excelPackage.SaveAs(CheckedTeachersOnEqual.TimetableFile);
+                        excelPackage.Dispose();
+                        App.Current.Dispatcher.Invoke((Action)delegate ()
+                        {
+                            badTeachers.Remove(badLesson);
+                        });
+
                     }
-
                 }
-                excelPackage.SaveAs(CheckedTeachersOnEqual.TimetableFile);
-                excelPackage.Dispose();
-                App.Current.Dispatcher.Invoke((Action)delegate ()
-                {
-                    badTeachers.Remove(badLesson);
-                });
-
             }
+                   
         }
         public async Task SaveTeachers()
         {
-            List<string> saveGroup = new List<string>();
-            foreach (var group in teachers)
+            try
             {
-                saveGroup.Add(group.Names);
-            }
-            App.Current.Dispatcher.Invoke((Action)delegate ()
-            {
-                teachers.Clear();
-            });
-            await teachersFileMeneger.Save(saveGroup);
-            List<string> file = await teachersFileMeneger.Read();
-            foreach (var item in file)
-            {
-                App.Current.Dispatcher.Invoke((Action)delegate ()
-                {
-                    teachers.Add(new TeachersAll(item));
-                });
-            }
-            App.Current.Dispatcher.Invoke((Action)delegate ()
-            {
-                badTeachers.Clear();
-            });
-
-            foreach (var item in teachersFromTimetable)
-            {
-                bool flag = false;
+                List<string> saveGroup = new List<string>();
                 foreach (var group in teachers)
                 {
-                    if (item.Names.ToLower() == group.Names.ToLower())
-                    {
-                        flag = true;
-                        break;
-                    }
+                    saveGroup.Add(group.Names);
                 }
-                if (!flag)
+                App.Current.Dispatcher.Invoke((Action)delegate ()
+                {
+                    teachers.Clear();
+                });
+                await teachersFileMeneger.Save(saveGroup);
+                List<string> file = await teachersFileMeneger.Read();
+                foreach (var item in file)
                 {
                     App.Current.Dispatcher.Invoke((Action)delegate ()
                     {
-                        badTeachers.Add(item);
+                        teachers.Add(new TeachersAll(item));
                     });
+                }
+                App.Current.Dispatcher.Invoke((Action)delegate ()
+                {
+                    badTeachers.Clear();
+                });
 
+                foreach (var item in teachersFromTimetable)
+                {
+                    bool flag = false;
+                    foreach (var group in teachers)
+                    {
+                        if (item.Names.ToLower() == group.Names.ToLower())
+                        {
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if (!flag)
+                    {
+                        App.Current.Dispatcher.Invoke((Action)delegate ()
+                        {
+                            badTeachers.Add(item);
+                        });
+
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+
+                
+            }
+          
         }
         public void GetTeachersFromTimetable(ExcelPackage excelPackage)
         {
