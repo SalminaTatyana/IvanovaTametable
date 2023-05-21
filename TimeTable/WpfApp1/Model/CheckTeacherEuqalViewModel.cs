@@ -90,7 +90,7 @@ namespace WpfApp1.Model
 
                 });
             }
-            SaveTeachers();
+            await SaveTeachers();
         }
         public async Task HighlightTeachers(TeachersAll lesson)
         {
@@ -190,6 +190,7 @@ namespace WpfApp1.Model
             foreach (var item in teachersFromTimetable)
             {
                 bool flag = false;
+                bool flagBad = false;
                 foreach (var group in teachers)
                 {
                     if (item.Names.ToLower() == group.Names.ToLower())
@@ -198,7 +199,15 @@ namespace WpfApp1.Model
                         break;
                     }
                 }
-                if (!flag)
+                foreach (var group in badTeachers)
+                {
+                    if (item.Names.ToLower() == group.Names.ToLower())
+                    {
+                        flagBad = true;
+                        break;
+                    }
+                }
+                if (!flag&&!flagBad)
                 {
                     App.Current.Dispatcher.Invoke((Action)delegate ()
                     {

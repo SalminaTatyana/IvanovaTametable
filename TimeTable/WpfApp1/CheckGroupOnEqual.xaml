@@ -19,8 +19,8 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Menu Height="20" VerticalAlignment="Top"  Foreground="White" Background="{x:Null}">
-                            <MenuItem Header="{Binding GroupNames}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" ></MenuItem>
-                            <MenuItem Header="{Binding StudentNumber}"  Foreground="White" Background="{x:Null}" FontFamily="Arial" FontSize="16"></MenuItem>
+                            <MenuItem IsEnabled="False" Header="{Binding GroupNames}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" ></MenuItem>
+                            <MenuItem IsEnabled="False" Header="{Binding StudentNumber}"  Foreground="White" Background="{x:Null}" FontFamily="Arial" FontSize="16"></MenuItem>
                         </Menu>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -31,7 +31,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Menu Height="20" VerticalAlignment="Top"  Foreground="White" Background="{x:Null}">
-                            <MenuItem Header="{Binding GroupNames,UpdateSourceTrigger=PropertyChanged}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" />
+                            <MenuItem IsEnabled="False" Header="{Binding GroupNames,UpdateSourceTrigger=PropertyChanged}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" />
                         </Menu>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

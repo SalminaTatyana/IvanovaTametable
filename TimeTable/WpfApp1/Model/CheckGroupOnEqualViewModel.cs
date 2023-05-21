@@ -203,6 +203,7 @@ namespace WpfApp1.Model
             foreach (var item in groupFromTimetable)
             {
                 bool flag = false;
+                bool flagBad = false;
                 foreach (var group in groups)
                 {
                     if (item.GroupNames.ToLower() == group.GroupNames.ToLower())
@@ -211,7 +212,15 @@ namespace WpfApp1.Model
                         break;
                     }
                 }
-                if (!flag)
+                foreach (var group in badGroups)
+                {
+                    if (item.GroupNames.ToLower() == group.GroupNames.ToLower())
+                    {
+                        flagBad = true;
+                        break;
+                    }
+                }
+                if (!flag&&!flagBad)
                 {
                     App.Current.Dispatcher.Invoke((Action)delegate ()
                     {

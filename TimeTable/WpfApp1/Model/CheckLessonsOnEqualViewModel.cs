@@ -100,7 +100,7 @@ namespace WpfApp1.Model
 
                 });
             }
-            SaveLessons();
+            await SaveLessons();
         }
         public async Task HighlightLessons(LessonsAll lesson)
         {
@@ -200,6 +200,7 @@ namespace WpfApp1.Model
             foreach (var item in lessonsTypeFromTimetable)
             {
                 bool flag = false;
+                bool flagBad = false;
                 foreach (var group in lessons)
                 {
                     if (item.Names.ToLower() == group.Names.ToLower())
@@ -208,7 +209,15 @@ namespace WpfApp1.Model
                         break;
                     }
                 }
-                if (!flag)
+                foreach (var group in badLessons)
+                {
+                    if (item.Names.ToLower() == group.Names.ToLower())
+                    {
+                        flagBad = true;
+                        break;
+                    }
+                }
+                if (!flag&&!flagBad)
                 {
                     App.Current.Dispatcher.Invoke((Action)delegate ()
                     {

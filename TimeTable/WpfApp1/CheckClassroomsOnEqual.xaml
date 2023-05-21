@@ -19,7 +19,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Menu Height="20" VerticalAlignment="Top"  Foreground="White" Background="{x:Null}">
-                            <MenuItem Header="{Binding Names}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" ></MenuItem>
+                            <MenuItem Header="{Binding Names}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" IsEnabled="False"></MenuItem>
                         </Menu>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -30,7 +30,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Menu Height="20" VerticalAlignment="Top"  Foreground="White" Background="{x:Null}">
-                            <MenuItem Header="{Binding Names}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" />
+                            <MenuItem Header="{Binding Names}" FontFamily="Arial"   Foreground="White" Background="{x:Null}" FontSize="16" IsEnabled="False"/>
                         </Menu>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
