@@ -54,7 +54,7 @@
                 </LinearGradientBrush>
             </Grid.Background>
             <WrapPanel VerticalAlignment="Top">
-                <Button Height="42" Margin="4,0,4,0" VerticalAlignment="Top" Background="#FFFD4948" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckTimetableOnDoubleLessonsInOneClassrooms}" ToolTip="Проверить на одновременные разные занятия в одной аудитории">
+                <Button Height="42" Margin="4,0,4,0" VerticalAlignment="Top" Background="#6B6C6F" BorderBrush="{x:Null}" Padding="3" Command="{Binding OpenCheckTimetableOnDoubleLessonsInOneClassrooms}" ToolTip="Проверить на одновременные разные занятия в одной аудитории">
                     <Image Source="img/sidebar/1.png" Stretch="UniformToFill"></Image>
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">

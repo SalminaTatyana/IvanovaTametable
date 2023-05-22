@@ -127,7 +127,7 @@ namespace WpfApp1.Model
                                     {
                                         if (item.Cells[j, i].Value.ToString().Contains(group.Names))
                                         {
-                                            item.Cells[j, i].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.DarkGreen);
+                                            item.Cells[j, i].Style.Fill.BackgroundColor.SetColor(System.Drawing.ColorTranslator.FromHtml("#FF4CEAC4"));
                                         }
                                     }
                                 }
@@ -167,6 +167,8 @@ namespace WpfApp1.Model
                                         if (item.Cells[j, i].Value.ToString().ToLower().Contains(badGroup.Names.ToLower()))
                                         {
                                             item.Cells[j, i].Value = group.Names;
+                                            item.Cells[j, i].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.White);
+
                                         }
                                     }
                                 }

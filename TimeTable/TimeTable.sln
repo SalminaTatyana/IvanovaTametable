@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{0E1F63C8-7D97-4F1B-87AE-299879CF5DFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{D62B1DE4-58AA-4008-9AFF-414BBD818F62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{D62B1DE4-58AA-4008-9AFF-414BBD818F62}"
 	ProjectSection(ProjectDependencies) = postProject
 		{0E1F63C8-7D97-4F1B-87AE-299879CF5DFB} = {0E1F63C8-7D97-4F1B-87AE-299879CF5DFB}
 	EndProjectSection

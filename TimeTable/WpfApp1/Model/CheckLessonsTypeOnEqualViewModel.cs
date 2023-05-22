@@ -125,7 +125,7 @@ namespace WpfApp1.Model
                                     {
                                         if (item.Cells[j, i].Value.ToString().Contains(lesson.Names))
                                         {
-                                            item.Cells[j, i].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.DarkRed);
+                                            item.Cells[j, i].Style.Fill.BackgroundColor.SetColor(System.Drawing.ColorTranslator.FromHtml("#FF4C9EEA"));
                                         }
                                     }
                                 }
@@ -165,6 +165,8 @@ namespace WpfApp1.Model
                                         if (item.Cells[j, i].Value.ToString().ToLower().Contains(badLesson.Names.ToLower()))
                                         {
                                             item.Cells[j, i].Value = lesson.Names;
+                                            item.Cells[j, i].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.White);
+
                                         }
                                     }
                                 }
